@@ -242,6 +242,3 @@ ii<-kernel.area(kudl, percent=seq(50, 95, by=5))
 ii
 # resulting object is of the class hrsize. it can be plotted using th efnc plot
 # the hr sizes retuened by this fnc are dslightly diff from the hr size stored in the spatial polygonsdataframe returned by the fnc getverticeshr. The former measured the area covered bu the raster hr(area covered by the set of pixels of the grid included in the hr with smoother contour), the difference bw the 2 estimates decrease as the resolution of the grid becomes finer
-
-# Addding a plot 
-plot(ii)
