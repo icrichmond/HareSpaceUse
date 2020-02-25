@@ -119,4 +119,3 @@ plot(ii)
 # using getverticeshr. Different is smaller when grid resolution is finer 
 # Can also take into account physical boundaries of the study area - skipping example as BL 
 # does not have any physical barriers
-#Checkign that this still works in GIT 
