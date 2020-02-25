@@ -44,3 +44,33 @@ plot(puechabonsp$relocs, add=TRUE, col=as.data.frame(puechabonsp$relocs) [,1])
 
 ### Moving on to kernels ###
 
+# Trying LSCV as the smoothing parameter as this is generally accepted as a good approach
+# Load data
+data("puechabonsp")
+kud <- kernelUD(puechabonsp$relocs[,1], h="LSCV")
+kud
+image(kud)
+# Values for smoothing parameters are stored in the slot "h" of each element in the list 
+kud[[1]]@h
+# important to look at LSCV minimization using plotLSCV & make sure minimization has occurred
+# within the specified interval
+plotLSCV(kud)
+# the grid can be controlled using grid and extent parameters 
+# same4all controls grid and uses the same grid for all individuals
+kus <- kernelUD(puechabonsp$relocs[,1], same4all = TRUE)
+image(kus)
+# grid controls resolution of the grid and extent controls extent 
+# manipulating individuals 
+# brock
+locs <- puechabonsp$relocs
+firs <- locs[as.data.frame(locs)[,1]=="Brock",]
+par(mar=c(0,0,2,0))
+par(mfrow=c(2,2))
+# Estimation of UD with grid = 20 and extent = 0.2
+image(kernelUD(firs,grid=20,extent=0.2))
+# When same4all is used, can make the object a SpatialPixelsDataFrame because all the UD are 
+# on the same grid 
+ii <- estUDm2spixdf(kus)
+class(ii)
+# Can make the grid equal to a different raster (e.g. environmental variables)
+kudm <- kernelUD(puechabonsp$relocs[,1], grid = puechabonsp$map)
