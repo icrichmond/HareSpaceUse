@@ -16,5 +16,5 @@ easypackages::packages("sp", "maptools", "tmap", "tmaptools",
 VHF <- read_csv("input/TelemetryPoints_VHF_2019.csv")
 View(VHF)
 
-# following section developed from Matteo Rizzuto's code
+# following section developed from Matteo Rizzuto's (github.com/matteorizzuto) code
 # process the dataset so it is ready for home range estimation.
