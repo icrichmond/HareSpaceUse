@@ -11,6 +11,7 @@ easypackages::packages("sp", "maptools", "tmap", "tmaptools",
               "ggrepel", "ggsci", "ggthemes", "maps", "raster", "spatial", 
               "tidyr", "readr","rgdal", "rgeos", "reshape2", "dismo", "tibble")
 
+
 ### NOTE: one package (sigloc) is no longer maintained - need to manaully load package ###
 # Package can still be found on CRAN archive: https://cran.r-project.org/src/contrib/Archive/sigloc/
 
@@ -171,3 +172,175 @@ for (i in 1:length(UniqIDs)){
 
 vhfData$GID <- as.factor(vhfData$GID)
 vhfData$Time <- as.numeric(vhfData$Time)
+
+
+
+
+
+# --------------------------------------- #
+#       Collar Location Estimation        #
+# --------------------------------------- #
+# This code taken directly from Matteo Rizzuto's NewCollarLocsEstimation.R script
+# Find Matteo's repository at github.com/matteorizzuto/Chapter_2
+
+vhfData <- vhfData[with(vhfData, order(Year, Frequency)),]
+
+hares.list <- vector("list", length(UniqIDs))
+
+for (i in 1:length(UniqIDs)) {
+  print(paste("Starting to triangulate collar", UniqIDs[i]))
+  
+  # Following a suggestion from sigloc's author, Simon Berg, I will be
+  # running the locate and plotting process one GID at the time, for each collar
+  # (credit to S. Berg for the loop)
+  # The for loop below takes care of this. Note that azimuths = 90 degrees had to
+  # be changed to 91 degrees to avoid having a mathematical angle of 0, which would
+  # cause the Maximum Likelihood Estimator used by locate() to return an error
+  
+  test <- subset(vhfData, vhfData$Frequency == UniqIDs[i])
+  
+  test.index <- unique(test$GID)
+  
+  # browser()
+  
+  workingCollar.loc <- data.frame("X" = numeric(), "Y" = numeric(), "Badpoint" = integer(), "Var_X" = numeric(), "Var_Y" = numeric(), "Cov_XY" = numeric(), "AngleDiff" = numeric(), "Date" = character(), "Time" = integer(), stringsAsFactors = FALSE)
+  
+  # str(workingCollar.loc)
+  
+  # browser()
+  frame()
+  par(mar = c(2, 2, 2, 2), mfrow = c(6,6))
+  
+  for (j in 1:length(test.index)) {
+    
+    test.dat <- subset(test, test$GID == j)
+    
+    # browser()
+    # test.dat$GID_o <- vhfData$GID[i]
+    
+    test.dat$GID <- 1 # Prevents the looped code from looking for earlier GIDs
+    
+    date <- as.character(unique(test.dat$Date))
+    
+    test.rec <- as.receiver(test.dat)
+    
+    test.int <- findintersects(test.rec)
+    
+    plot(test.rec, bearings = TRUE, xlab = "Easting", ylab = "Northing", asp = 1, 
+         ylim = c(5359000, 5360000), 
+         xlim = c(278500, 279900))
+    title(main = unique(test.rec$Date), sub = unique(test.dat$Frequency))
+    
+    test.loc <- locate(test.rec)
+    
+    test.loc$Date <- as.character(date) 
+    
+    plot(test.loc, add = TRUE, badcolor = TRUE, errors = TRUE)
+    
+    workingCollar.loc <- rbind(workingCollar.loc, test.loc)
+    
+    workingCollar.loc$Date <- as.character(workingCollar.loc$Date)
+    # browser()
+    # Sys.sleep(1)
+  }
+  
+  workingCollar.loc$Frequency <- as.character(UniqIDs[i])
+  # browser()
+  
+  # Let's take a look at these points! In order to plot them as spatial points, 
+  # I first need to convert them to a Spatial Object. To do so, first I create
+  # a vector containing just the lat and long coordinates of the points
+  
+  workingCollar.coords <- workingCollar.loc[,c(1,2)]
+  
+  # then I remove the corresponding columns from the dataframe
+  
+  workingCollar.loc[,c(1,2)] <- NULL
+  
+  # finally, using package sp, I combine the two to obtain a spatial object
+  
+  workingCollar.spatial <- SpatialPointsDataFrame(coords = workingCollar.coords, 
+                                                  data = workingCollar.loc, 
+                                                  proj4string = CRS("+proj=utm +zone=22 +datum=NAD83"))
+  
+  # plotting
+  frame()
+  par(mfrow=c(1,1))
+  plot(workingCollar.spatial, main = unique(workingCollar.spatial$Frequency))  # very simple, just to check everything works
+  text(workingCollar.spatial@coords, labels = workingCollar.spatial$Date, pos = 3)
+  # more complex plotting (with ggplot2 etc) will take place below
+  
+  hares.list[[i]] <- workingCollar.spatial
+  
+  print(paste("Finished triangulating collar", UniqIDs[i], "moving on to collar", UniqIDs[i+1]))
+  
+  # browser()
+}
+
+# convert the list of triangulated collars dataframes into a single dataframe 
+# for further analyses
+hares.triangd <- do.call("rbind", hares.list)
+
+# Clean up outlying relocations 
+# remove triangulations 13, 20, 26, 28 June, 29 July, 29, 30 August 2019 
+# for 149.233
+toBeRemoved <- which(hares.triangd$Frequency =="149.233" &
+                       hares.triangd$Date == "2019-06-13" | 
+                       hares.triangd$Date == "2019-06-26" | 
+                       hares.triangd$Date == "2019-06-28" |
+                       hares.triangd$Date == "2019-07-29" |
+                       hares.triangd$Date == "2019-08-29" |
+                       hares.triangd$Date == "2019-08-30" | 
+                       hares.triangd$Date == "2019-06-20")
+
+hares.triangd <- hares.triangd[-toBeRemoved, ]
+
+# remove triangulations 28 May, 20, 24, 27 June 2019 for 149.294
+toBeRemoved <- which(hares.triangd$Frequency == "149.294" & 
+                       hares.triangd$Date == "2019-05-28" | 
+                       hares.triangd$Date == "2019-06-20" | 
+                       hares.triangd$Date == "2019-06-24" |
+                       hares.triangd$Date == "2019-06-27")
+
+hares.triangd <- hares.triangd[-toBeRemoved, ]
+
+# remove triangulations from 16, 18, 27 May, 18, 20 June 2019 for 149.423
+toBeRemoved <- which(hares.triangd$Frequency == "149.423" & 
+                       hares.triangd$Date == "2019-05-16" |
+                       hares.triangd$Date == "2019-05-18" |
+                       hares.triangd$Date == "2019-05-27" |
+                       hares.triangd$Date == "2019-06-18" |
+                       hares.triangd$Date == "2019-06-20")
+
+hares.triangd <- hares.triangd[-toBeRemoved, ]
+
+# remove triangulations from 25 May 2019 for 149.513
+toBeRemoved <- which (hares.triangd$Frequency == "149.513" & 
+                        hares.triangd$Date == "2019-05-25")
+
+
+# remove triangulations from 19, 22, 28 May, 18, 22, 25, 26 June 2019 
+# for 150.173
+toBeRemoved <- which(hares.triangd$Frequency == "150.173"&
+                       hares.triangd$Date == "2019-05-19" |
+                       hares.triangd$Date == "2019-05-22" |
+                       hares.triangd$Date == "2019-05-28" |
+                       hares.triangd$Date == "2019-06-18" |
+                       hares.triangd$Date == "2019-06-22" |
+                       hares.triangd$Date == "2019-06-25" |
+                       hares.triangd$Date == "2019-06-26")
+
+hares.triangd <- hares.triangd[-toBeRemoved, ]
+
+# remove collars 149.513, 149.555, 150.032, 150.052, 150.154 due to too few relocations 
+# available for estimating a reliable kernel Utilization Distribution
+hares.triangd <- subset(hares.triangd, 
+                        hares.triangd$Frequency != "149.513" &
+                          hares.triangd$Frequency != "149.555" &
+                          hares.triangd$Frequency != "150.032" &
+                          hares.triangd$Frequency != "150.052" &
+                          hares.triangd$Frequency != "150.154")
+
+# finally, remove the two collars that are not in Bloomfield
+hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
+                          hares.triangd$Frequency != "149.474")
