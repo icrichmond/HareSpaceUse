@@ -117,6 +117,9 @@ liveData$Frequency <- as.factor(liveData$Frequency)
 liveData$Year <- as.factor(liveData$Year)
 # remove NAs
 liveData <- drop_na(liveData, Azimuth)
+# remove second observer, who only did 1 day of triangulations 
+# and no error reduction trials
+liveData <- subset(liveData, liveData$Observer != "TH")
 
 # The package sigloc requires identification of each individual set of 
 # triangulation azimuths via a Group Identifier (GID). The following code 
@@ -176,7 +179,6 @@ vhfData$Time <- as.numeric(vhfData$Time)
 
 
 
-
 # --------------------------------------- #
 #       Collar Location Estimation        #
 # --------------------------------------- #
@@ -185,94 +187,118 @@ vhfData$Time <- as.numeric(vhfData$Time)
 
 vhfData <- vhfData[with(vhfData, order(Year, Frequency)),]
 
+# allocate an empty list to store each hare's triangulation results
 hares.list <- vector("list", length(UniqIDs))
 
+# run the triangulation loop
 for (i in 1:length(UniqIDs)) {
+  # we want to keep track of what R is doing, so let's have it print a message
+  # telling us exactly which collar it is processing
   print(paste("Starting to triangulate collar", UniqIDs[i]))
   
-  # Following a suggestion from sigloc's author, Simon Berg, I will be
-  # running the locate and plotting process one GID at the time, for each collar
-  # (credit to S. Berg for the loop)
-  # The for loop below takes care of this. Note that azimuths = 90 degrees had to
-  # be changed to 91 degrees to avoid having a mathematical angle of 0, which would
-  # cause the Maximum Likelihood Estimator used by locate() to return an error
+  # Following a suggestion from sigloc's author, Simon Berg, we run the locate()
+  # and plot() functions one GID at the time, for each collar.The for loop below 
+  # takes care of this.
   
+  # create a working dataset containing only data for the current collar
   test <- subset(vhfData, vhfData$Frequency == UniqIDs[i])
   
-  test.index <- unique(test$GID)
+  # allocate vector along whose length to run the nested loop
+  test.index <- unique(test$GID) 
   
-  # browser()
+  # allocate an empty dataframe to store the results of the triangulation
+  workingCollar.loc <- data.frame("X" = numeric(), "Y" = numeric(), 
+                                  "Badpoint" = integer(), "Var_X" = numeric(), 
+                                  "Var_Y" = numeric(), "Cov_XY" = numeric(), 
+                                  "AngleDiff" = numeric(), "Date" = character(), 
+                                  "Time" = integer(), stringsAsFactors = FALSE)
   
-  workingCollar.loc <- data.frame("X" = numeric(), "Y" = numeric(), "Badpoint" = integer(), "Var_X" = numeric(), "Var_Y" = numeric(), "Cov_XY" = numeric(), "AngleDiff" = numeric(), "Date" = character(), "Time" = integer(), stringsAsFactors = FALSE)
-  
-  # str(workingCollar.loc)
-  
-  # browser()
-  frame()
+  # set up plotting
+  # frame()
   par(mar = c(2, 2, 2, 2), mfrow = c(6,6))
   
   for (j in 1:length(test.index)) {
-    
+    # separate a day's set of azimuths from the rest of the current working dataset
     test.dat <- subset(test, test$GID == j)
     
-    # browser()
-    # test.dat$GID_o <- vhfData$GID[i]
+    # Prevents the looped code from looking for earlier GIDs
+    test.dat$GID <- 1 
     
-    test.dat$GID <- 1 # Prevents the looped code from looking for earlier GIDs
-    
+    # save the triangulation date as a vector for later use
     date <- as.character(unique(test.dat$Date))
     
+    # set the current test dataframe as a receiver for triangulation
     test.rec <- as.receiver(test.dat)
     
+    # find the intersection points of the three azimuths in the current test df
     test.int <- findintersects(test.rec)
     
+    # visualize triangulation
     plot(test.rec, bearings = TRUE, xlab = "Easting", ylab = "Northing", asp = 1, 
          ylim = c(5359000, 5360000), 
          xlim = c(278500, 279900))
     title(main = unique(test.rec$Date), sub = unique(test.dat$Frequency))
     
+    # locate the transmitting collar using a Maximum Likelihood Estimator
     test.loc <- locate(test.rec)
     
+    # add the date to the localized collar
     test.loc$Date <- as.character(date) 
     
+    # plot the localized collar on the same plot as above;
+    # if the point is red, it means the MLE failed to retun a point and the 
+    # triangulation was complete by taking the midpoint of the azimuths' 
+    # intersections to estimate the location of the collar
     plot(test.loc, add = TRUE, badcolor = TRUE, errors = TRUE)
     
+    # save subsequent triangulations in the current workingCollar.loc dataframe 
     workingCollar.loc <- rbind(workingCollar.loc, test.loc)
     
+    # make sure the date is store as a character rather than a number
     workingCollar.loc$Date <- as.character(workingCollar.loc$Date)
     # browser()
     # Sys.sleep(1)
   }
   
+  # add Frequency identifier to the current workingCollar.loc dataframe
   workingCollar.loc$Frequency <- as.character(UniqIDs[i])
+  # don't have EarTag for 2019, change this line of code to Frequency
+  workingCollar.loc$Frequency <- as.character(unique(test$Frequency))
   # browser()
   
   # Let's take a look at these points! In order to plot them as spatial points, 
-  # I first need to convert them to a Spatial Object. To do so, first I create
-  # a vector containing just the lat and long coordinates of the points
+  # we first need to convert them to a Spatial Object. To do so, first we create
+  # a vector containing just the lat and long coordinates of the traingulated 
+  # points
   
   workingCollar.coords <- workingCollar.loc[,c(1,2)]
   
-  # then I remove the corresponding columns from the dataframe
+  # then we remove the corresponding columns from the dataframe
   
   workingCollar.loc[,c(1,2)] <- NULL
   
-  # finally, using package sp, I combine the two to obtain a spatial object
+  # finally, using package sp, we combine the two to obtain a spatial object
   
   workingCollar.spatial <- SpatialPointsDataFrame(coords = workingCollar.coords, 
                                                   data = workingCollar.loc, 
                                                   proj4string = CRS("+proj=utm +zone=22 +datum=NAD83"))
   
   # plotting
-  frame()
+  # frame()
   par(mfrow=c(1,1))
-  plot(workingCollar.spatial, main = unique(workingCollar.spatial$Frequency))  # very simple, just to check everything works
-  text(workingCollar.spatial@coords, labels = workingCollar.spatial$Date, pos = 3)
-  # more complex plotting (with ggplot2 etc) will take place below
+  # very simple plot, just to check everything works
+  plot(workingCollar.spatial, main = unique(workingCollar.spatial$Frequency))  
+  # add identifiers for each relocation
+  text(workingCollar.spatial@coords, labels = workingCollar.spatial$Date, pos = 2, cex = 0.7)
   
+  # store the newly produced set of triangulation for collar i into the 
+  # previously allocated hares.list
   hares.list[[i]] <- workingCollar.spatial
   
-  print(paste("Finished triangulating collar", UniqIDs[i], "moving on to collar", UniqIDs[i+1]))
+  if (is.na(UniqIDs[i+1])==TRUE) {
+    print(paste("Finished triangulating collar", UniqIDs[i], ";", "Done"))
+  } else {print(paste("Finished triangulating collar", UniqIDs[i],";", "moving on to collar", UniqIDs[i+1]))
+  }
   
   # browser()
 }
@@ -281,66 +307,19 @@ for (i in 1:length(UniqIDs)) {
 # for further analyses
 hares.triangd <- do.call("rbind", hares.list)
 
-# Clean up outlying relocations 
-# remove triangulations 13, 20, 26, 28 June, 29 July, 29, 30 August 2019 
-# for 149.233
-toBeRemoved <- which(hares.triangd$Frequency =="149.233" &
-                       hares.triangd$Date == "2019-06-13" | 
-                       hares.triangd$Date == "2019-06-26" | 
-                       hares.triangd$Date == "2019-06-28" |
-                       hares.triangd$Date == "2019-07-29" |
-                       hares.triangd$Date == "2019-08-29" |
-                       hares.triangd$Date == "2019-08-30" | 
-                       hares.triangd$Date == "2019-06-20")
+# manually went through and removed problematic points from the dataset using Excel 
+# check with Matteo on this 
+# input/HomeRanges.txt file describing which points are removed
+# check with Matteo that datasets are the same and all problem points have been removed
 
-hares.triangd <- hares.triangd[-toBeRemoved, ]
-
-# remove triangulations 28 May, 20, 24, 27 June 2019 for 149.294
-toBeRemoved <- which(hares.triangd$Frequency == "149.294" & 
-                       hares.triangd$Date == "2019-05-28" | 
-                       hares.triangd$Date == "2019-06-20" | 
-                       hares.triangd$Date == "2019-06-24" |
-                       hares.triangd$Date == "2019-06-27")
-
-hares.triangd <- hares.triangd[-toBeRemoved, ]
-
-# remove triangulations from 16, 18, 27 May, 18, 20 June 2019 for 149.423
-toBeRemoved <- which(hares.triangd$Frequency == "149.423" & 
-                       hares.triangd$Date == "2019-05-16" |
-                       hares.triangd$Date == "2019-05-18" |
-                       hares.triangd$Date == "2019-05-27" |
-                       hares.triangd$Date == "2019-06-18" |
-                       hares.triangd$Date == "2019-06-20")
-
-hares.triangd <- hares.triangd[-toBeRemoved, ]
-
-# remove triangulations from 25 May 2019 for 149.513
-toBeRemoved <- which (hares.triangd$Frequency == "149.513" & 
-                        hares.triangd$Date == "2019-05-25")
-
-
-# remove triangulations from 19, 22, 28 May, 18, 22, 25, 26 June 2019 
-# for 150.173
-toBeRemoved <- which(hares.triangd$Frequency == "150.173"&
-                       hares.triangd$Date == "2019-05-19" |
-                       hares.triangd$Date == "2019-05-22" |
-                       hares.triangd$Date == "2019-05-28" |
-                       hares.triangd$Date == "2019-06-18" |
-                       hares.triangd$Date == "2019-06-22" |
-                       hares.triangd$Date == "2019-06-25" |
-                       hares.triangd$Date == "2019-06-26")
-
-hares.triangd <- hares.triangd[-toBeRemoved, ]
-
-# remove collars 149.513, 149.555, 150.032, 150.052, 150.154 due to too few relocations 
-# available for estimating a reliable kernel Utilization Distribution
-hares.triangd <- subset(hares.triangd, 
-                        hares.triangd$Frequency != "149.513" &
-                          hares.triangd$Frequency != "149.555" &
-                          hares.triangd$Frequency != "150.032" &
-                          hares.triangd$Frequency != "150.052" &
-                          hares.triangd$Frequency != "150.154")
-
-# finally, remove the two collars that are not in Bloomfield
+# remove the two collars that are not in Bloomfield
 hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
                           hares.triangd$Frequency != "149.474")
+
+# --------------------------------------- #
+#          kUD Estimation                 #
+# --------------------------------------- #
+# This code taken directly from Matteo Rizzuto's NewCollarLocsEstimation.R script
+# Find Matteo's repository at github.com/matteorizzuto/Chapter_2
+
+

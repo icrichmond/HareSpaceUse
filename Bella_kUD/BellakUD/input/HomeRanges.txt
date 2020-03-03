@@ -1,0 +1,159 @@
+149.124 - 18 dates
+** Some others that didn't look right but calculated correctly **
+GOOD
+
+149.233 - 44 dates
+GOOD
+
+149.294 - 31 dates
+** Some others that didn't look right but calculated correctly **
+> 2019-05-20 REMOVED
+> 2019-05-24 REMOVED
+> 2019-05-25 REMOVED
+> 2019-05-28 REMOVED
+> 2019-06-13 REMOVED
+> 2019-06-18 REMOVED
+> 2019-06-21 REMOVED
+> 2019-06-24 REMOVED
+> 2019-06-27 REMOVED
+> 2019-07-22 REMOVED
+> 2019-07-29 REMOVED
+> 2019-08-27 REMOVED
+> 2019-08-31 REMOVED
+GOOD
+
+149.423 - 36 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-05-16 REMOVED
+> 2019-05-22 REMOVED
+> 2019-06-14 REMOVED
+> 2019-06-27 REMOVED
+> 2019-07-13 REMOVED
+> 2019-07-22 REMOVED
+> 2019-07-29 REMOVED
+> 2019-08-30 REMOVED
+GOOD
+
+149.513 - 16 dates
+GOOD 
+
+149.555 - 13 dates
+NOT ENOUGH - REMOVED FROM ANALYSIS
+
+149.594 - 36 dates
+** Some didn't calculate correctly but bearings look fine **
+GOOD
+
+150.032 - 24 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-06-22 REMOVED
+> 2019-06-24 REMOVED
+GOOD
+
+150.052 - 24 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-06-17 REMOVED
+> 2019-09-01 REMOVED
+GOOD
+
+150.072 - 36 dates 
+** Some didn't calculate correctly but bearings look fine **
+> 2019-05-11 REMOVED
+GOOD 
+
+150.091 - 35 dates
+** Some didn't calculate correctly but bearings look fine **
+GOOD
+
+150.111 - 45 dates
+** Some didn't calculate correctly but bearings look fine **
+GOOD
+
+150.132 - 18 dates
+NOT ENOUGH - REMOVED FROM ANALYSIS
+
+150.154 - 26 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-06-14 REMOVED
+> 2019-06-22 REMOVED
+> 2019-06-24 REMOVED
+> 2019-06-27 REMOVED
+> 2019-06-28 REMOVED
+> 2019-08-27 REMOVED
+GOOD
+
+150.173 - 35 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-05-12 REMOVED
+> 2019-05-26 REMOVED
+> 2019-06-11 REMOVED
+> 2019-06-14 REMOVED
+> 2019-06-16 REMOVED
+> 2019-06-17 REMOVED
+> 2019-06-18 REMOVED
+> 2019-06-27 REMOVED
+> 2019-06-28 REMOVED
+> 2019-08-30 REMOVED
+GOOD
+
+150.191 - 44 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-08-29 REMOVED (nleqslv error)
+GOOD
+
+150.232 - 36 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-05-11 REMOVED
+> 2019-05-17 REMOVED
+> 2019-05-25 REMOVED
+> 2019-06-18 REMOVED
+> 2019-06-22 REMOVED
+> 2019-06-27 REMOVED (didn't calculate)
+> 2019-07-29 REMOVED
+> 2019-08-30 REMOVED
+GOOD
+
+150.273 - 34 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-05-12 REMOVED
+> 2019-05-14 REMOVED
+> 2019-05-15 REMOVED
+> 2019-05-16 REMOVED
+> 2019-05-22 REMOVED
+> 2019-05-24 REMOVED
+> 2019-05-28 REMOVED (didn't calculate)
+> 2019-06-18 REMOVED 
+> 2019-07-22 REMOVED
+> 2019-07-29 REMOVED
+GOOD
+
+150.314 - 46 dates
+GOOD
+
+150.332 - 44 dates
+** Some didn't calculate correctly but bearings look fine **
+GOOD
+
+150.373 - 15 levels
+** Some didn't calculate correctly but bearings look fine **
+> 2019-05-13 REMOVED (didn't calculate)
+> 2019-05-19 REMOVED
+> 2019-05-21 REMOVED
+GOOD
+
+150.392 - 44 dates
+** Some didn't calculate correctly but bearings look fine **
+> 2019-05-19 REMOVED
+> 2019-05-23 REMOVED
+> 2019-05-24 REMOVED
+> 2019-05-25 REMOVED
+> 2019-05-27 REMOVED
+> 2019-05-28 REMOVED
+> 2019-06-18 REMOVED
+> 2019-06-19 REMOVED
+> 2019-06-20 REMOVED
+> 2019-06-28 REMOVED
+> 2019-07-13 REMOVED
+> 2019-08-30 REMOVED
+> 2019-08-31 REMOVED
+GOOD
