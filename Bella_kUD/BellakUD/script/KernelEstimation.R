@@ -319,7 +319,36 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
 # --------------------------------------- #
 #          kUD Estimation                 #
 # --------------------------------------- #
-# This code taken directly from Matteo Rizzuto's NewCollarLocsEstimation.R script
+# This code taken directly from Matteo Rizzuto's HomeRangeEstimation.R script
 # Find Matteo's repository at github.com/matteorizzuto/Chapter_2
+
+# before estimating the kUD, remove collars 149.513, 149.555, 150.032, 
+# 150.052, 150.154 due to too few relocations available for estimating a 
+# reliable kernel Utilization Distribution
+hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.555" 
+                        # & hares.triangd$Frequency != "150.032" & hares.triangd$Frequency != "149.513" & hares.triangd$Frequency != "150.052" & hares.triangd$Frequency != "150.154"
+)
+
+# Let's estimate the kernel Utilization Distribution using the ad hoc method and 
+# a grid of a 1000 points that can adapt to the general geographic area used by
+# each animal
+
+hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = 1000, extent = 1, same4all = FALSE)
+
+# If reverting back to using LSCV to estimate h, double-check that minimization
+# of the cross-validation criteria is successful using:
+# plotLSCV(hares.kUD)
+
+# Estimate kUD area using a range of percent levels
+kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(50, 95, 5), 
+                                unout = "ha")
+
+# and extract values only for the core area to be used in later modelling
+hrArea.50 <- kUD.hr.estimates[1, ]
+hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to = "CollarFrequency", values_to = "HRsize", names_prefix = "X")
+
+# now, let's extract the home range
+hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
+hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 
 
