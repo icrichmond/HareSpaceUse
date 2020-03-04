@@ -316,8 +316,107 @@ hares.triangd <- do.call("rbind", hares.list)
 hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
                           hares.triangd$Frequency != "149.474")
 
+
 # --------------------------------------- #
-#          kUD Estimation                 #
+#         Load Background Layers          #
+# --------------------------------------- #
+# This code taken directly from Matteo Rizzuto's HomeRangeEstimation.R script
+# Find Matteo's repository at github.com/matteorizzuto/Chapter_2
+
+# read the forest shapefile from the Land Cover geodatabase
+forest_gdb <- read_sf("../../Mapping", layer = "Forest")
+# and set it to the same crs as the triangulation data
+forest_gdb <- st_transform(forest_gdb, crs = st_crs(hares.triangd))
+
+# load grid trap locations shapefile
+bl_grid_pts <- st_transform(bl_grid_points, crs = st_crs(hares.triangd))
+
+# now, let's intersect the forest
+forest_clip <- st_intersection(bl.mcp.all500, forest_gdb)
+rm(forest_gdb) # remove the large FRI shapefile to make spatial R go faster
+tm_shape(forest_clip) + tm_polygons(alpha = 0) + tm_shape(bl_grid_pts) + 
+  tm_dots(size = 0.3, shape = 3, col = "red") + tm_compass() + tm_scale_bar()
+
+
+# --------------------------------------- #
+#           Create Collar List            #
+# --------------------------------------- #
+# This code taken directly from Matteo Rizzuto's HomeRangeEstimation.R script
+# Find Matteo's repository at github.com/matteorizzuto/Chapter_2
+
+# create list of names of collars from Bloomfield study site for mapping each
+# BL set of points and future mapping/listing use
+UniqCIDs <- UniqIDs[UniqIDs!="149.374"]
+UniqCIDs <- UniqCIDs[UniqCIDs!="149.474"]
+
+# allocate empty list to store tmap objects for each map created below
+hares.dots.maps <- vector("list", length(UniqCIDs))
+
+# loop to produce a map for each hare showing a heatmap of the kUD and the 
+# 50% and 90% isopleths
+for (i in 1:length(UniqCIDs)) {
+  # store contours for the current collar in a temporary linear object
+  dots.temp <- subset(hares.triangd, hares.triangd$Frequency == UniqCIDs[i]) 
+  
+  # add a crs to the temporary linear object
+  crs(dots.temp) <- crs(forest_clip) 
+  
+  bbox_temp <- st_bbox(dots.temp) # current bounding box
+  
+  xrange <- bbox_temp$xmax - bbox_temp$xmin # range of x values
+  yrange <- bbox_temp$ymax - bbox_temp$ymin # range of y values
+  
+  bbox_temp[1] <- bbox_temp[1] - (0.05 * xrange) # xmin - left
+  bbox_temp[3] <- bbox_temp[3] + (0.05 * xrange) # xmax - right
+  bbox_temp[2] <- bbox_temp[2] - (0.05 * yrange) # ymin - bottom
+  bbox_temp[4] <- bbox_temp[4] + (0.05 * yrange) # ymax - top
+  
+  bbox_temp <- bbox_temp %>%  # take the bounding box ...
+    st_as_sfc() # ... and make it a sf polygon
+  
+  # save the number of levels in Date for later plotting
+  col.lvls <- nlevels(as.factor(dots.temp$Date)) 
+  
+  # create a map using tmap and store it in its own slots in the list created
+  # above
+  hares.dots.maps[[i]] <- tm_shape(forest_clip) + 
+    tm_borders(col = "grey") +
+    tm_shape(bl_grid_pts) + tm_dots(size = 0.3, 
+                                    shape = 3, col = "red") +
+    tm_shape(dots.temp, bbox = bbox_temp) + 
+    tm_dots(size = 0.5, shape = 21, col = "Date",
+            palette = "viridis", 
+            border.col = "grey") + 
+    # tm_text("Date", auto.placement = TRUE, size = 0.75, xmod = 1, ymod = 0.5) +
+    tm_compass(position = c("left", "top"), text.size = 1) +
+    tm_scale_bar(text.size = 0.8,
+                 position = c("right", "bottom")) + 
+    tm_layout(main.title = paste("Collar Frequency:", UniqCIDs[i]),
+              title = paste("Ear tag:", dots.temp$EarTag),
+              legend.outside = TRUE, 
+              legend.outside.position = "right",
+              legend.text.size = 1.1,
+              legend.title.size = 1.5,
+              asp = 1,
+              frame = FALSE) +
+    tmap_options(max.categories = col.lvls)
+  
+  # Sys.sleep(1)
+  # browser()
+  
+  print(hares.dots.maps[[i]])
+  
+  rm(dots.temp) # remove the temp dots object to avoid errors
+}
+
+# tmap_arrange(hares.dots.maps)
+
+
+
+
+
+# --------------------------------------- #
+#         Home Range Estimation           #
 # --------------------------------------- #
 # This code taken directly from Matteo Rizzuto's HomeRangeEstimation.R script
 # Find Matteo's repository at github.com/matteorizzuto/Chapter_2
@@ -355,6 +454,3 @@ plot(hares.kUDhr.50, col=1:34)
 
 # NOTE for future: need to load in stoich raster, match grid to raster, estimate kUD 
 # in raster format, improve plotting
-# GR stuff: get overlap (in MR's repo)
-# MR stuff: triple check that we are working with the same dataset & how to attribute credit 
-# in code scripts & GitLab?
