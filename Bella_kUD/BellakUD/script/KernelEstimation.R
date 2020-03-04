@@ -316,6 +316,39 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
                           hares.triangd$Frequency != "149.474")
 
 
+
+# --------------------------------------- #
+#        Calculate MCP Home Range         #
+# --------------------------------------- #
+# This code taken directly from Matteo Rizzuto's HomeRangeEstimation.R script
+# Find Matteo's repository at github.com/matteorizzuto/Chapter_2
+
+# finally, remove the two collars that are not in Bloomfield
+hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" & hares.triangd$Frequency != "149.474")
+
+# add a grid identifier to the hares.triangd dataframe to calculate an overall
+# home range
+hares.triangd$Grid <- "Bloomfield"
+
+# calculate an overall home range using 100% MCP to define study area for mapping
+# purposes ONLY
+bl.mcp.all <- mcp(hares.triangd[, 9], percent = 90)
+
+# transform the 100% MCP into a simpel features object
+bl.mcp.all <- st_as_sf(bl.mcp.all)
+
+
+# --------------------------------------- #
+#               MCP Buffer                #
+# --------------------------------------- #
+# This code taken directly from Matteo Rizzuto's HomeRangeEstimation.R script
+# Find Matteo's repository at github.com/matteorizzuto/Chapter_2
+
+bl.mcp.all500 <- st_buffer(bl.mcp.all, dist = 500) 
+
+tm_shape(bl.mcp.all500) + tm_polygons(alpha = 0, border.col = "red") + tm_shape(bl.mcp.all) + tm_polygons(alpha = 0, border.col = "blue") + tm_compass() + tm_scale_bar()
+
+
 # --------------------------------------- #
 #         Load Background Layers          #
 # --------------------------------------- #
@@ -323,12 +356,13 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
 # Find Matteo's repository at github.com/matteorizzuto/Chapter_2
 
 # read the forest shapefile from the Land Cover geodatabase
-forest_gdb <- read_sf("input/Mapping", layer = "Forest.shp")
+forest_gdb <- read_sf("input/Mapping", layer = "Forest")
 # and set it to the same crs as the triangulation data
 forest_gdb <- st_transform(forest_gdb, crs = st_crs(hares.triangd))
 
 # load grid trap locations shapefile
-bl_grid_pts <- st_transform(bl_grid_points, crs = st_crs(hares.triangd))
+bl_grid_pts <- read_sf("input/Mapping", layer = "bl_grid_points")
+bl_grid_pts <- st_transform(bl_grid_pts, crs = st_crs(hares.triangd))
 
 # now, let's intersect the forest
 forest_clip <- st_intersection(bl.mcp.all500, forest_gdb)
