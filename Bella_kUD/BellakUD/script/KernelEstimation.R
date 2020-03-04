@@ -5,10 +5,10 @@
 # Last Edited: March 3, 2020
 
 # load required packages 
-easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", 
-              "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", 
-              "nleqslv", "adehabitatMA", "adehabitatHR","dplyr", "gdtools", "ggmap", "ggplot2", 
-              "ggrepel", "ggsci", "ggthemes", "maps", "raster", "spatial", 
+easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
+              "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", "ggplot2",
+              "nleqslv", "adehabitatMA", "adehabitatHR","dplyr", "gdtools", "ggmap",  
+              "ggrepel", "ggsci", "ggthemes", "maps", "raster", "spatial", "XML", 
               "tidyr", "readr","rgdal", "rgeos", "reshape2", "dismo", "tibble")
 
 
@@ -421,8 +421,8 @@ for (i in 1:length(UniqCIDs)) {
             palette = "viridis", 
             border.col = "grey") + 
     # tm_text("Date", auto.placement = TRUE, size = 0.75, xmod = 1, ymod = 0.5) +
-    tm_compass(position = c("left", "top"), text.size = 1) +
-    tm_scale_bar(text.size = 0.8,
+    tm_compass(position = c("left", "top"), fontsize = 1) +
+    tm_scale_bar(#text.size = 0.8,
                  position = c("right", "bottom")) + 
     tm_layout(main.title = paste("Collar Frequency:", UniqCIDs[i]),
               title = paste("Ear tag:", dots.temp$EarTag),
@@ -440,10 +440,8 @@ for (i in 1:length(UniqCIDs)) {
   print(hares.dots.maps[[i]])
   
   rm(dots.temp) # remove the temp dots object to avoid errors
+  
 }
-
-# tmap_arrange(hares.dots.maps)
-
 
 
 # --------------------------------------- #
@@ -452,25 +450,46 @@ for (i in 1:length(UniqCIDs)) {
 # This code taken directly from Matteo Rizzuto's HomeRangeEstimation.R script
 # Find Matteo's repository at github.com/matteorizzuto/Chapter_2
 
+# load stoich data that is going to be used - Lowland blueberry (Vaccinium angustifolium) C:N
+vaancn <- raster("input/VAAN_CN.tif")
+image(vaancn)
+# clip raster to study area? 
+
+# convert raster to SpatialPixelsDataFrame so it can be used in kUD analysis 
+vaancnASC <- asc.from.raster(vaancn)
+vaanCN <- asc2spixdf(vaancnASC)
+class(vaanCN)
+
 # before estimating the kUD, remove collars 149.555, 150.132 due to too few relocations 
 # available for estimating a reliable kernel Utilization Distribution
-# CHECK WITH MATTEO - WHAT DID HE REMOVE?
 hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.555" 
                          & hares.triangd$Frequency != "150.132")
 
 # Let's estimate the kernel Utilization Distribution using the ad hoc method and 
-# a grid of a 1000 points that can adapt to the general geographic area used by
-# each animal
-hares.kUD <- kernelUD(hares.triangd[,8], h = 'LSCV', grid = 1000, extent = 1, same4all = FALSE)
+# a grid that is set to the same size as the stoich grid, that can adapt to the general 
+# geographic area used by each animal
+gc()
+# try defragging memory 
+save.image(file = "temp.RData")
+rm(list=ls())
+load(file="temp.RData")
+
+hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, same4all = FALSE)
 
 # If reverting back to using LSCV to estimate h, double-check that minimization
 # of the cross-validation criteria is successful using:
-par(mar = c(1,1,1,1), mfrow = c(1,1))
-plotLSCV(hares.kUD)
+#par(mar = c(1,1,1,1), mfrow = c(1,1))
+#plotLSCV(hares.kUD)
+
+# estimate home range in raster form using getvolumeUD
+hares.vUD <- getvolumeUD(hares.kUD)
+image(hares.vUD)
 
 # Estimate kUD area using a range of percent levels
 kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(50, 95, 5), 
                                 unout = "ha")
+kUD.hr.estimates
+plot(kUD.hr.estimates)
 
 # and extract values only for the core area to be used in later modelling
 hrArea.50 <- kUD.hr.estimates[1, ]
@@ -480,8 +499,8 @@ hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to =
 hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 
-plot(hares.kUDhr.90, col=1:34)
-plot(hares.kUDhr.50, col=1:34)
+plot(hares.kUDhr.90, col=1:35)
+plot(hares.kUDhr.50, col=1:35)
 
 # NOTE for future: need to load in stoich raster, match grid to raster, estimate kUD 
 # in raster format, improve plotting
