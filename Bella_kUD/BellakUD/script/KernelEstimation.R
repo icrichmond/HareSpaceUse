@@ -5,7 +5,7 @@
 # Last Edited: March 3, 2020
 
 # load required packages 
-easypackages::packages("sp", "maptools", "tmap", "tmaptools", 
+easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", 
               "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", 
               "nleqslv", "adehabitatMA", "adehabitatHR","dplyr", "gdtools", "ggmap", "ggplot2", 
               "ggrepel", "ggsci", "ggthemes", "maps", "raster", "spatial", 
@@ -178,7 +178,6 @@ vhfData$Time <- as.numeric(vhfData$Time)
 
 
 
-
 # --------------------------------------- #
 #       Collar Location Estimation        #
 # --------------------------------------- #
@@ -324,7 +323,7 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
 # Find Matteo's repository at github.com/matteorizzuto/Chapter_2
 
 # read the forest shapefile from the Land Cover geodatabase
-forest_gdb <- read_sf("../../Mapping", layer = "Forest")
+forest_gdb <- read_sf("input/Mapping", layer = "Forest.shp")
 # and set it to the same crs as the triangulation data
 forest_gdb <- st_transform(forest_gdb, crs = st_crs(hares.triangd))
 
