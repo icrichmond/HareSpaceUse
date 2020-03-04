@@ -453,7 +453,7 @@ for (i in 1:length(UniqCIDs)) {
 # load stoich data that is going to be used - Lowland blueberry (Vaccinium angustifolium) C:N
 vaancn <- raster("input/VAAN_CN.tif")
 image(vaancn)
-# clip raster to study area? 
+# clip raster to study area 
 
 # convert raster to SpatialPixelsDataFrame so it can be used in kUD analysis 
 vaancnASC <- asc.from.raster(vaancn)
@@ -468,12 +468,6 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.555"
 # Let's estimate the kernel Utilization Distribution using the ad hoc method and 
 # a grid that is set to the same size as the stoich grid, that can adapt to the general 
 # geographic area used by each animal
-gc()
-# try defragging memory 
-save.image(file = "temp.RData")
-rm(list=ls())
-load(file="temp.RData")
-
 hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, same4all = FALSE)
 
 # If reverting back to using LSCV to estimate h, double-check that minimization
