@@ -2,7 +2,7 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: March 3, 2020
+# Last Edited: March 6, 2020
 
 # load required packages 
 easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
@@ -28,8 +28,8 @@ View(VHF2018)
 VHF2017 <- read.csv("input/VHF_CleanData_2017.csv")
 View(VHF2017)
 
-# 2019 uses lat/long instead of UTM
-# convert 2019 to UTM for simplicity 
+# 2019 uses lat/long and 2017-2018 use UTM
+# convert all of them to meters to match stoich raster CRS
 
 coordinates(VHF2019) <- c("Easting", "Northing")
 proj4string(VHF2019) <- CRS("+proj=longlat +datum=WGS84")
