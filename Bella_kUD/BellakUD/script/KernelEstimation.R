@@ -30,11 +30,30 @@ View(VHF2017)
 
 # 2019 uses lat/long and 2017-2018 use UTM
 # convert all of them to meters to match stoich raster CRS
+VHF2017 <- drop_na(VHF2017, Easting)
+coordinates(VHF2017) <- c("Easting", "Northing")
+proj4string(VHF2017) <- CRS("+proj=utm +zone=22 ellps=WGS84")
+
+VHF2017 <- spTransform(VHF2017, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
+                                    +no_defs"))
+VHF2017 <- as.data.frame(VHF2017)
+VHF2017$UTMZone <- as.integer(22)
+
+
+coordinates(VHF2018) <- c("Easting", "Northing")
+proj4string(VHF2018) <- CRS("+proj=utm +zone=22 ellps=WGS84")
+
+VHF2018 <- spTransform(VHF2018, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
+                                   +no_defs"))
+VHF2018 <- as.data.frame(VHF2018)
+VHF2018$UTMZone <- as.integer(22)
+
 
 coordinates(VHF2019) <- c("Easting", "Northing")
 proj4string(VHF2019) <- CRS("+proj=longlat +datum=WGS84")
 
-VHF2019 <- spTransform(VHF2019, CRS("+proj=utm +zone=22 ellps=WGS84"))
+VHF2019 <- spTransform(VHF2019, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
+                                    +no_defs"))
 VHF2019 <- as.data.frame(VHF2019)
 VHF2019$UTMZone <- as.integer(22)
 
@@ -184,7 +203,7 @@ vhfData$Time <- as.numeric(vhfData$Time)
 # This code taken directly from Matteo Rizzuto's NewCollarLocsEstimation.R script
 # Find Matteo's repository at github.com/matteorizzuto/Chapter_2
 
-vhfData <- vhfData[with(vhfData, order(Year, Frequency)),]
+vhfData <- vhfData[with(vhfData, order(Year, Frequency, Date, Time)),]
 
 # allocate an empty list to store each hare's triangulation results
 hares.list <- vector("list", length(UniqIDs))
@@ -234,8 +253,8 @@ for (i in 1:length(UniqIDs)) {
     
     # visualize triangulation
     plot(test.rec, bearings = TRUE, xlab = "Easting", ylab = "Northing", asp = 1, 
-         ylim = c(5359000, 5360000), 
-         xlim = c(278500, 279900))
+         ylim = c(538400, 5384800), 
+         xlim = c(861000, 862400))
     title(main = unique(test.rec$Date), sub = unique(test.dat$Frequency))
     
     # locate the transmitting collar using a Maximum Likelihood Estimator
@@ -255,7 +274,7 @@ for (i in 1:length(UniqIDs)) {
     
     # make sure the date is store as a character rather than a number
     workingCollar.loc$Date <- as.character(workingCollar.loc$Date)
-    # browser()
+     #browser()
     # Sys.sleep(1)
   }
   
@@ -280,7 +299,8 @@ for (i in 1:length(UniqIDs)) {
   
   workingCollar.spatial <- SpatialPointsDataFrame(coords = workingCollar.coords, 
                                                   data = workingCollar.loc, 
-                                                  proj4string = CRS("+proj=utm +zone=22 +datum=NAD83"))
+                                                  proj4string = CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
+                                                                    +no_defs"))
   
   # plotting
   # frame()
@@ -454,9 +474,13 @@ for (i in 1:length(UniqCIDs)) {
 vaancn <- raster("input/VAAN_CN.tif")
 image(vaancn)
 # clip raster to study area 
+e <- extent(860900, 862500, 5383900, 5384900)
+vaancnclip <- crop(vaancn, e)
+image(vaancnclip)
 
-# convert raster to SpatialPixelsDataFrame so it can be used in kUD analysis 
-vaancnASC <- asc.from.raster(vaancn)
+
+# convert clipped raster to SpatialPixelsDataFrame so it can be used in kUD analysis 
+vaancnASC <- asc.from.raster(vaancnclip)
 vaanCN <- asc2spixdf(vaancnASC)
 class(vaanCN)
 
@@ -468,7 +492,7 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.555"
 # Let's estimate the kernel Utilization Distribution using the ad hoc method and 
 # a grid that is set to the same size as the stoich grid, that can adapt to the general 
 # geographic area used by each animal
-hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, same4all = FALSE)
+hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, extent = 1000,same4all = FALSE)
 
 # If reverting back to using LSCV to estimate h, double-check that minimization
 # of the cross-validation criteria is successful using:
@@ -496,5 +520,5 @@ hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 plot(hares.kUDhr.90, col=1:35)
 plot(hares.kUDhr.50, col=1:35)
 
-# NOTE for future: need to load in stoich raster, match grid to raster, estimate kUD 
-# in raster format, improve plotting
+# NOTE for future: need to match kUD grid to raster but still figure out how to get a large
+# enough extent parameter to calculate home ranges 
