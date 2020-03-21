@@ -6,7 +6,7 @@ library(adehabitatHR)
 #----------------Basic Summary of the Functions of the Package------------------#
 xy<-matrix(runif(60), ncol=2)
 head(xy)
-#sample of relocations dist. on plane
+#sample of relocations dist. on plane 
 
 xysp<-SpatialPoints(xy)
 #convert the locations into the class spatial points

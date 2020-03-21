@@ -13,7 +13,7 @@
 #------------------------------------#
 
 # source the Data Cleaning script
-source("Code/NEWCollarLocsEstimation.R")
+#source("Code/NEWCollarLocsEstimation.R")
 
 #------------------------------------#
 #       Home Range Estimation        #  

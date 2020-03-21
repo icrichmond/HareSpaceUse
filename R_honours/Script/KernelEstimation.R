@@ -23,13 +23,14 @@ easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools",
 # import telemetry datasetss
 VHF2019 <- read.csv("input/TelemetryPoints_VHF_2019.csv")
 View(VHF2019)
-VHF2018 <- read.csv("input/VHF_CleanData_2018.csv")
-View(VHF2018)
-VHF2017 <- read.csv("input/VHF_CleanData_2017.csv")
-View(VHF2017)
+#VHF2018 <- read.csv("input/VHF_CleanData_2018.csv")
+#View(VHF2018)
+#VHF2017 <- read.csv("input/VHF_CleanData_2017.csv")
+#View(VHF2017)
 
 # 2019 uses lat/long instead of UTM
 # convert 2019 to UTM for simplicity 
+
 
 coordinates(VHF2019) <- c("Easting", "Northing")
 proj4string(VHF2019) <- CRS("+proj=longlat +datum=WGS84")
@@ -43,25 +44,25 @@ VHF2019$UTMZone <- as.integer(22)
 # Matteo Rizzuto also using this data for his manuscript. Code can be found in his repository on GitHub
 
 # isolate live collars to make working on them easier
-Data17 <- subset(VHF2017, VHF2017$Frequency == "149.535" | 
-                   VHF2017$Frequency == "149.673" |
-                   VHF2017$Frequency == "149.394" |
-                   VHF2017$Frequency == "149.452")
+#Data17 <- subset(VHF2017, VHF2017$Frequency == "149.535" | 
+ #                  VHF2017$Frequency == "149.673" |
+  #                 VHF2017$Frequency == "149.394" |
+   #                VHF2017$Frequency == "149.452")
 
-Data18 <- subset(VHF2018, VHF2018$Frequency == "149.003" |
-                   VHF2018$Frequency == "149.053" |
-                   VHF2018$Frequency == "149.093" |
-                   VHF2018$Frequency == "149.173" |
-                   VHF2018$Frequency == "149.213" |
-                   VHF2018$Frequency == "149.274" |
-                   VHF2018$Frequency == "149.374" |
-                   VHF2018$Frequency == "149.474" |
-                   VHF2018$Frequency == "149.613" |
-                   VHF2018$Frequency == "149.633" |
-                   VHF2018$Frequency == "149.653")
+#Data18 <- subset(VHF2018, VHF2018$Frequency == "149.003" |
+ #                  VHF2018$Frequency == "149.053" |
+  #                 VHF2018$Frequency == "149.093" |
+   #                VHF2018$Frequency == "149.173" |
+    #               VHF2018$Frequency == "149.213" |
+     #              VHF2018$Frequency == "149.274" |
+      #             VHF2018$Frequency == "149.374" |
+       #            VHF2018$Frequency == "149.474" |
+        #           VHF2018$Frequency == "149.613" |
+         #          VHF2018$Frequency == "149.633" |
+          #         VHF2018$Frequency == "149.653")
 
 # drop data from 18-06-2018 for collar 149.653 
-Data18 <- Data18[!(Data18$Frequency == "149.653" & Data18$Date == "2018-06-18"),]
+#Data18 <- Data18[!(Data18$Frequency == "149.653" & Data18$Date == "2018-06-18"),]
 
 
 Data19 <- subset(VHF2019, VHF2019$ï..Frequency == "149.124" |
@@ -88,13 +89,13 @@ Data19 <- subset(VHF2019, VHF2019$ï..Frequency == "149.124" |
                    VHF2019$ï..Frequency == "150.392")
 
 # remove NAs
-Data17 <- drop_na(Data17, Azimuth)
-Data18 <- drop_na(Data18, Azimuth)
+#Data17 <- drop_na(Data17, Azimuth)
+#Data18 <- drop_na(Data18, Azimuth)
 Data19 <- drop_na(Data19, Azimuth)
 
 # add a year variable 
-Data17 <- add_column(Data17, Year="2017")
-Data18 <- add_column(Data18, Year="2018")
+#Data17 <- add_column(Data17, Year="2017")
+#Data18 <- add_column(Data18, Year="2018")
 Data19 <- add_column(Data19, Year="2019")
 
 # Categorize times as AM or PM in Data19
@@ -107,12 +108,12 @@ for (i in 1:(nrow(Data19) - 1)) {
 Data19 <- dplyr::rename(Data19, Frequency = ï..Frequency)
 
 # remove unused columns from the dataframes
-Data17 <- dplyr::select(Data17, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive, Time_O))
-Data18 <- dplyr::select(Data18, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive, Time_O))
+#Data17 <- dplyr::select(Data17, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive, Time_O))
+#Data18 <- dplyr::select(Data18, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive, Time_O))
 Data19 <- dplyr::select(Data19, -c(FixLocation, Time_O, TimeCategory, TempC, Wind, Rain))
 
 # combine all three years into one dataframe 
-liveData <- rbind(Data17, Data18, Data19)
+liveData <- rbind(Data19)
 liveData$Frequency <- as.factor(liveData$Frequency)
 liveData$Year <- as.factor(liveData$Year)
 # remove NAs
@@ -214,7 +215,7 @@ for (i in 1:length(UniqIDs)) {
   
   # set up plotting
   # frame()
-  par(mar = c(2, 2, 2, 2), mfrow = c(6,6))
+  par(mar = c(1,1,1,1), mfrow = c(6,6))
   
   for (j in 1:length(test.index)) {
     # separate a day's set of azimuths from the rest of the current working dataset
@@ -234,10 +235,10 @@ for (i in 1:length(UniqIDs)) {
     
     # visualize triangulation
     plot(test.rec, bearings = TRUE, xlab = "Easting", ylab = "Northing", asp = 1, 
-         ylim = c(5359000, 5360000), 
-         xlim = c(278500, 279900))
+         ylim = c(5359441,5359792), 
+         xlim = c(278749, 279361))
     title(main = unique(test.rec$Date), sub = unique(test.dat$Frequency))
-    
+
     # locate the transmitting collar using a Maximum Likelihood Estimator
     test.loc <- locate(test.rec)
     
@@ -427,12 +428,13 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.555"
 # Let's estimate the kernel Utilization Distribution using the ad hoc method and 
 # a grid of a 1000 points that can adapt to the general geographic area used by
 # each animal
-hares.kUD <- kernelUD(hares.triangd[,8], h = 'LSCV', grid = 1000, extent = 1, same4all = FALSE)
+hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = 1000, extent = 1, same4all = FALSE)
+#changed from LSCV to href 
 
-# If reverting back to using LSCV to estimate h, double-check that minimization
+# If reverting back to using LSCV to estimate h, double-check that minimization, sinc we are using href checking for minimization is not necessary
 # of the cross-validation criteria is successful using:
 par(mar = c(1,1,1,1), mfrow = c(1,1))
-plotLSCV(hares.kUD)
+plothref(hares.kUD)
 
 # Estimate kUD area using a range of percent levels
 kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(50, 95, 5), 
@@ -446,8 +448,193 @@ hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to =
 hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 
-plot(hares.kUDhr.90, col=1:34)
-plot(hares.kUDhr.50, col=1:34)
-
+par(mar = c(1,1,1,1), mfrow = c(1,1))
+plot(hares.kUDhr.90, col=1:22)
+plot(hares.kUDhr.50, col=1:22)
+#^ I changes the cols for the number of buns for 2019 season
 # NOTE for future: need to load in stoich raster, match grid to raster, estimate kUD 
 # in raster format, improve plotting
+
+
+
+#---------------------------------------------------------#
+#    CONVERTING HR TO SHAPE FILES TO OPEN IN ARCMAP       #
+#---------------------------------------------------------#
+
+##NOTE##
+#estimation of home range size in terms of kernel UD has previously be calculated above
+
+# A script to estimate home range size of the radio collared snowshoe hares in 
+# the Bloomfield Grid.
+# 
+# Should probably state in the manuscript (whenever it will happen) that we were 
+# only interested in summer Home Ranges, hence we only did telemetry in 
+# July-August and collected ~30 relocations per animal.
+# This should give a good and conservative estimate of the home range for the 
+# summer season, but likely won't tell us much about their winter home range
+# So our inference is limited
+
+#------------------------------------#
+#                 Setup              #
+#------------------------------------#
+
+# source the Data Cleaning script
+#source("Code/NEWCollarLocsEstimation.R")
+
+#------------------------------------#
+#       Home Range Estimation        #  
+#------------------------------------#
+
+# I will estimate the home range of these snowshoe hares using two widespread 
+# methods: the Minimum Convex Polygon (MCP) and the Kernel Utilization 
+# Distribution (KUD).
+
+# Because of how the package adeHabitatHR works, it is much easier to work on 
+# a single dataframe containing the data from each animal. The first step is, 
+# then, to unify the 4 separate dataframes containing the results from the 
+# sigloc() triangulation. Then, I will move on to estimate the HR using both MCP
+# and KUD.
+
+# 1. Bind the 4 datasets
+
+# Despite multiple internet help pages stating the opposite, rbind() works just 
+# fine to bind multiple SpatialPointsDataFrame objects together into a single, 
+# massive one.
+#hares.triangd <- do.call(rbind, hares.list)
+
+# Kernel UD
+# Now let's move on to the Kernel Estimation. The following estimate uses Lest 
+# Square Cross Validation (LSCV) to estimate the smoothing parameter
+
+#hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = 1000, extent = 1,
+ #                     same4all = FALSE)
+
+# let's visualize it
+#image(hares.kUD)
+
+# to export it, let's first convert it to a SpatialPixelDataFrame
+#hareskUD_export <- estUDm2spixdf(hares.kUD)
+
+# save the subset of data of interest as a raster
+#c452raster <- raster(hares.kUDexport[2])
+
+# save it on disk
+#writeRaster(c452raster, "../Results/c452raster.tif", "GTiff")
+
+# Now let's look at the home range size using a range of probability levels
+#kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(50, 100, 5), 
+ #                               unin = "m", unout = "ha")
+
+# now, let's extract the home range # should I do this for 50 and 90%?
+hares.kUDhr <- getverticeshr(hares.kUD, percent = 90)
+hares.kUDhr50 <- getverticeshr(hares.kUD, percent = 50)
+
+# and now save each home range as a separate shapefile for ue in GIS
+# before creating shape files, remove collars 149.555, 150.132 due to too few relocations 19 hare in total for 2019
+
+c149.233.kUDhr <- hares.kUDhr[hares.kUDhr$id == "149.233",]
+c149.294.kUDhr <- hares.kUDhr[hares.kUDhr$id == "149.294",]
+c149.423.kUDhr <- hares.kUDhr[hares.kUDhr$id == "149.423",]
+c149.513.kUDhr <- hares.kUDhr[hares.kUDhr$id == "149.513",]
+c149.594.kUDhr <- hares.kUDhr[hares.kUDhr$id == "149.594",]
+c150.032.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.032",]
+c150.052.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.052",]
+c150.072.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.072",]
+c150.091.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.091",]
+c150.111.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.111",]
+c150.154.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.154",]
+c150.173.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.173",]
+c150.191.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.191",]
+c150.232.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.232",]
+c150.273.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.273",]
+c150.314.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.314",]
+c150.332.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.332",]
+c150.373.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.373",]
+c150.392.kUDhr <- hares.kUDhr[hares.kUDhr$id == "150.392",]
+c149.124.kUDhr <- hares.kUDhr[hares.kUDhr$id == "149.124",]
+
+
+shapefile(c149.233.kUDhr, "output/Collar149_233_KUDhr.shp", overwrite = TRUE)
+shapefile(c149.294.kUDhr, "output/Collar149_294_KUDhr.shp", overwrite = TRUE)
+shapefile(c149.423.kUDhr, "output/Collar149_423_KUDhr.shp", overwrite = TRUE)
+shapefile(c149.513.kUDhr, "output/Collar149_513_KUDhr.shp", overwrite = TRUE)
+shapefile(c149.594.kUDhr, "output/Collar149_594_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.032.kUDhr, "output/150_032_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.052.kUDhr, "output/150_052_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.072.kUDhr, "output/Collar150_072_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.091.kUDhr, "output/Collar150_091_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.111.kUDhr, "output/Collar150_111_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.154.kUDhr, "output/Collar150_154_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.173.kUDhr, "output/Collar150_173_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.091.kUDhr, "output/Collar150_191_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.111.kUDhr, "output/Collar150_111_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.154.kUDhr, "output/Collar150_154_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.173.kUDhr, "output/Collar150_173_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.191.kUDhr, "output/Collar150_191_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.232.kUDhr, "output/Collar150_232_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.273.kUDhr, "output/Collar150_273_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.314.kUDhr, "output/Collar150_314_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.332.kUDhr, "output/Collar150_332_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.373.kUDhr, "output/Collar150_373_KUDhr.shp", overwrite = TRUE)
+shapefile(c150.392.kUDhr, "output/Collar150_392_KUDhr.shp", overwrite = TRUE)
+
+
+# Now we can transform the kernel-estimated home range into a dataframe for 
+# plotting with ggplot2
+hares.kUDhr <- fortify(hares.kUDhr)
+
+hares.kUDhr$id <- as.factor(hares.kUDhr$id)
+hares.kUDhr.BL <- hares.kUDhr[! (hares.kUDhr$id == "149.374" | hares.kUDhr$id == "149.474"),]
+hares.kUDhr.TN <- hares.kUDhr[(hares.kUDhr$id == "149.374"),]
+hares.kUDhr.UNI <- hares.kUDhr[(hares.kUDhr$id == "149.474"),]
+
+# finally, let's plot it as above using ggplot2 90%
+ggplot(hares.kUDhr.BL, aes(x = long, y = lat, col = id, 
+                           fill = id, group = group)) +
+  geom_polygon(alpha = 0.25) +
+  # scale_fill_manual(values  = cbPalette, name = "Collar Frequency") +
+  # scale_colour_manual(values  = cbPalette2, name = "Collar Frequency") +
+  coord_equal() +
+  theme_map()
+
+ggplot(hares.kUDhr.TN, aes(x = long, y = lat)) +
+  geom_polygon(alpha = 0.25) +
+  coord_equal() +
+  theme_map()
+
+ggplot(hares.kUDhr.UNI, aes(x = long, y = lat)) +
+  geom_polygon(alpha = 0.25) +
+  coord_equal() +
+  theme_map()
+
+# Another option to visualize the Kernel UD is via raster. This methods 
+# estimates the volume of the home range, and can give slightly different 
+# results from the vector/area method used above. Let's see how it works out.
+
+hares.vol <- getvolumeUD(hares.kUD)
+
+
+# and let's visualize it 
+image(hares.vol)
+
+# To get the rasterized 95% hr of each animal, the procedure is a bit convoluted
+# and needs to be done one individual at the time. Here is an example:
+
+fud673 <- hares.vol[[4]] # separate the 1st individual's data
+
+vol673hr95 <- as.data.frame(fud673)[,1]  # save it as a df
+
+vol673hr95 <- as.numeric(vol673hr95 <= 95) # select points below 95%
+
+vol673hr95 <- data.frame(vol673hr95) # save as df again
+
+coordinates(vol673hr95) <- coordinates(fud673[1]) 
+# covert to SpatialPixelsDataFrame
+
+gridded(vol673hr95) <- TRUE # grid it
+
+image(vol673hr95)
+
+
+writeGDAL(vol673hr95, "output/HR.tif", "GTiff") # save it as raster
+
