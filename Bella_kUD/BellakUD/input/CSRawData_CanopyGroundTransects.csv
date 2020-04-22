@@ -1,0 +1,697 @@
+﻿Species_GroundCover,Plot,Observers,Date,Level,Intersections
+Picea mariana,CS_01,YW & AM,2019-07-09,Canopy O,9
+Larix laricina,CS_01,YW & AM,2019-07-09,Canopy O,1
+Betula papyrifera,CS_01,YW & AM,2019-07-09,Canopy O,1
+Picea mariana,CS_01,YW & AM,2019-07-09,Canopy U,11
+Plants,CS_01,YW & AM,2019-07-09,Ground,9
+Moss,CS_01,YW & AM,2019-07-09,Ground,12
+Needle Duff,CS_01,YW & AM,2019-07-09,Ground,6
+Picea mariana,CS_02,YW & AM,2019-07-10,Canopy U,4
+Plants,CS_02,YW & AM,2019-07-10,Ground,2
+Moss,CS_02,YW & AM,2019-07-10,Ground,11
+Lichen,CS_02,YW & AM,2019-07-10,Ground,3
+Leaf litter,CS_02,YW & AM,2019-07-10,Ground,1
+Deciduous duff,CS_02,YW & AM,2019-07-10,Ground,12
+Picea mariana,CS_03,YW & AM,2019-07-10,Canopy O,15
+Picea mariana,CS_03,YW & AM,2019-07-10,Canopy U,9
+Betula papyrifera,CS_03,YW & AM,2019-07-10,Canopy O,2
+Plants,CS_03,YW & AM,2019-07-10,Ground,1
+Moss,CS_03,YW & AM,2019-07-10,Ground,4
+Leaf litter,CS_03,YW & AM,2019-07-10,Ground,2
+Needle Duff,CS_03,YW & AM,2019-07-10,Ground,9
+Deciduous duff,CS_03,YW & AM,2019-07-10,Ground,7
+Picea mariana,CS_04,YW & AM,2019-07-11,Canopy O,6
+Picea mariana,CS_04,YW & AM,2019-07-11,Canopy U,1
+Alnus incana,CS_04,YW & AM,2019-07-11,Canopy U,3
+Plants,CS_04,YW & AM,2019-07-11,Ground,8
+Moss,CS_04,YW & AM,2019-07-11,Ground,4
+Leaf litter,CS_04,YW & AM,2019-07-11,Ground,1
+Mineral soil,CS_04,YW & AM,2019-07-11,Ground,1
+Needle Duff,CS_04,YW & AM,2019-07-11,Ground,4
+Deciduous duff,CS_04,YW & AM,2019-07-11,Ground,3
+Picea mariana,CS_05,YW & AM,2019-07-11,Canopy O,7
+Picea mariana,CS_05,YW & AM,2019-07-11,Canopy U,1
+Betula papyrifera,CS_05,YW & AM,2019-07-11,Canopy O,1
+Larix laricina,CS_05,YW & AM,2019-07-11,Canopy O,9
+Plants,CS_05,YW & AM,2019-07-11,Ground,3
+Moss,CS_05,YW & AM,2019-07-11,Ground,15
+Needle Duff,CS_05,YW & AM,2019-07-11,Ground,2
+Picea mariana,CS_06,IR & GR,2019-07-09,Canopy O,14
+Picea mariana,CS_06,IR & GR,2019-07-09,Canopy U,1
+Alnus incana,CS_06,IR & GR,2019-07-09,Canopy U,2
+Larix laricina,CS_06,IR & GR,2019-07-09,Canopy O,1
+Sky ,CS_06,IR & GR,2019-07-09,NA,3
+Plants,CS_06,IR & GR,2019-07-09,Ground,7
+Moss,CS_06,IR & GR,2019-07-09,Ground,7
+Leaf litter,CS_06,IR & GR,2019-07-09,Ground,2
+Decayed wood,CS_06,IR & GR,2019-07-09,Ground,2
+Needle Duff,CS_06,IR & GR,2019-07-09,Ground,11
+Deciduous duff,CS_06,IR & GR,2019-07-09,Ground,4
+Picea mariana,CS_07,IR & GR,2019-07-10,Canopy O,10
+Picea mariana,CS_07,IR & GR,2019-07-10,Canopy U,2
+Betula papyrifera,CS_07,IR & GR,2019-07-10,Canopy O,2
+Sky ,CS_07,IR & GR,2019-07-10,NA,6
+Plants,CS_07,IR & GR,2019-07-10,Ground,9
+Moss,CS_07,IR & GR,2019-07-10,Ground,3
+Lichen,CS_07,IR & GR,2019-07-10,Ground,1
+Leaf litter,CS_07,IR & GR,2019-07-10,Ground,1
+Mineral soil,CS_07,IR & GR,2019-07-10,Ground,1
+Needle Duff,CS_07,IR & GR,2019-07-10,Ground,4
+Deciduous duff,CS_07,IR & GR,2019-07-10,Ground,1
+Picea mariana,CS_08,IR & GR,2019-07-11,Canopy O,5
+Picea mariana,CS_08,IR & GR,2019-07-11,Canopy U,3
+Sky ,CS_08,IR & GR,2019-07-11,NA,12
+Plants,CS_08,IR & GR,2019-07-11,Ground,10
+Moss,CS_08,IR & GR,2019-07-11,Ground,6
+Lichen,CS_08,IR & GR,2019-07-11,Ground,1
+Decayed wood,CS_08,IR & GR,2019-07-11,Ground,1
+Needle Duff,CS_08,IR & GR,2019-07-11,Ground,1
+Deciduous duff,CS_08,IR & GR,2019-07-11,Ground,1
+Picea mariana,CS_09,IR & GR,2019-07-11,Canopy U,1
+Betula papyrifera,CS_09,IR & GR,2019-07-11,Canopy O,2
+Sky ,CS_09,IR & GR,2019-07-11,NA,17
+Plants,CS_09,IR & GR,2019-07-11,Ground,15
+Moss,CS_09,IR & GR,2019-07-11,Ground,2
+Decayed wood,CS_09,IR & GR,2019-07-11,Ground,1
+Water,CS_09,IR & GR,2019-07-11,Ground,2
+Picea mariana,CS_10,IR & GR,2019-07-10,Canopy O,1
+Picea mariana,CS_10,IR & GR,2019-07-10,Canopy U,7
+Sky ,CS_10,IR & GR,2019-07-10,NA,14
+Plants,CS_10,IR & GR,2019-07-10,Ground,12
+Moss,CS_10,IR & GR,2019-07-10,Ground,3
+Decayed wood,CS_10,IR & GR,2019-07-10,Ground,1
+Mineral soil,CS_10,IR & GR,2019-07-10,Ground,1
+Needle Duff,CS_10,IR & GR,2019-07-10,Ground,1
+Deciduous duff,CS_10,IR & GR,2019-07-10,Ground,1
+Picea glauca,CS_11,YW & AM,2019-07-11,Canopy O,9
+Picea mariana,CS_11,YW & AM,2019-07-11,Canopy U,2
+Picea glauca,CS_11,YW & AM,2019-07-11,Canopy U,1
+Larix laricina,CS_11,YW & AM,2019-07-11,Canopy O,1
+Plants,CS_11,YW & AM,2019-07-11,Ground,5
+Moss,CS_11,YW & AM,2019-07-11,Ground,10
+Needle Duff,CS_11,YW & AM,2019-07-11,Ground,3
+Deciduous duff,CS_11,YW & AM,2019-07-11,Ground,4
+Picea glauca,CS_12,YW & AM,2019-07-12,Canopy O,8
+Picea glauca,CS_12,YW & AM,2019-07-12,Canopy U,3
+Plants,CS_12,YW & AM,2019-07-12,Ground,3
+Moss,CS_12,YW & AM,2019-07-12,Ground,14
+Lichen,CS_12,YW & AM,2019-07-12,Ground,2
+Leaf litter,CS_12,YW & AM,2019-07-12,Ground,1
+Needle Duff,CS_12,YW & AM,2019-07-12,Ground,2
+Deciduous duff,CS_12,YW & AM,2019-07-12,Ground,2
+Picea glauca,CS_13,YW & AM,2019-07-12,Canopy O,7
+Picea glauca,CS_13,YW & AM,2019-07-12,Canopy U,4
+Alnus incana,CS_13,YW & AM,2019-07-12,Canopy U,3
+Plants,CS_13,YW & AM,2019-07-12,Ground,7
+Moss,CS_13,YW & AM,2019-07-12,Ground,11
+Needle Duff,CS_13,YW & AM,2019-07-12,Ground,3
+Deciduous duff,CS_13,YW & AM,2019-07-12,Ground,5
+Picea glauca,CS_14,YW & AM,2019-07-12,Canopy O,2
+Picea glauca,CS_14,YW & AM,2019-07-12,Canopy U,5
+Plants,CS_14,YW & AM,2019-07-12,Ground,3
+Moss,CS_14,YW & AM,2019-07-12,Ground,14
+Lichen,CS_14,YW & AM,2019-07-12,Ground,2
+Decayed wood,CS_14,YW & AM,2019-07-12,Ground,1
+Mineral soil,CS_14,YW & AM,2019-07-12,Ground,2
+Needle Duff,CS_14,YW & AM,2019-07-12,Ground,2
+Deciduous duff,CS_14,YW & AM,2019-07-12,Ground,3
+Picea glauca,CS_15,IR & GR,2019-07-12,Canopy O,4
+Picea glauca,CS_15,IR & GR,2019-07-12,Canopy O,9
+Betula papyrifera,CS_15,IR & GR,2019-07-12,Canopy U,6
+Alnus incana,CS_15,IR & GR,2019-07-12,Canopy U,1
+Plants,CS_15,IR & GR,2019-07-12,Ground,6
+Moss,CS_15,IR & GR,2019-07-12,Ground,7
+Leaf litter,CS_15,IR & GR,2019-07-12,Ground,2
+Needle Duff,CS_15,IR & GR,2019-07-12,Ground,4
+Deciduous duff,CS_15,IR & GR,2019-07-12,Ground,10
+Picea mariana,CS_16,IR & GR,2019-07-12,Canopy O,10
+Picea mariana,CS_16,IR & GR,2019-07-12,Canopy U,3
+Picea glauca,CS_16,IR & GR,2019-07-12,Canopy O,1
+Larix laricina,CS_16,IR & GR,2019-07-12,Canopy O,2
+Sky ,CS_16,IR & GR,2019-07-12,NA,4
+Plants,CS_16,IR & GR,2019-07-12,Ground,5
+Moss,CS_16,IR & GR,2019-07-12,Ground,10
+Leaf litter,CS_16,IR & GR,2019-07-12,Ground,1
+Decayed wood,CS_16,IR & GR,2019-07-12,Ground,1
+Needle Duff,CS_16,IR & GR,2019-07-12,Ground,3
+Picea glauca,CS_17,IR & GR,2019-07-12,Canopy O,1
+Picea glauca,CS_17,IR & GR,2019-07-12,Canopy U,2
+Picea mariana,CS_17,IR & GR,2019-07-12,Canopy O,4
+Picea mariana,CS_17,IR & GR,2019-07-12,Canopy U,6
+Alnus incana,CS_17,IR & GR,2019-07-12,Canopy U,1
+Larix laricina,CS_17,IR & GR,2019-07-12,Canopy O,2
+Sky ,CS_17,IR & GR,2019-07-12,NA,4
+Plants,CS_17,IR & GR,2019-07-12,Ground,9
+Moss,CS_17,IR & GR,2019-07-12,Ground,7
+Leaf litter,CS_17,IR & GR,2019-07-12,Ground,2
+Needle Duff,CS_17,IR & GR,2019-07-12,Ground,1
+Picea mariana,CS_18,IR & GR,2019-07-19,Canopy O,7
+Picea mariana,CS_18,IR & GR,2019-07-19,Canopy U,1
+Sky ,CS_18,IR & GR,2019-07-19,Sky,12
+Plants,CS_18,IR & GR,2019-07-19,Ground,10
+Moss,CS_18,IR & GR,2019-07-19,Ground,6
+Needle Duff,CS_18,IR & GR,2019-07-19,Ground,3
+Deciduous duff,CS_18,IR & GR,2019-07-19,Ground,1
+Picea mariana,CS_19,IR & GR,2019-07-17,Canopy O,8
+Picea mariana,CS_19,IR & GR,2019-07-17,Canopy U,2
+Picea glauca,CS_19,IR & GR,2019-07-17,Canopy O,5
+Alnus incana,CS_19,IR & GR,2019-07-17,Canopy U,1
+Sky ,CS_19,IR & GR,2019-07-17,NA,7
+Plants,CS_19,IR & GR,2019-07-17,Ground,8
+Moss,CS_19,IR & GR,2019-07-17,Ground,3
+Lichen,CS_19,IR & GR,2019-07-17,Ground,1
+Leaf litter,CS_19,IR & GR,2019-07-17,Ground,3
+Mineral soil,CS_19,IR & GR,2019-07-17,Ground,1
+Needle Duff,CS_19,IR & GR,2019-07-17,Ground,5
+Deciduous duff,CS_19,IR & GR,2019-07-17,Ground,1
+Picea mariana,CS_20,IR & GR,2019-07-24,Canopy O,8
+Picea mariana,CS_20,IR & GR,2019-07-24,Canopy U,2
+Picea glauca,CS_20,IR & GR,2019-07-24,Canopy O,3
+Betula papyrifera,CS_20,IR & GR,2019-07-24,Canopy O,3
+Larix laricina,CS_20,IR & GR,2019-07-24,Canopy O,2
+Sky ,CS_20,IR & GR,2019-07-24,NA,5
+Plants,CS_20,IR & GR,2019-07-24,Ground,8
+Moss,CS_20,IR & GR,2019-07-24,Ground,3
+Needle Duff,CS_20,IR & GR,2019-07-24,Ground,4
+Deciduous duff,CS_20,IR & GR,2019-07-24,Ground,5
+Picea mariana,CS_21,IR & GR,2019-07-22,Canopy O,7
+Picea mariana,CS_21,IR & GR,2019-07-22,Canopy U,6
+Sky ,CS_21,IR & GR,2019-07-22,NA,8
+Plants,CS_21,IR & GR,2019-07-22,Ground,11
+Moss,CS_21,IR & GR,2019-07-22,Ground,6
+Decayed wood,CS_21,IR & GR,2019-07-22,Ground,1
+Needle Duff,CS_21,IR & GR,2019-07-22,Ground,1
+Deciduous duff,CS_21,IR & GR,2019-07-22,Ground,1
+Picea mariana,CS_22,IR & GR,2019-07-15,Canopy O,4
+Picea mariana,CS_22,IR & GR,2019-07-15,Canopy U,2
+Picea glauca,CS_22,IR & GR,2019-07-15,Canopy O,2
+Picea glauca,CS_22,IR & GR,2019-07-15,Canopy U,1
+Larix laricina,CS_22,IR & GR,2019-07-15,Canopy O,1
+Alnus incana,CS_22,IR & GR,2019-07-15,Canopy U,1
+Sky ,CS_22,IR & GR,2019-07-15,NA,9
+Plants,CS_22,IR & GR,2019-07-15,Ground,15
+Moss,CS_22,IR & GR,2019-07-15,Ground,3
+Decayed wood,CS_22,IR & GR,2019-07-15,Ground,1
+Needle Duff,CS_22,IR & GR,2019-07-15,Ground,1
+Picea mariana,CS_23,IR & GR,2019-07-26,Canopy O,10
+Picea mariana,CS_23,IR & GR,2019-07-26,Canopy U,1
+Picea glauca,CS_23,IR & GR,2019-07-26,Canopy U,2
+Betula papyrifera,CS_23,IR & GR,2019-07-26,Canopy O,2
+Larix laricina,CS_23,IR & GR,2019-07-26,Canopy O,1
+Sky ,CS_23,IR & GR,2019-07-26,NA,5
+Plants,CS_23,IR & GR,2019-07-26,Ground,7
+Moss,CS_23,IR & GR,2019-07-26,Ground,3
+Leaf litter,CS_23,IR & GR,2019-07-26,Ground,3
+Decayed wood,CS_23,IR & GR,2019-07-26,Ground,1
+Mineral soil,CS_23,IR & GR,2019-07-26,Ground,1
+Needle Duff,CS_23,IR & GR,2019-07-26,Ground,5
+Deciduous duff,CS_23,IR & GR,2019-07-26,Ground,1
+Picea mariana,CS_24,IR & GR,2019-07-22,Canopy O,15
+Picea mariana,CS_24,IR & GR,2019-07-22,Canopy U,5
+Picea glauca,CS_24,IR & GR,2019-07-22,Canopy U,2
+Sky ,CS_24,IR & GR,2019-07-22,NA,4
+Plants,CS_24,IR & GR,2019-07-22,Ground,7
+Moss,CS_24,IR & GR,2019-07-22,Ground,7
+Lichen,CS_24,IR & GR,2019-07-22,Ground,2
+Leaf litter,CS_24,IR & GR,2019-07-22,Ground,1
+Mineral soil,CS_24,IR & GR,2019-07-22,Ground,1
+Needle Duff,CS_24,IR & GR,2019-07-22,Ground,4
+Picea glauca,CS_25,IR & GR,2019-07-16,Canopy O,4
+Picea glauca,CS_25,IR & GR,2019-07-16,Canopy U,3
+Picea mariana,CS_25,IR & GR,2019-07-16,Canopy O,9
+Picea mariana,CS_25,IR & GR,2019-07-16,Canopy U,1
+Sky ,CS_25,IR & GR,2019-07-16,NA,7
+Plants,CS_25,IR & GR,2019-07-16,Ground,3
+Moss,CS_25,IR & GR,2019-07-16,Ground,11
+Lichen,CS_25,IR & GR,2019-07-16,Ground,2
+Leaf litter,CS_25,IR & GR,2019-07-16,Ground,1
+Mineral soil,CS_25,IR & GR,2019-07-16,Ground,1
+Needle Duff,CS_25,IR & GR,2019-07-16,Ground,6
+Picea mariana,CS_26,IR & GR,2019-07-25,Canopy O,10
+Picea mariana,CS_26,IR & GR,2019-07-25,Canopy U,1
+Picea glauca,CS_26,IR & GR,2019-07-25,Canopy O,7
+Picea glauca,CS_26,IR & GR,2019-07-25,Canopy U,2
+Betula papyrifera,CS_26,IR & GR,2019-07-25,Canopy O,1
+Sky ,CS_26,IR & GR,2019-07-25,NA,3
+Plants,CS_26,IR & GR,2019-07-25,Ground,4
+Moss,CS_26,IR & GR,2019-07-25,Ground,11
+Leaf litter,CS_26,IR & GR,2019-07-25,Ground,2
+Needle Duff,CS_26,IR & GR,2019-07-25,Ground,2
+Deciduous duff,CS_26,IR & GR,2019-07-25,Ground,1
+Picea mariana,CS_27,IR & GR,2019-07-21,Canopy O,9
+Picea mariana,CS_27,IR & GR,2019-07-21,Canopy U,1
+Picea glauca,CS_27,IR & GR,2019-07-21,Canopy O,1
+Picea glauca,CS_27,IR & GR,2019-07-21,Canopy U,3
+Larix laricina,CS_27,IR & GR,2019-07-21,Canopy O,3
+Sky ,CS_27,IR & GR,2019-07-21,NA,4
+Plants,CS_27,IR & GR,2019-07-21,Ground,11
+Moss,CS_27,IR & GR,2019-07-21,Ground,8
+Leaf litter,CS_27,IR & GR,2019-07-21,Ground,1
+Picea mariana,CS_28,IR & GR,2019-07-28,Canopy O,2
+Picea mariana,CS_28,IR & GR,2019-07-28,Canopy U,3
+Alnus incana,CS_28,IR & GR,2019-07-28,Canopy U,3
+Sky ,CS_28,IR & GR,2019-07-28,NA,14
+Plants,CS_28,IR & GR,2019-07-28,Ground,12
+Moss,CS_28,IR & GR,2019-07-28,Ground,4
+Needle Duff,CS_28,IR & GR,2019-07-28,Ground,1
+Deciduous duff,CS_28,IR & GR,2019-07-28,Ground,3
+Picea glauca,CS_29,YW & AM,2019-07-13,Canopy O,10
+Picea glauca,CS_29,YW & AM,2019-07-13,Canopy U,6
+Betula papyrifera,CS_29,YW & AM,2019-07-13,Canopy O,5
+Alnus incana,CS_29,YW & AM,2019-07-13,Canopy U,4
+Plants,CS_29,YW & AM,2019-07-13,Ground,4
+Moss,CS_29,YW & AM,2019-07-13,Ground,1
+Leaf litter,CS_29,YW & AM,2019-07-13,Ground,1
+Needle Duff,CS_29,YW & AM,2019-07-13,Ground,7
+Deciduous duff,CS_29,YW & AM,2019-07-13,Ground,16
+Picea glauca,CS_30,IR & GR,2019-07-30,Canopy O,13
+Betula papyrifera,CS_30,IR & GR,2019-07-30,Canopy O,2
+Larix laricina,CS_30,IR & GR,2019-07-30,Canopy O,1
+Picea mariana,CS_30,IR & GR,2019-07-30,Canopy O,8
+Picea mariana,CS_30,IR & GR,2019-07-30,Canopy U,4
+Alnus incana,CS_30,IR & GR,2019-07-30,Canopy O,1
+Alnus incana,CS_30,IR & GR,2019-07-30,Canopy U,5
+Sky ,CS_30,IR & GR,2019-07-30,NA,1
+Plants,CS_30,IR & GR,2019-07-30,Ground,3
+Moss,CS_30,IR & GR,2019-07-30,Ground,8
+Leaf litter,CS_30,IR & GR,2019-07-30,Ground,3
+Decayed wood,CS_30,IR & GR,2019-07-30,Ground,1
+Needle Duff,CS_30,IR & GR,2019-07-30,Ground,1
+Deciduous duff,CS_30,IR & GR,2019-07-30,Ground,3
+Picea mariana,CS_31,IR & GR,2019-07-20,Canopy O,13
+Picea mariana,CS_31,IR & GR,2019-07-20,Canopy U,4
+Betula papyrifera,CS_31,IR & GR,2019-07-20,Canopy O,16
+Betula papyrifera,CS_31,IR & GR,2019-07-20,Canopy U,1
+Plants,CS_31,IR & GR,2019-07-20,Ground,2
+Moss,CS_31,IR & GR,2019-07-20,Ground,2
+Leaf litter,CS_31,IR & GR,2019-07-20,Ground,1
+Decayed wood,CS_31,IR & GR,2019-07-20,Ground,3
+Mineral soil,CS_31,IR & GR,2019-07-20,Ground,2
+Needle Duff,CS_31,IR & GR,2019-07-20,Ground,3
+Deciduous duff,CS_31,IR & GR,2019-07-20,Ground,9
+Picea glauca,CS_32,IR & GR,2019-07-27,Canopy O,10
+Picea mariana,CS_32,IR & GR,2019-07-27,Canopy O,11
+Betula papyrifera,CS_32,IR & GR,2019-07-27,Canopy O,2
+Sky ,CS_32,IR & GR,2019-07-27,NA,2
+Plants,CS_32,IR & GR,2019-07-27,Ground,6
+Moss,CS_32,IR & GR,2019-07-27,Ground,5
+Mushroom,CS_32,IR & GR,2019-07-27,Ground,1
+Leaf litter,CS_32,IR & GR,2019-07-27,Ground,2
+Decayed wood,CS_32,IR & GR,2019-07-27,Ground,2
+Needle Duff,CS_32,IR & GR,2019-07-27,Ground,4
+Picea mariana,CS_33,IR & GR,2019-07-16,Canopy O,11
+Picea mariana,CS_33,IR & GR,2019-07-16,Canopy U,3
+Picea glauca,CS_33,IR & GR,2019-07-16,Canopy O,5
+Picea glauca,CS_33,IR & GR,2019-07-16,Canopy U,1
+Betula papyrifera,CS_33,IR & GR,2019-07-16,Canopy O,2
+Sky ,CS_33,IR & GR,2019-07-16,NA,2
+Moss,CS_33,IR & GR,2019-07-16,Ground,2
+Leaf litter,CS_33,IR & GR,2019-07-16,Ground,1
+Mineral soil,CS_33,IR & GR,2019-07-16,Ground,2
+Needle Duff,CS_33,IR & GR,2019-07-16,Ground,7
+Deciduous duff,CS_33,IR & GR,2019-07-16,Ground,9
+Picea glauca,CS_34,IR & GR,2019-07-13,Canopy O,4
+Picea glauca,CS_34,IR & GR,2019-07-13,Canopy U,8
+Picea mariana,CS_34,IR & GR,2019-07-13,Canopy O,5
+Betula papyrifera,CS_34,IR & GR,2019-07-13,Canopy O,2
+Plants,CS_34,IR & GR,2019-07-13,Ground,6
+Moss,CS_34,IR & GR,2019-07-13,Ground,1
+Needle Duff,CS_34,IR & GR,2019-07-13,Ground,7
+Deciduous duff,CS_34,IR & GR,2019-07-13,Ground,5
+Picea mariana,CS_35,IR & GR,2019-07-29,Canopy O,13
+Picea mariana,CS_35,IR & GR,2019-07-29,Canopy U,2
+Picea glauca,CS_35,IR & GR,2019-07-29,Canopy O,11
+Picea glauca,CS_35,IR & GR,2019-07-29,Canopy U,3
+Betula papyrifera,CS_35,IR & GR,2019-07-29,Canopy O,2
+Plants,CS_35,IR & GR,2019-07-29,Ground,2
+Moss,CS_35,IR & GR,2019-07-29,Ground,6
+Mushroom,CS_35,IR & GR,2019-07-29,Ground,1
+Leaf litter,CS_35,IR & GR,2019-07-29,Ground,1
+Needle Duff,CS_35,IR & GR,2019-07-29,Ground,8
+Deciduous duff,CS_35,IR & GR,2019-07-29,Ground,2
+Picea mariana,CS_36,IR & GR,2019-07-14,Canopy O,6
+Picea glauca,CS_36,IR & GR,2019-07-14,Canopy O,11
+Alnus incana,CS_36,IR & GR,2019-07-14,Canopy U,1
+Sky ,CS_36,IR & GR,2019-07-14,NA,2
+Plants,CS_36,IR & GR,2019-07-14,Ground,5
+Moss,CS_36,IR & GR,2019-07-14,Ground,4
+Needle Duff,CS_36,IR & GR,2019-07-14,Ground,10
+Deciduous duff,CS_36,IR & GR,2019-07-14,Ground,2
+Picea mariana,CS_37,IR & GR,2019-07-25,Canopy O,1
+Picea mariana,CS_37,IR & GR,2019-07-25,Canopy U,1
+Alnus incana,CS_37,IR & GR,2019-07-25,Canopy U,1
+Sky ,CS_37,IR & GR,2019-07-25,NA,17
+Plants,CS_37,IR & GR,2019-07-25,Ground,11
+Sphagnum,CS_37,IR & GR,2019-07-25,Ground,4
+Water,CS_37,IR & GR,2019-07-25,Ground,5
+Picea glauca,CS_38,IR & GR,2019-07-22,Canopy O,14
+Picea glauca,CS_38,IR & GR,2019-07-22,Canopy U,1
+Picea mariana,CS_38,IR & GR,2019-07-22,Canopy O,7
+Picea mariana,CS_38,IR & GR,2019-07-22,Canopy U,2
+Betula papyrifera,CS_38,IR & GR,2019-07-22,Canopy O,2
+Alnus incana,CS_38,IR & GR,2019-07-22,Canopy O,1
+Larix laricina,CS_38,IR & GR,2019-07-22,Canopy O,1
+Plants,CS_38,IR & GR,2019-07-22,Ground,3
+Moss,CS_38,IR & GR,2019-07-22,Ground,5
+Leaf litter,CS_38,IR & GR,2019-07-22,Ground,1
+Needle Duff,CS_38,IR & GR,2019-07-22,Ground,7
+Deciduous duff,CS_38,IR & GR,2019-07-22,Ground,4
+Picea mariana,CS_39,IR & GR,2019-07-24,Canopy O,9
+Picea mariana,CS_39,IR & GR,2019-07-24,Canopy U,1
+Picea glauca,CS_39,IR & GR,2019-07-24,Canopy O,3
+Picea glauca,CS_39,IR & GR,2019-07-24,Canopy U,4
+Larix laricina,CS_39,IR & GR,2019-07-24,Canopy O,1
+Sky ,CS_39,IR & GR,2019-07-24,NA,4
+Plants,CS_39,IR & GR,2019-07-24,Ground,6
+Moss,CS_39,IR & GR,2019-07-24,Ground,9
+Leaf litter,CS_39,IR & GR,2019-07-24,Ground,4
+Needle Duff,CS_39,IR & GR,2019-07-24,Ground,1
+Picea glauca,CS_40,IR & GR,2019-07-17,Canopy O,6
+Picea glauca,CS_40,IR & GR,2019-07-17,Canopy U,4
+Picea mariana,CS_40,IR & GR,2019-07-17,Canopy O,4
+Picea mariana,CS_40,IR & GR,2019-07-17,Canopy U,1
+Alnus incana,CS_40,IR & GR,2019-07-17,Canopy O,1
+Alnus incana,CS_40,IR & GR,2019-07-17,Canopy U,3
+Larix laricina,CS_40,IR & GR,2019-07-17,Canopy O,1
+Sky ,CS_40,IR & GR,2019-07-17,NA,3
+Plants,CS_40,IR & GR,2019-07-17,Ground,5
+Moss,CS_40,IR & GR,2019-07-17,Ground,5
+Leaf litter,CS_40,IR & GR,2019-07-17,Ground,2
+Mineral soil,CS_40,IR & GR,2019-07-17,Ground,2
+Needle Duff,CS_40,IR & GR,2019-07-17,Ground,7
+Deciduous duff,CS_40,IR & GR,2019-07-17,Ground,1
+Picea mariana,CS_41,IR & GR,2019-07-28,Canopy O,2
+Picea mariana,CS_41,IR & GR,2019-07-28,Canopy U,1
+Betula papyrifera,CS_41,IR & GR,2019-07-28,Canopy O,9
+Alnus incana,CS_41,IR & GR,2019-07-28,Canopy U,16
+Sky ,CS_41,IR & GR,2019-07-28,NA,2
+Plants,CS_41,IR & GR,2019-07-28,Ground,13
+Moss,CS_41,IR & GR,2019-07-28,Ground,2
+Decayed wood,CS_41,IR & GR,2019-07-28,Ground,1
+Deciduous duff,CS_41,IR & GR,2019-07-28,Ground,4
+Picea glauca,CS_42,IR & GR,2019-07-13,Canopy O,7
+Picea glauca,CS_42,IR & GR,2019-07-13,Canopy U,2
+Picea mariana,CS_42,IR & GR,2019-07-13,Canopy O,2
+Picea mariana,CS_42,IR & GR,2019-07-13,Canopy U,4
+Larix laricina,CS_42,IR & GR,2019-07-13,Canopy O,1
+Sky ,CS_42,IR & GR,2019-07-13,NA,4
+Plants,CS_42,IR & GR,2019-07-13,Ground,10
+Moss,CS_42,IR & GR,2019-07-13,Ground,1
+Decayed wood,CS_42,IR & GR,2019-07-13,Ground,3
+Needle Duff,CS_42,IR & GR,2019-07-13,Ground,5
+Deciduous duff,CS_42,IR & GR,2019-07-13,Ground,1
+Picea mariana,CS_43,IR & GR,2019-07-26,Canopy O,6
+Picea mariana,CS_43,IR & GR,2019-07-26,Canopy U,3
+Betula papyrifera,CS_43,IR & GR,2019-07-26,Canopy O,10
+Abies balsamea,CS_43,IR & GR,2019-07-26,Canopy O,1
+Alnus incana,CS_43,IR & GR,2019-07-26,Canopy U,11
+Sky ,CS_43,IR & GR,2019-07-26,NA,1
+Plants,CS_43,IR & GR,2019-07-26,Ground,6
+Moss,CS_43,IR & GR,2019-07-26,Ground,1
+Decayed wood,CS_43,IR & GR,2019-07-26,Ground,2
+Needle Duff,CS_43,IR & GR,2019-07-26,Ground,1
+Deciduous duff,CS_43,IR & GR,2019-07-26,Ground,10
+Picea mariana,CS_44,IR & GR,2019-07-23,Canopy O,13
+Picea mariana,CS_44,IR & GR,2019-07-23,Canopy U,5
+Betula papyrifera,CS_44,IR & GR,2019-07-23,Canopy O,4
+Larix laricina,CS_44,IR & GR,2019-07-23,Canopy O,1
+Alnus incana,CS_44,IR & GR,2019-07-23,Canopy U,3
+Sky ,CS_44,IR & GR,2019-07-23,NA,1
+Plants,CS_44,IR & GR,2019-07-23,Ground,4
+Moss,CS_44,IR & GR,2019-07-23,Ground,2
+Leaf litter,CS_44,IR & GR,2019-07-23,Ground,1
+Needle Duff,CS_44,IR & GR,2019-07-23,Ground,5
+Deciduous duff,CS_44,IR & GR,2019-07-23,Ground,9
+Picea mariana,CS_45,IR & GR,2019-07-19,Canopy O,6
+Picea mariana,CS_45,IR & GR,2019-07-19,Canopy U,1
+Betula papyrifera,CS_45,IR & GR,2019-07-19,Canopy O,1
+Alnus incana,CS_45,IR & GR,2019-07-19,Canopy O,1
+Alnus incana,CS_45,IR & GR,2019-07-19,Canopy U,11
+Sky ,CS_45,IR & GR,2019-07-19,NA,2
+Plants,CS_45,IR & GR,2019-07-19,Ground,8
+Moss,CS_45,IR & GR,2019-07-19,Ground,1
+Leaf litter,CS_45,IR & GR,2019-07-19,Ground,2
+Decayed wood,CS_45,IR & GR,2019-07-19,Ground,2
+Deciduous duff,CS_45,IR & GR,2019-07-19,Ground,7
+Picea glauca,CS_46,IR & GR,2019-07-25,Canopy O,10
+Picea mariana,CS_46,IR & GR,2019-07-25,Canopy O,4
+Betula papyrifera,CS_46,IR & GR,2019-07-25,Canopy O,2
+Alnus incana,CS_46,IR & GR,2019-07-25,Canopy U,2
+Sky ,CS_46,IR & GR,2019-07-25,NA,6
+Plants,CS_46,IR & GR,2019-07-25,Ground,8
+Moss,CS_46,IR & GR,2019-07-25,Ground,5
+Lichen,CS_46,IR & GR,2019-07-25,Ground,1
+Leaf litter,CS_46,IR & GR,2019-07-25,Ground,2
+Decayed wood,CS_46,IR & GR,2019-07-25,Ground,1
+Needle Duff,CS_46,IR & GR,2019-07-25,Ground,1
+Deciduous duff,CS_46,IR & GR,2019-07-25,Ground,2
+Picea mariana,CS_47,IR & GR,2019-07-14,Canopy O,3
+Betula papyrifera,CS_47,IR & GR,2019-07-14,Canopy O,8
+Alnus incana,CS_47,IR & GR,2019-07-14,Canopy U,8
+Sky ,CS_47,IR & GR,2019-07-14,NA,3
+Plants,CS_47,IR & GR,2019-07-14,Ground,12
+Decayed wood,CS_47,IR & GR,2019-07-14,Ground,2
+Mineral soil,CS_47,IR & GR,2019-07-14,Ground,1
+Needle Duff,CS_47,IR & GR,2019-07-14,Ground,1
+Deciduous duff,CS_47,IR & GR,2019-07-14,Ground,4
+Picea mariana,CS_48,IR & GR,2019-07-29,Canopy O,9
+Picea mariana,CS_48,IR & GR,2019-07-29,Canopy U,4
+Alnus incana,CS_48,IR & GR,2019-07-29,Canopy U,8
+Sky ,CS_48,IR & GR,2019-07-29,NA,2
+Plants,CS_48,IR & GR,2019-07-29,Ground,6
+Moss,CS_48,IR & GR,2019-07-29,Ground,4
+Needle Duff,CS_48,IR & GR,2019-07-29,Ground,3
+Deciduous duff,CS_48,IR & GR,2019-07-29,Ground,7
+Picea mariana,CS_49,IR & GR,2019-07-22,Canopy O,16
+Betula papyrifera,CS_49,IR & GR,2019-07-22,Canopy O,5
+Populus tremuloides,CS_49,IR & GR,2019-07-22,Canopy O,2
+Picea mariana,CS_49,IR & GR,2019-07-22,Canopy U,3
+Alnus incana,CS_49,IR & GR,2019-07-22,Canopy U,5
+Plants,CS_49,IR & GR,2019-07-22,Ground,4
+Moss,CS_49,IR & GR,2019-07-22,Ground,7
+Leaf litter,CS_49,IR & GR,2019-07-22,Ground,1
+Decayed wood,CS_49,IR & GR,2019-07-22,Ground,2
+Needle duff,CS_49,IR & GR,2019-07-22,Ground,3
+Deciduous duff,CS_49,IR & GR,2019-07-22,Ground,3
+Picea glauca,CS_50,IR & GR,2019-07-13,Canopy O,10
+Sky ,CS_50,IR & GR,2019-07-13,NA,2
+Picea mariana,CS_50,IR & GR,2019-07-13,Canopy O,8
+Plants,CS_50,IR & GR,2019-07-13,Ground,7
+Moss,CS_50,IR & GR,2019-07-13,Ground,7
+Leaf litter,CS_50,IR & GR,2019-07-13,Ground,1
+Mineral soil,CS_50,IR & GR,2019-07-13,Ground,1
+Needle Duff,CS_50,IR & GR,2019-07-13,Ground,5
+Betula papyrifera,CS_51,IR & GR,2019-07-16,Canopy O,3
+Picea mariana,CS_51,IR & GR,2019-07-16,Canopy O,4
+Sky ,CS_51,IR & GR,2019-07-16,NA,2
+Alnus incana,CS_51,IR & GR,2019-07-16,Canopy O,10
+Larix laricina,CS_51,IR & GR,2019-07-16,Canopy O,2
+Plants,CS_51,IR & GR,2019-07-16,Ground,11
+Decayed wood,CS_51,IR & GR,2019-07-16,Ground,1
+Needle Duff,CS_51,IR & GR,2019-07-16,Ground,1
+Deciduous duff,CS_51,IR & GR,2019-07-16,Ground,7
+Alnus incana,CS_52,IR & GR,2019-07-29,Canopy U,13
+Picea glauca,CS_52,IR & GR,2019-07-29,Canopy U,2
+Picea glauca,CS_52,IR & GR,2019-07-29,Canopy O,5
+Picea mariana,CS_52,IR & GR,2019-07-29,Canopy O,4
+Larix laricina,CS_52,IR & GR,2019-07-29,Canopy O,1
+Plants,CS_52,IR & GR,2019-07-29,Ground,7
+Moss,CS_52,IR & GR,2019-07-29,Ground,2
+Decayed wood,CS_52,IR & GR,2019-07-29,Ground,1
+Needle Duff,CS_52,IR & GR,2019-07-29,Ground,3
+Deciduous duff,CS_52,IR & GR,2019-07-29,Ground,8
+Betula papyrifera,CS_53,IR & GR,2019-07-20,Canopy O,3
+Picea mariana,CS_53,IR & GR,2019-07-20,Canopy O,11
+Alnus incana,CS_53,IR & GR,2019-07-20,Canopy U,9
+Picea mariana,CS_53,IR & GR,2019-07-20,Canopy U,1
+Alnus incana,CS_53,IR & GR,2019-07-20,Canopy O,2
+Picea glauca,CS_53,IR & GR,2019-07-20,Canopy O,1
+Larix laricina,CS_53,IR & GR,2019-07-20,Canopy O,1
+Plants,CS_53,IR & GR,2019-07-20,Ground,7
+Moss,CS_53,IR & GR,2019-07-20,Ground,1
+Decayed wood,CS_53,IR & GR,2019-07-20,Ground,2
+Needle Duff,CS_53,IR & GR,2019-07-20,Ground,7
+Deciduous duff,CS_53,IR & GR,2019-07-20,Ground,4
+Alnus incana,CS_54,IR & GR,2019-07-28,Canopy U,9
+Larix laricina,CS_54,IR & GR,2019-07-28,Canopy O,3
+Picea glauca,CS_54,IR & GR,2019-07-28,Canopy O,3
+Sky ,CS_54,IR & GR,2019-07-28,NA,1
+Picea mariana,CS_54,IR & GR,2019-07-28,Canopy O,6
+Picea mariana,CS_54,IR & GR,2019-07-28,Canopy U,1
+Plants,CS_54,IR & GR,2019-07-28,Ground,7
+Moss,CS_54,IR & GR,2019-07-28,Ground,1
+Decayed wood,CS_54,IR & GR,2019-07-28,Ground,3
+Needle Duff,CS_54,IR & GR,2019-07-28,Ground,5
+Deciduous duff,CS_54,IR & GR,2019-07-28,Ground,4
+Picea glauca,CS_55,YW & AM,2019-07-13,Canopy O,15
+Picea glauca,CS_55,YW & AM,2019-07-13,Canopy U,2
+Larix laricina,CS_55,YW & AM,2019-07-13,Canopy O,2
+Betula papyrifera,CS_55,YW & AM,2019-07-13,Canopy O,1
+Plants,CS_55,YW & AM,2019-07-13,Ground,5
+Moss,CS_55,YW & AM,2019-07-13,Ground,16
+Leaf litter,CS_55,YW & AM,2019-07-13,Ground,2
+Needle Duff,CS_55,YW & AM,2019-07-13,Ground,7
+Deciduous duff,CS_55,YW & AM,2019-07-13,Ground,1
+Sky ,CS_56,IR & GR,2019-07-26,NA,6
+Picea mariana,CS_56,IR & GR,2019-07-26,Canopy O,13
+Picea glauca,CS_56,IR & GR,2019-07-26,Canopy O,13
+Picea mariana,CS_56,IR & GR,2019-07-26,Canopy U,4
+Plants,CS_56,IR & GR,2019-07-26,Ground,7
+Moss,CS_56,IR & GR,2019-07-26,Ground,5
+Lichen,CS_56,IR & GR,2019-07-26,Ground,1
+Leaf litter,CS_56,IR & GR,2019-07-26,Ground,3
+Mineral soil,CS_56,IR & GR,2019-07-26,Ground,2
+Needle Duff,CS_56,IR & GR,2019-07-26,Ground,5
+Picea mariana,CS_57,IR & GR,2019-07-19,Canopy O,15
+Larix laricina,CS_57,IR & GR,2019-07-19,Canopy O,1
+Picea mariana,CS_57,IR & GR,2019-07-19,Canopy U,3
+Picea glauca,CS_57,IR & GR,2019-07-19,Canopy O,4
+Sky ,CS_57,IR & GR,2019-07-19,NA,1
+Picea glauca,CS_57,IR & GR,2019-07-19,Canopy U,1
+Plants,CS_57,IR & GR,2019-07-19,Ground,2
+Moss,CS_57,IR & GR,2019-07-19,Ground,9
+Rock,CS_57,IR & GR,2019-07-19,Ground,1
+Needle Duff,CS_57,IR & GR,2019-07-19,Ground,9
+Picea mariana,CS_58,IR & GR,2019-07-28,Canopy U,7
+Picea mariana,CS_58,IR & GR,2019-07-28,Canopy O,7
+Picea glauca,CS_58,IR & GR,2019-07-28,Canopy O,1
+Sky ,CS_58,IR & GR,2019-07-28,NA,9
+Plants,CS_58,IR & GR,2019-07-28,Ground,10
+Moss,CS_58,IR & GR,2019-07-28,Ground,3
+Leaf litter,CS_58,IR & GR,2019-07-28,Ground,1
+Decayed wood,CS_58,IR & GR,2019-07-28,Ground,2
+Needle Duff,CS_58,IR & GR,2019-07-28,Ground,4
+Sky ,CS_59,IR & GR,2019-07-15,NA,8
+Alnus incana,CS_59,IR & GR,2019-07-15,Canopy U,6
+Picea glauca,CS_59,IR & GR,2019-07-15,Canopy O,1
+Betula papyrifera,CS_59,IR & GR,2019-07-15,Canopy O,5
+Picea mariana,CS_59,IR & GR,2019-07-15,Canopy O,1
+Abies balsamea,CS_59,IR & GR,2019-07-15,Canopy O,3
+Plants,CS_59,IR & GR,2019-07-15,Ground,15
+Moss,CS_59,IR & GR,2019-07-15,Ground,1
+Decayed wood,CS_59,IR & GR,2019-07-15,Ground,1
+Deciduous duff,CS_59,IR & GR,2019-07-15,Ground,1
+Mushroom,CS_59,IR & GR,2019-07-15,Ground,1
+Water,CS_59,IR & GR,2019-07-15,Ground,1
+Picea mariana,CS_60,YW & AM,2019-07-14,Canopy U,2
+Larix laricina,CS_60,YW & AM,2019-07-14,Canopy O,2
+Picea glauca,CS_60,YW & AM,2019-07-14,Canopy O,2
+Plants,CS_60,YW & AM,2019-07-14,Ground,3
+Moss,CS_60,YW & AM,2019-07-14,Ground,19
+Lichen,CS_60,YW & AM,2019-07-14,Ground,2
+Deciduous duff,CS_60,YW & AM,2019-07-14,Ground,11
+Sky ,CS_61,IR & GR,2019-07-27,NA,13
+Larix laricina,CS_61,IR & GR,2019-07-27,Canopy O,2
+Picea mariana,CS_61,IR & GR,2019-07-27,Canopy O,4
+Picea mariana,CS_61,IR & GR,2019-07-27,Canopy U,1
+Picea glauca,CS_61,IR & GR,2019-07-27,Canopy O,2
+Plants,CS_61,IR & GR,2019-07-27,Ground,12
+Moss,CS_61,IR & GR,2019-07-27,Ground,6
+Leaf litter,CS_61,IR & GR,2019-07-27,Ground,1
+Needle Duff,CS_61,IR & GR,2019-07-27,Ground,1
+Sky ,CS_62,IR & GR,2019-07-21,NA,13
+Picea mariana,CS_62,IR & GR,2019-07-21,Canopy O,4
+Picea mariana,CS_62,IR & GR,2019-07-21,Canopy U,3
+Alnus incana,CS_62,IR & GR,2019-07-21,Canopy U,1
+Plants,CS_62,IR & GR,2019-07-21,Ground,6
+Moss,CS_62,IR & GR,2019-07-21,Ground,5
+Leaf litter,CS_62,IR & GR,2019-07-21,Ground,1
+Mineral soil,CS_62,IR & GR,2019-07-21,Ground,3
+Needle Duff,CS_62,IR & GR,2019-07-21,Ground,2
+Deciduous duff,CS_62,IR & GR,2019-07-21,Ground,1
+Water,CS_62,IR & GR,2019-07-21,Ground,3
+Alnus incana,CS_63,IR & GR,2019-07-29,Canopy U,5
+Sky ,CS_63,IR & GR,2019-07-29,NA,9
+Picea mariana,CS_63,IR & GR,2019-07-29,Canopy O,4
+Picea glauca,CS_63,IR & GR,2019-07-29,Canopy O,3
+Plants,CS_63,IR & GR,2019-07-29,Ground,14
+Moss,CS_63,IR & GR,2019-07-29,Ground,3
+Leaf litter,CS_63,IR & GR,2019-07-29,Ground,1
+Deciduous duff,CS_63,IR & GR,2019-07-29,Ground,2
+Larix laricina,CS_64,YW & AM,2019-07-13,Canopy O,13
+Picea glauca,CS_64,YW & AM,2019-07-13,Canopy U,6
+Betula papyrifera,CS_64,YW & AM,2019-07-13,Canopy O,2
+Plants,CS_64,YW & AM,2019-07-13,Ground,7
+Moss,CS_64,YW & AM,2019-07-13,Ground,2
+Needle Duff,CS_64,YW & AM,2019-07-13,Ground,13
+Deciduous duff,CS_64,YW & AM,2019-07-13,Ground,7
+Picea mariana,CS_65,IR & GR,2019-07-24,Canopy O,8
+Picea glauca,CS_65,IR & GR,2019-07-24,Canopy O,11
+Sky ,CS_65,IR & GR,2019-07-24,NA,1
+Larix laricina,CS_65,IR & GR,2019-07-24,Canopy O,2
+Picea glauca,CS_65,IR & GR,2019-07-24,Canopy U,1
+Plants,CS_65,IR & GR,2019-07-24,Ground,11
+Moss,CS_65,IR & GR,2019-07-24,Ground,4
+Leaf litter,CS_65,IR & GR,2019-07-24,Ground,1
+Needle Duff,CS_65,IR & GR,2019-07-24,Ground,4
+Sky ,CS_66,IR & GR,2019-07-27,NA,8
+Picea glauca,CS_66,IR & GR,2019-07-27,Canopy U,1
+Picea mariana,CS_66,IR & GR,2019-07-27,Canopy O,9
+Picea mariana,CS_66,IR & GR,2019-07-27,Canopy U,2
+Larix laricina,CS_66,IR & GR,2019-07-27,Canopy O,2
+Plants,CS_66,IR & GR,2019-07-27,Ground,11
+Moss,CS_66,IR & GR,2019-07-27,Ground,3
+Lichen,CS_66,IR & GR,2019-07-27,Ground,1
+Leaf litter,CS_66,IR & GR,2019-07-27,Ground,2
+Mineral soil,CS_66,IR & GR,2019-07-27,Ground,1
+Needle Duff,CS_66,IR & GR,2019-07-27,Ground,2
+Deciduous duff,CS_66,IR & GR,2019-07-27,Ground,1
+Sky ,CS_67,IR & GR,2019-07-17,NA,8
+Picea mariana,CS_67,IR & GR,2019-07-17,Canopy O,7
+Picea mariana,CS_67,IR & GR,2019-07-17,Canopy U,2
+Larix laricina,CS_67,IR & GR,2019-07-17,Canopy O,1
+Picea glauca,CS_67,IR & GR,2019-07-17,Canopy U,2
+Alnus incana,CS_67,IR & GR,2019-07-17,Canopy U,1
+Plants,CS_67,IR & GR,2019-07-17,Ground,7
+Moss,CS_67,IR & GR,2019-07-17,Ground,5
+Leaf litter,CS_67,IR & GR,2019-07-17,Ground,1
+Decayed wood,CS_67,IR & GR,2019-07-17,Ground,2
+Needle Duff,CS_67,IR & GR,2019-07-17,Ground,4
+Deciduous duff,CS_67,IR & GR,2019-07-17,Ground,1
+Picea glauca,CS_68,IR & GR,2019-07-25,Canopy O,4
+Picea mariana,CS_68,IR & GR,2019-07-25,Canopy O,8
+Sky ,CS_68,IR & GR,2019-07-25,NA,4
+Betula papyrifera,CS_68,IR & GR,2019-07-25,Canopy O,3
+Larix laricina,CS_68,IR & GR,2019-07-25,Canopy O,6
+Picea mariana,CS_68,IR & GR,2019-07-25,Canopy U,1
+Plants,CS_68,IR & GR,2019-07-25,Ground,12
+Moss,CS_68,IR & GR,2019-07-25,Ground,2
+Decayed wood,CS_68,IR & GR,2019-07-25,Ground,2
+Needle Duff,CS_68,IR & GR,2019-07-25,Ground,2
+Deciduous duff,CS_68,IR & GR,2019-07-25,Ground,2
+Picea mariana,CS_69,IR & GR,2019-07-15,Canopy O,8
+Sky ,CS_69,IR & GR,2019-07-15,NA,4
+Picea glauca,CS_69,IR & GR,2019-07-15,Canopy O,3
+Betula papyrifera,CS_69,IR & GR,2019-07-15,Canopy O,1
+Larix laricina,CS_69,IR & GR,2019-07-15,Canopy O,1
+Picea glauca,CS_69,IR & GR,2019-07-15,Canopy U,2
+Picea mariana,CS_69,IR & GR,2019-07-15,Canopy U,2
+Plants,CS_69,IR & GR,2019-07-15,Ground,6
+Moss,CS_69,IR & GR,2019-07-15,Ground,2
+Leaf litter,CS_69,IR & GR,2019-07-15,Ground,2
+Decayed wood,CS_69,IR & GR,2019-07-15,Ground,3
+Mineral soil,CS_69,IR & GR,2019-07-15,Ground,2
+Needle Duff,CS_69,IR & GR,2019-07-15,Ground,4
+Deciduous duff,CS_69,IR & GR,2019-07-15,Ground,1
+Sky ,CS_70,IR & GR,2019-07-18,NA,11
+Picea mariana,CS_70,IR & GR,2019-07-18,Canopy O,3
+Picea mariana,CS_70,IR & GR,2019-07-18,Canopy U,5
+Alnus incana,CS_70,IR & GR,2019-07-18,Canopy U,1
+Plants,CS_70,IR & GR,2019-07-18,Ground,7
+Moss,CS_70,IR & GR,2019-07-18,Ground,12
+Decayed wood,CS_70,IR & GR,2019-07-18,Ground,1
+Larix laricina,CS_71,IR & GR,2019-07-18,Canopy O,2
+Alnus incana,CS_71,IR & GR,2019-07-18,Canopu U,3
+Sky ,CS_71,IR & GR,2019-07-18,NA,10
+Picea mariana,CS_71,IR & GR,2019-07-18,Canopy U,1
+Picea mariana,CS_71,IR & GR,2019-07-18,Canopy O,4
+Plants,CS_71,IR & GR,2019-07-18,Ground,6
+Moss,CS_71,IR & GR,2019-07-18,Ground,9
+Water,CS_71,IR & GR,2019-07-18,Ground,5
+Picea glauca,CS_72,YW & AM,2019-07-14,Canopy O,5
+Plants,CS_72,YW & AM,2019-07-14,Ground,4
+Moss,CS_72,YW & AM,2019-07-14,Ground,17
+Leaf litter,CS_72,YW & AM,2019-07-14,Ground,3
+Needle Duff,CS_72,YW & AM,2019-07-14,Ground,3
+,,,,,
+,,,,,

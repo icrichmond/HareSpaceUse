@@ -2,7 +2,7 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: March 6, 2020
+# Last Edited: April 22, 2020
 
 # load required packages 
 easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
@@ -515,10 +515,8 @@ hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to =
 hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 
-plot(hares.kUDhr.90, col=1:35)
+plot(hares.kUDhr.90, col=1:35, add = TRUE)
 plot(hares.kUDhr.50, col=1:35)
 
 # NOTE for future: stoich resolution and predation risk resolution (30mx30m) is used 
 # for kUD calculations so that all layers are the same resolution
-
-
