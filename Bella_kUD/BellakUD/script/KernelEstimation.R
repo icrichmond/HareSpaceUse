@@ -474,11 +474,9 @@ for (i in 1:length(UniqCIDs)) {
 vaancn <- raster("input/VAAN_CN.tif")
 image(vaancn)
 # clip raster to study area 
-e <- extent(860900, 862500, 5383900, 5384900)
+e <- extent(860000, 863000, 5383000, 5386000)
 vaancnclip <- crop(vaancn, e)
 image(vaancnclip)
-
-
 # convert clipped raster to SpatialPixelsDataFrame so it can be used in kUD analysis 
 vaancnASC <- asc.from.raster(vaancnclip)
 vaanCN <- asc2spixdf(vaancnASC)
@@ -492,7 +490,7 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.555"
 # Let's estimate the kernel Utilization Distribution using the ad hoc method and 
 # a grid that is set to the same size as the stoich grid, that can adapt to the general 
 # geographic area used by each animal
-hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, extent = 1000,same4all = FALSE)
+hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, extent = 1 ,same4all = FALSE)
 
 # If reverting back to using LSCV to estimate h, double-check that minimization
 # of the cross-validation criteria is successful using:
@@ -520,5 +518,7 @@ hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 plot(hares.kUDhr.90, col=1:35)
 plot(hares.kUDhr.50, col=1:35)
 
-# NOTE for future: need to match kUD grid to raster but still figure out how to get a large
-# enough extent parameter to calculate home ranges 
+# NOTE for future: stoich resolution and predation risk resolution (30mx30m) is used 
+# for kUD calculations so that all layers are the same resolution
+
+
