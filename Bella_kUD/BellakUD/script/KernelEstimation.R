@@ -82,29 +82,30 @@ Data18 <- subset(VHF2018, VHF2018$Frequency == "149.003" |
 # drop data from 18-06-2018 for collar 149.653 
 Data18 <- Data18[!(Data18$Frequency == "149.653" & Data18$Date == "2018-06-18"),]
 
+VHF2019$ï..Frequency
 
-Data19 <- subset(VHF2019, VHF2019$Ã¯..Frequency == "149.124" |
-                   VHF2019$Ã¯..Frequency == "149.233" | 
-                   VHF2019$Ã¯..Frequency == "149.294" | 
-                   VHF2019$Ã¯..Frequency == "149.423" |
-                   VHF2019$Ã¯..Frequency == "149.513" |
-                   VHF2019$Ã¯..Frequency == "149.555" |
-                   VHF2019$Ã¯..Frequency == "149.594" |
-                   VHF2019$Ã¯..Frequency == "150.032" |
-                   VHF2019$Ã¯..Frequency == "150.052" |
-                   VHF2019$Ã¯..Frequency == "150.072" |
-                   VHF2019$Ã¯..Frequency == "150.091" |
-                   VHF2019$Ã¯..Frequency == "150.111" |
-                   VHF2019$Ã¯..Frequency == "150.132" |
-                   VHF2019$Ã¯..Frequency == "150.154" | 
-                   VHF2019$Ã¯..Frequency == "150.173" | 
-                   VHF2019$Ã¯..Frequency == "150.191" | 
-                   VHF2019$Ã¯..Frequency == "150.232" | 
-                   VHF2019$Ã¯..Frequency == "150.273" |
-                   VHF2019$Ã¯..Frequency == "150.314" |
-                   VHF2019$Ã¯..Frequency == "150.332" |
-                   VHF2019$Ã¯..Frequency == "150.373" |
-                   VHF2019$Ã¯..Frequency == "150.392")
+Data19 <- subset(VHF2019, VHF2019$ï..Frequency == "149.124" |
+                   VHF2019$ï..Frequency == "149.233" | 
+                   VHF2019$ï..Frequency == "149.294" | 
+                   VHF2019$ï..Frequency == "149.423" |
+                   VHF2019$ï..Frequency == "149.513" |
+                   VHF2019$ï..Frequency == "149.555" |
+                   VHF2019$ï..Frequency == "149.594" |
+                   VHF2019$ï..Frequency == "150.032" |
+                   VHF2019$ï..Frequency == "150.052" |
+                   VHF2019$ï..Frequency == "150.072" |
+                   VHF2019$ï..Frequency == "150.091" |
+                   VHF2019$ï..Frequency == "150.111" |
+                   VHF2019$ï..Frequency == "150.132" |
+                   VHF2019$ï..Frequency == "150.154" | 
+                   VHF2019$ï..Frequency == "150.173" | 
+                   VHF2019$ï..Frequency == "150.191" | 
+                   VHF2019$ï..Frequency == "150.232" | 
+                   VHF2019$ï..Frequency == "150.273" |
+                   VHF2019$ï..Frequency == "150.314" |
+                   VHF2019$ï..Frequency == "150.332" |
+                   VHF2019$ï..Frequency == "150.373" |
+                   VHF2019$ï..Frequency == "150.392")
 
 # remove NAs
 Data17 <- drop_na(Data17, Azimuth)
@@ -123,7 +124,7 @@ for (i in 1:(nrow(Data19) - 1)) {
 }
 
 # rename collar heading in Data19 to match Data18 and Data17
-Data19 <- dplyr::rename(Data19, Frequency = Ã¯..Frequency)
+Data19 <- dplyr::rename(Data19, Frequency = ï..Frequency)
 
 # remove unused columns from the dataframes
 Data17 <- dplyr::select(Data17, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive, Time_O))
