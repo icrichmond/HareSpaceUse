@@ -4,10 +4,10 @@
 # This script is for estimating the predation risk of snowshoe hare habitat using structural
 # complexity of the environment
 
-
+# source code for the kUD file in this code is KernelEstimation.R 
 
 # load required packages 
-easypackages::packages("tidyr", "lubridate")
+easypackages::packages("tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster")
 
 
 # --------------------------------------- #
@@ -19,6 +19,16 @@ canopyclosure <- read.csv("input/CSRawData_CanopyClosure.csv")
 head(canopyclosure)
 horizcomplex <- read.csv("input/CSRawData_HorizontalComplexity.csv")
 head(horizcomplex)
+# load lowland blueberry C:N stoich raster (as per Juliana's results)
+vaancn <- raster("input/VAAN_CN.tif")
+# clip raster to study area 
+e <- extent(860000, 863000, 5383000, 5386000)
+vaancnclip <- crop(vaancn, e)
+image(vaancnclip)
+# load complexity sampling locations shapefile
+bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
+bl_cs_pts <- st_transform(bl_cs_pts, crs = st_crs(vaancn))
+
 # convert datasets into tibbles, rename plots, code dates to make manipulation easier 
 cc <- as_tibble(canopyclosure, .name_repair = "universal")
 cc <- cc %>% rename(Plot = ï..Plot) %>%
@@ -40,7 +50,8 @@ hcsum <- hc %>%
 
 ggplot(hcsum, aes(x=Distance,y=n, fill=Score))+
   geom_col()+
-  scale_fill_brewer(palette = 2)+
+  scale_fill_brewer(palette = 1)+
+  theme(panel.background = element_rect(fill = "darkgrey"))+
   labs(fill="Score")
 # inspection of the graph shows that a distance of 10 metres experiences the most
 # variation in horizontal complexity scores
@@ -60,8 +71,9 @@ hcmean <- hc %>%
 cchc <- inner_join(cc, hcmean, by = "Plot")
 
 # test for correlation between these two variables 
-canopyhorizcorr <- tibble(cc$Average, hc$Score)
-abbacorr <- (cor(abbacorrdata))
-ggcorrplot(abbacorr, hc.order = TRUE, lab = TRUE)
-ggsave("graphics/StoichModels_2Step/Correlations/ABBAcorr.jpg")
+canopyhorizcorr <- tibble(cchc$CoverValue, cchc$meanhc)
+cchccorr <- (cor(canopyhorizcorr))
+ggcorrplot(cchccorr, hc.order = TRUE, lab = TRUE)
+# correlation is not highly significant (-0.32)
+
 
