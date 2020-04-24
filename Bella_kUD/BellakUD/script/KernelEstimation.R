@@ -82,30 +82,28 @@ Data18 <- subset(VHF2018, VHF2018$Frequency == "149.003" |
 # drop data from 18-06-2018 for collar 149.653 
 Data18 <- Data18[!(Data18$Frequency == "149.653" & Data18$Date == "2018-06-18"),]
 
-VHF2019$ï..Frequency
-
-Data19 <- subset(VHF2019, VHF2019$ï..Frequency == "149.124" |
-                   VHF2019$ï..Frequency == "149.233" | 
-                   VHF2019$ï..Frequency == "149.294" | 
-                   VHF2019$ï..Frequency == "149.423" |
-                   VHF2019$ï..Frequency == "149.513" |
-                   VHF2019$ï..Frequency == "149.555" |
-                   VHF2019$ï..Frequency == "149.594" |
-                   VHF2019$ï..Frequency == "150.032" |
-                   VHF2019$ï..Frequency == "150.052" |
-                   VHF2019$ï..Frequency == "150.072" |
-                   VHF2019$ï..Frequency == "150.091" |
-                   VHF2019$ï..Frequency == "150.111" |
-                   VHF2019$ï..Frequency == "150.132" |
-                   VHF2019$ï..Frequency == "150.154" | 
-                   VHF2019$ï..Frequency == "150.173" | 
-                   VHF2019$ï..Frequency == "150.191" | 
-                   VHF2019$ï..Frequency == "150.232" | 
-                   VHF2019$ï..Frequency == "150.273" |
-                   VHF2019$ï..Frequency == "150.314" |
-                   VHF2019$ï..Frequency == "150.332" |
-                   VHF2019$ï..Frequency == "150.373" |
-                   VHF2019$ï..Frequency == "150.392")
+Data19 <- subset(VHF2019, VHF2019$Ã¯..Frequency == "149.124" |
+                   VHF2019$Ã¯..Frequency == "149.233" | 
+                   VHF2019$Ã¯..Frequency == "149.294" | 
+                   VHF2019$Ã¯..Frequency == "149.423" |
+                   VHF2019$Ã¯..Frequency == "149.513" |
+                   VHF2019$Ã¯..Frequency == "149.555" |
+                   VHF2019$Ã¯..Frequency == "149.594" |
+                   VHF2019$Ã¯..Frequency == "150.032" |
+                   VHF2019$Ã¯..Frequency == "150.052" |
+                   VHF2019$Ã¯..Frequency == "150.072" |
+                   VHF2019$Ã¯..Frequency == "150.091" |
+                   VHF2019$Ã¯..Frequency == "150.111" |
+                   VHF2019$Ã¯..Frequency == "150.132" |
+                   VHF2019$Ã¯..Frequency == "150.154" | 
+                   VHF2019$Ã¯..Frequency == "150.173" | 
+                   VHF2019$Ã¯..Frequency == "150.191" | 
+                   VHF2019$Ã¯..Frequency == "150.232" | 
+                   VHF2019$Ã¯..Frequency == "150.273" |
+                   VHF2019$Ã¯..Frequency == "150.314" |
+                   VHF2019$Ã¯..Frequency == "150.332" |
+                   VHF2019$Ã¯..Frequency == "150.373" |
+                   VHF2019$Ã¯..Frequency == "150.392")
 
 # remove NAs
 Data17 <- drop_na(Data17, Azimuth)
@@ -124,7 +122,7 @@ for (i in 1:(nrow(Data19) - 1)) {
 }
 
 # rename collar heading in Data19 to match Data18 and Data17
-Data19 <- dplyr::rename(Data19, Frequency = ï..Frequency)
+Data19 <- dplyr::rename(Data19, Frequency = Ã¯..Frequency)
 
 # remove unused columns from the dataframes
 Data17 <- dplyr::select(Data17, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive, Time_O))
@@ -541,17 +539,27 @@ hares.triangd.df <- as_tibble(hares.triangd)
 hares.triangd.df <- hares.triangd.df %>% mutate(Frequency = as.factor(Frequency))
 
 # plot contours
-png("graphics/heatmap.png", width = 3000, height = 3000, units = "px", res = 600)
-ggplot(data = dftest, aes(x = X, y = Y)) +
-  stat_density_2d(aes(color = Frequency, fill = stat(nlevel)), geom = "polygon") + 
+png("graphics/heatmapindividuals.png", width = 3000, height = 3000, units = "px", res = 600)
+ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
+  stat_density_2d(aes(group = Frequency, fill = stat(nlevel)), geom = "polygon", alpha = 0.15) + 
   scale_fill_viridis_c() +
   geom_point(aes(x = POINT_X, y = POINT_Y), bl_cs_pts)+
-  #ylim(5384100, 5384700)+
-  #xlim(861300, 861999)+
   theme(legend.position =  'none',
         panel.border = element_rect(size = 3, fill = NA),
         panel.background = element_rect(fill = "white"),
-        #panel.grid = element_line(color = "black", size = 0.2))
+        axis.text = element_blank(),
+        axis.ticks = element_blank(), 
+        axis.title = element_blank())
+dev.off()
+
+png("graphics/heatmapalldata.png", width = 3000, height = 3000, units = "px", res = 600)
+ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
+  stat_density_2d(aes(fill = stat(nlevel)), geom = "polygon", alpha = 0.25) + 
+  scale_fill_viridis_c() +
+  geom_point(aes(x = POINT_X, y = POINT_Y), bl_cs_pts)+
+  theme(legend.position =  'none',
+        panel.border = element_rect(size = 3, fill = NA),
+        panel.background = element_rect(fill = "white"),
         axis.text = element_blank(),
         axis.ticks = element_blank(), 
         axis.title = element_blank())

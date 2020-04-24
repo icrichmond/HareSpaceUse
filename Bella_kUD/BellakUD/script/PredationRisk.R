@@ -28,6 +28,8 @@ image(vaancnclip)
 # load complexity sampling locations shapefile
 bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
 bl_cs_pts <- st_transform(bl_cs_pts, crs = st_crs(vaancn))
+# load vUD raster layer 
+vUDBrick <- raster("output/vUDRaster.tif")
 
 # convert datasets into tibbles, rename plots, code dates to make manipulation easier 
 cc <- as_tibble(canopyclosure, .name_repair = "universal")
