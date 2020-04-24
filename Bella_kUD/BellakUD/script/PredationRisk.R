@@ -78,4 +78,18 @@ cchccorr <- (cor(canopyhorizcorr))
 ggcorrplot(cchccorr, hc.order = TRUE, lab = TRUE)
 # correlation is not highly significant (-0.32)
 
+# make canopy cover and horizontal complexity data spatially explicit by combining
+# coordinate data and cchc data
+cchc.spatial <- inner_join(cchc, bl_cs_pts, by = "Plot")
 
+# convert VAAN C:N raster to dataframe to plot in ggplot
+vaancnclip.df <- as.data.frame(vaancnclip, xy=TRUE)
+# plot the stoich layer with the 
+ggplot(cchc.spatial, aes(x = POINT_X, y = POINT_Y))+
+  geom_raster(aes(x=x, y=y, fill = VAAN_CN), data = vaancnclip.df)+
+  geom_point()
+
+# extract the stoich and kUD values at each sampling point
+# create raster brick of kUD values and stoich values for easier extraction 
+stoichkUD <- brick(list(vaancnclip, vUDBrick))
+csValues <- extract(stoichkUD, cchc.spatial)
