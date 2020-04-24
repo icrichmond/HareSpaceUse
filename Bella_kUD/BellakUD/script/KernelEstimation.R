@@ -492,6 +492,8 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.555"
 # a grid that is set to the same size as the stoich grid, that can adapt to the general 
 # geographic area used by each animal
 hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, extent = 1 ,same4all = FALSE)
+# NOTE for future: stoich resolution and predation risk resolution (30mx30m) is used 
+# for kUD calculations so that all layers are the same resolution
 
 # If reverting back to using LSCV to estimate h, double-check that minimization
 # of the cross-validation criteria is successful using:
@@ -502,11 +504,16 @@ hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, extent = 1 ,
 hares.vUD <- getvolumeUD(hares.kUD)
 image(hares.vUD)
 
+image(hares.vUD[[1]])
+xyzv <- as.image.SpatialGridDataFrame(hares.vUD[[1]])
+contour(xyzv, add=TRUE)
+
 # Estimate kUD area using a range of percent levels
 kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(50, 95, 5), 
                                 unout = "ha")
 kUD.hr.estimates
 plot(kUD.hr.estimates)
+
 
 # and extract values only for the core area to be used in later modelling
 hrArea.50 <- kUD.hr.estimates[1, ]
@@ -516,8 +523,36 @@ hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to =
 hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 
-plot(hares.kUDhr.90, col=1:35, add = TRUE)
+plot(hares.kUDhr.90, col=1:35)
 plot(hares.kUDhr.50, col=1:35)
 
-# NOTE for future: stoich resolution and predation risk resolution (30mx30m) is used 
-# for kUD calculations so that all layers are the same resolution
+# loop through estUDm data and make each collar a raster layer 
+vud <- lapply(hares.vUD, function(x) try(raster(x)))
+# combine each collar's raster layer into a raster brick 
+vUDBrick <- brick(vud)
+writeRaster(vUDBrick, "output/vUDRaster.tiff")
+# loop through estUDm and make each collar a data frame to plot in ggplot
+v_df <- lapply(hares.vUD, function(x) try(as.data.frame.estUD(x)))
+# bind list of data frame 
+v_df <- bind_rows(v_df, .id = "column_label")
+
+# convert triangulated data to data frame to plot 
+hares.triangd.df <- as_tibble(hares.triangd)
+hares.triangd.df <- hares.triangd.df %>% mutate(Frequency = as.factor(Frequency))
+
+# plot contours
+png("graphics/heatmap.png", width = 3000, height = 3000, units = "px", res = 600)
+ggplot(data = dftest, aes(x = X, y = Y)) +
+  stat_density_2d(aes(color = Frequency, fill = stat(nlevel)), geom = "polygon") + 
+  scale_fill_viridis_c() +
+  geom_point(aes(x = POINT_X, y = POINT_Y), bl_cs_pts)+
+  #ylim(5384100, 5384700)+
+  #xlim(861300, 861999)+
+  theme(legend.position =  'none',
+        panel.border = element_rect(size = 3, fill = NA),
+        panel.background = element_rect(fill = "white"),
+        #panel.grid = element_line(color = "black", size = 0.2))
+        axis.text = element_blank(),
+        axis.ticks = element_blank(), 
+        axis.title = element_blank())
+dev.off()
