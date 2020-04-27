@@ -91,5 +91,16 @@ ggplot(cchc.spatial, aes(x = POINT_X, y = POINT_Y))+
 
 # extract the stoich and kUD values at each sampling point
 # create raster brick of kUD values and stoich values for easier extraction 
+# turn off dplyr to use extract
 stoichkUD <- brick(list(vaancnclip, vUDBrick))
-csValues <- extract(stoichkUD, cchc.spatial)
+csValues <- extract(stoichkUD, cchc.spatial, df = TRUE)
+# want to combine cchc and csValues dataframes so that there are all values for 
+# each sampling plot 
+cchc <- as_tibble(cchc) %>%
+  mutate(Plot = as.character(Plot))
+csValues <- as_tibble(csValues) %>%
+  mutate(ID = as.character(ID))
+# use bind and not join because the plots are in the same order 
+cscchc <- bind_cols(csValues, cchc)
+# stack the data so that it is ready for analysis 
+cscchc <- pivot_longer(cscchc, cols = starts_with("X"), names_to = "CollarID", names_prefix = "X", values_to = "kUD")
