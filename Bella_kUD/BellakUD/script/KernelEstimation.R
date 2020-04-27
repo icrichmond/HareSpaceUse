@@ -524,11 +524,9 @@ hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 plot(hares.kUDhr.90, col=1:35)
 plot(hares.kUDhr.50, col=1:35)
 
-# loop through estUDm data and make each collar a raster layer 
-vud <- lapply(hares.vUD, function(x) try(raster(x)))
-# combine each collar's raster layer into a raster brick 
-vUDBrick <- brick(vud)
-writeRaster(vUDBrick, "output/vUDRaster.tiff")
+# loop through estUDm data and make each collar a raster layer and combine into a raster brick
+vUDBrick <- brick(lapply(hares.vUD, function(x) try(raster(x))))
+writeRaster(vUDBrick, "output/vUDRaster.tiff", overwrite = TRUE)
 # loop through estUDm and make each collar a data frame to plot in ggplot
 v_df <- lapply(hares.vUD, function(x) try(as.data.frame.estUD(x)))
 # bind list of data frame 
