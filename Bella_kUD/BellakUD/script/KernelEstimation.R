@@ -542,12 +542,14 @@ ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
   stat_density_2d(aes(group = Frequency, fill = stat(nlevel)), geom = "polygon", alpha = 0.15) + 
   scale_fill_viridis_c() +
   geom_point(aes(x = POINT_X, y = POINT_Y), bl_cs_pts)+
-  theme(legend.position =  'none',
-        panel.border = element_rect(size = 3, fill = NA),
+  theme(#legend.position =  'none',
+    legend.title = element_text(size = 8),
+        panel.border = element_rect(size = 1, fill = NA),
         panel.background = element_rect(fill = "white"),
         axis.text = element_blank(),
         axis.ticks = element_blank(), 
-        axis.title = element_blank())
+        axis.title = element_blank()) +
+  labs(fill = "Probability")
 dev.off()
 
 png("graphics/heatmapalldata.png", width = 3000, height = 3000, units = "px", res = 600)
@@ -556,7 +558,7 @@ ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
   scale_fill_viridis_c() +
   geom_point(aes(x = POINT_X, y = POINT_Y), bl_cs_pts)+
   theme(legend.position =  'none',
-        panel.border = element_rect(size = 3, fill = NA),
+        panel.border = element_rect(size = 1, fill = NA),
         panel.background = element_rect(fill = "white"),
         axis.text = element_blank(),
         axis.ticks = element_blank(), 
