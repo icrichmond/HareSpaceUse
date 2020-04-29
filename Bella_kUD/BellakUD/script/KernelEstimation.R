@@ -526,7 +526,9 @@ plot(hares.kUDhr.50, col=1:35)
 
 # loop through estUDm data and make each collar a raster layer and combine into a raster brick
 vUDBrick <- brick(lapply(hares.vUD, function(x) try(raster(x))))
-writeRaster(vUDBrick, "output/vUDRaster.tiff", overwrite = TRUE)
+writeRaster(vUDBrick,"output/vUDRaster.grd", format="raster", overwrite = TRUE)
+
+
 # loop through estUDm and make each collar a data frame to plot in ggplot
 v_df <- lapply(hares.vUD, function(x) try(as.data.frame.estUD(x)))
 # bind list of data frame 
