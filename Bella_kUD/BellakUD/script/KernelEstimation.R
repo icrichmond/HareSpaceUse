@@ -520,6 +520,8 @@ hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to =
 # now, let's extract the home range
 hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
+writeOGR(hares.kUDhr.90, "output", "hares.kudhr.90", driver = "ESRI Shapefile")
+writeOGR(hares.kUDhr.50, "output", "hares.kudhr.50", driver = "ESRI Shapefile")
 
 plot(hares.kUDhr.90, col=1:35)
 plot(hares.kUDhr.50, col=1:35)
