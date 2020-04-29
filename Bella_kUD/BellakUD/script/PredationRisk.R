@@ -7,7 +7,7 @@
 # source code for the kUD file in this code is KernelEstimation.R 
 
 # load required packages 
-easypackages::packages("tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster")
+easypackages::packages("matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl")
 
 
 # --------------------------------------- #
@@ -102,5 +102,60 @@ csValues <- as_tibble(csValues) %>%
   mutate(ID = as.character(ID))
 # use bind and not join because the plots are in the same order 
 cscchc <- bind_cols(csValues, cchc)
-# stack the data so that it is ready for analysis 
+# get median value of all collars for each sampling plot 
+cscchc <- as_tibble(cscchc) %>%
+  rowwise() %>% 
+  mutate(kUDmedian =  median(c(!!! rlang::syms(grep('X', names(.), value=TRUE)))))
+
+# if analyzing with individual as a random variable, stack the data so that it is 
+# ready for analysis. If using median kUD value, keep the dataframe as is and
+# skip the next two lines.
 cscchc <- pivot_longer(cscchc, cols = starts_with("X"), names_to = "CollarID", names_prefix = "X", values_to = "kUD")
+# fix dataset so appropriate columns are factors
+cscchc <- cscchc %>% mutate(Plot = as.factor(Plot)) %>%
+  mutate(CollarID = as.factor(CollarID))
+head(cscchc)
+
+# --------------------------------------- #
+#   Generalized Linear Models with kUD    #
+# --------------------------------------- #
+# now we have plots with average horizontal complexity values, 
+# canopy closure values, kernel utilization values for all 33 
+# hares, median kUD values for every plot and stoich values for 
+# lowland blueberry C:N
+
+# first going to test if there is a relationship between median values and 
+# predation risk/food quality
+medianmodel <- glm(kUDmedian ~ CoverValue + meanhc + VAAN_CN, family = Gamma, data = cscchc)
+plot(medianmodel)
+qqnorm(residuals(medianmodel))
+qqline(residuals(medianmodel))
+# residuals are extremely non-normal due to skew in the data
+# try stacking data (line 113) and testing with all individuals
+
+# want to test to see if intensity of use is explained by 
+# predation risk and/or food quality
+# also include individual and plot as random effects 
+# using lme4 as these are mixed effect models
+# start by standardizing the explanatory variables
+cscchc <- cscchc %>%
+  add_column(kUD_s = scale(cscchc$kUD, center = TRUE, scale = TRUE)) %>%
+  add_column(VAAN_CN_s = scale(cscchc$VAAN_CN, center = TRUE, scale = TRUE)) %>%
+  add_column(CoverValue_s = scale(cscchc$CoverValue, center = TRUE, scale = TRUE)) %>%
+  add_column(meanhc_s = scale(cscchc$meanhc, center = TRUE, scale = TRUE))
+# in order to make the model work, nAGQ is set to zero. This 
+# indicates less precision with respect to the effects of the 
+# random variables
+model1 <- glmer(kUD ~ CoverValue_s + meanhc_s + VAAN_CN_s + (1|CollarID) + (1|Plot), nAGQ=0, data=cscchc, family = inverse.gaussian)
+plot(model1)
+qqnorm(residuals(model1))
+qqline(residuals(model1))
+# model is still extremely non-normal due to intensely skewed data. 
+
+# --------------------------------------- #
+#     Generalized Linear Models with      #
+#             binomial kUD                #
+# --------------------------------------- #
+# Going to convert continuous response variable (kUD and median kUD) to a binomial 
+# to address this skew. If kUD > 0.90, considered "high" use (1), and if kUD < 0.90m 
+# considered "low" use (0)
