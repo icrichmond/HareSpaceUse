@@ -107,15 +107,6 @@ cscchc <- as_tibble(cscchc) %>%
   rowwise() %>% 
   mutate(kUDmedian =  median(c(!!! rlang::syms(grep('X', names(.), value=TRUE)))))
 
-# if analyzing with individual as a random variable, stack the data so that it is 
-# ready for analysis. If using median kUD value, keep the dataframe as is and
-# skip the next two lines.
-cscchc <- pivot_longer(cscchc, cols = starts_with("X"), names_to = "CollarID", names_prefix = "X", values_to = "kUD")
-# fix dataset so appropriate columns are factors
-cscchc <- cscchc %>% mutate(Plot = as.factor(Plot)) %>%
-  mutate(CollarID = as.factor(CollarID))
-head(cscchc)
-
 # --------------------------------------- #
 #   Generalized Linear Models with kUD    #
 # --------------------------------------- #
@@ -137,20 +128,26 @@ qqline(residuals(medianmodel))
 # predation risk and/or food quality
 # also include individual and plot as random effects 
 # using lme4 as these are mixed effect models
-# start by standardizing the explanatory variables
-cscchc <- cscchc %>%
-  add_column(kUD_s = scale(cscchc$kUD, center = TRUE, scale = TRUE)) %>%
-  add_column(VAAN_CN_s = scale(cscchc$VAAN_CN, center = TRUE, scale = TRUE)) %>%
-  add_column(CoverValue_s = scale(cscchc$CoverValue, center = TRUE, scale = TRUE)) %>%
-  add_column(meanhc_s = scale(cscchc$meanhc, center = TRUE, scale = TRUE))
+# stack the data so it is ready for analysis
+cscchc_stack <- pivot_longer(cscchc, cols = starts_with("X"), names_to = "CollarID", names_prefix = "X", values_to = "kUD")
+# fix dataset so appropriate columns are factors
+cscchc_stack <- cscchc_stack %>% mutate(Plot = as.factor(Plot)) %>%
+  mutate(CollarID = as.factor(CollarID))
+head(cscchc_stack)
+# standardize the explanatory variables
+cscchc_stack <- cscchc_stack %>%
+  add_column(kUD_s = scale(cscchc_stack$kUD, center = TRUE, scale = TRUE)) %>%
+  add_column(VAAN_CN_s = scale(cscchc_stack$VAAN_CN, center = TRUE, scale = TRUE)) %>%
+  add_column(CoverValue_s = scale(cscchc_stack$CoverValue, center = TRUE, scale = TRUE)) %>%
+  add_column(meanhc_s = scale(cscchc_stack$meanhc, center = TRUE, scale = TRUE))
 # in order to make the model work, nAGQ is set to zero. This 
 # indicates less precision with respect to the effects of the 
 # random variables
-model1 <- glmer(kUD ~ CoverValue_s + meanhc_s + VAAN_CN_s + (1|CollarID) + (1|Plot), nAGQ=0, data=cscchc, family = inverse.gaussian)
-plot(model1)
-qqnorm(residuals(model1))
-qqline(residuals(model1))
-# model is still extremely non-normal due to intensely skewed data. 
+indmod <- glmer(kUD ~ CoverValue_s + meanhc_s + VAAN_CN_s + (1|CollarID) + (1|Plot), nAGQ=0, data=cscchc_stack, family = inverse.gaussian)
+plot(indmod)
+qqnorm(residuals(indmod))
+qqline(residuals(indmod))
+# model is still extremely non-normal due to intensely skewed data 
 
 # --------------------------------------- #
 #     Generalized Linear Models with      #
@@ -159,3 +156,7 @@ qqline(residuals(model1))
 # Going to convert continuous response variable (kUD and median kUD) to a binomial 
 # to address this skew. If kUD > 0.90, considered "high" use (1), and if kUD < 0.90m 
 # considered "low" use (0)
+cscchc <- as_tibble(cscchc) %>% 
+  mutate_each(funs(ifelse(. >= 90,1,0)), contains(c("X", "median")))
+
+
