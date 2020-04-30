@@ -7,7 +7,7 @@
 # source code for the kUD file in this code is KernelEstimation.R 
 
 # load required packages 
-easypackages::packages("sf", "matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl")
+easypackages::packages("maptools", "sf", "matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl", "tibble", "rgdal")
 
 
 # --------------------------------------- #
@@ -89,7 +89,7 @@ ggplot(cchc.spatial, aes(x = POINT_X, y = POINT_Y))+
   geom_point()
 # convert cchc.spatial into a SpatialPointsDataFrame
 pts <- cbind(cchc.spatial$POINT_X, cchc.spatial$POINT_Y)
-cchc.spatial <- SpatialPointsDataFrame(pts, cchc.spatial)
+cchc.spatial <- SpatialPointsDataFrame(pts, cchc.spatial, proj4string = CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m +no_defs"))
 # extract the stoich and kUD values at each sampling point
 # create raster brick of kUD values and stoich values for easier extraction 
 stoichkUD <- brick(list(vaancnclip, vUDBrick))
@@ -154,31 +154,63 @@ qqline(residuals(indmod))
 # Going to convert continuous response variable (kUD and median kUD) to a binomial 
 # to address this skew. If kUD > 0.90, considered "high" use (1), and if kUD < 0.90m 
 # considered "low" use (0)
-cscchc <- as_tibble(cscchc) %>% 
+bicscchc <- as_tibble(cscchc) %>% 
   mutate_each(funs(ifelse(. >= 90,1,0)), contains(c("X", "median")))
 
-bimedianmodel <- glm(kUDmedian ~ CoverValue + meanhc + VAAN_CN, family = binomial, data = cscchc)
-plot(bimedianmodel)
+bimedianmodel <- glm(kUDmedian ~ CoverValue + meanhc + VAAN_CN, family = binomial, data = bicscchc)
+qqnorm(residuals(bimedianmodel))
+qqline(residuals(bimedianmodel))
 # still extremely non-normal
 
-cscchc_stack <- pivot_longer(cscchc, cols = starts_with("X"), names_to = "CollarID", names_prefix = "X", values_to = "kUD")
+bicscchc_stack <- pivot_longer(bicscchc, cols = starts_with("X"), names_to = "CollarID", names_prefix = "X", values_to = "kUD")
+
 # fix dataset so appropriate columns are factors
-cscchc_stack <- cscchc_stack %>% mutate(Plot = as.factor(Plot)) %>%
+bicscchc_stack <- bicscchc_stack %>% mutate(Plot = as.factor(Plot)) %>%
   mutate(CollarID = as.factor(CollarID))
-head(cscchc_stack)
+head(bicscchc_stack)
 # standardize the explanatory variables
-cscchc_stack <- cscchc_stack %>%
-  add_column(VAAN_CN_s = scale(cscchc_stack$VAAN_CN, center = TRUE, scale = TRUE)) %>%
-  add_column(CoverValue_s = scale(cscchc_stack$CoverValue, center = TRUE, scale = TRUE)) %>%
-  add_column(meanhc_s = scale(cscchc_stack$meanhc, center = TRUE, scale = TRUE))
+bicscchc_stack <- bicscchc_stack %>%
+  add_column(VAAN_CN_s = scale(bicscchc_stack$VAAN_CN, center = TRUE, scale = TRUE)) %>%
+  add_column(CoverValue_s = scale(bicscchc_stack$CoverValue, center = TRUE, scale = TRUE)) %>%
+  add_column(meanhc_s = scale(bicscchc_stack$meanhc, center = TRUE, scale = TRUE))
 # in order to make the model work, nAGQ is set to zero. This 
 # indicates less precision with respect to the effects of the 
 # random variables
-biindmod <- glmer(kUD ~ CoverValue_s + meanhc_s + VAAN_CN_s + (1|CollarID) + (1|Plot), nAGQ=0, data=cscchc_stack, family = binomial)
+biindmod <- glmer(kUD ~ CoverValue_s + meanhc_s + VAAN_CN_s + (1|CollarID) + (1|Plot), nAGQ=0, data=bicscchc_stack, family = binomial)
 plot(biindmod)
 qqnorm(residuals(biindmod))
 qqline(residuals(biindmod))
 head(cscchc_stack)
 # still extremely non-normal
+
+# --------------------------------------- #
+#     Generalized Linear Models with      #
+#         kUD home range overlap          #
+# --------------------------------------- #
+# because the kUD data is so skewed - space use is generally high, throughout the grid
+# I am going to use the 50% home ranges or "core usage areas" of the individuals 
+# and do an analysis with degree of overlap as the response variable
+# load the 50% kernel home range
+hares.kUDhr.50 <- readOGR("output", "hares.kudhr.50")
+hares.kUDhr.50 <- spTransform(hares.kUDhr.50, CRSobj = "+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m +no_defs")
+cchc.spatial
+# map the hare home ranges with the complexity sampling points 
+hares.kUDhr.50.df <- as.data.frame(hares.kUDhr.50)
+
+plot(hares.kUDhr.50)
+plot(cchc.spatial, add = TRUE)
+pointLabel(coordinates(cchc.spatial), labels = cchc.spatial$Plot)
+# extract the home ranges that overlap each complexity sampling point
+overlapValues <- raster::extract(hares.kUDhr.50, cchc.spatial,fun=sum,df = TRUE)
+# count the number of overlapping home ranges  
+overlapcount <- overlapValues %>% as_tibble(overlapValues) %>%
+  group_by(point.ID) %>%
+  summarise(n())
+overlapcount <- rename(overlapcount, overlap = "n()")
+overlapValues <- inner_join(overlapValues, overlapcount, by = "point.ID") 
+# make sure that the overlap count did not count NA rows as 1 
+overlapValues$overlap <- ifelse(is.na(overlapValues$poly.ID), 0, overlapValues$overlap)
+# transpose df so that it can be joined with explanatory variables 
+
 
 
