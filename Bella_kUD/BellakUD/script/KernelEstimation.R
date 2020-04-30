@@ -521,7 +521,7 @@ hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to =
 hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 writeOGR(hares.kUDhr.90, "output", "hares.kudhr.90", driver = "ESRI Shapefile")
-writeOGR(hares.kUDhr.50, "output", "hares.kudhr.50", driver = "ESRI Shapefile")
+writeOGR(hares.kUDhr.50, "output", "hares.kudhr.50", overwrite = TRUE, driver = "ESRI Shapefile")
 
 plot(hares.kUDhr.90, col=1:35)
 plot(hares.kUDhr.50, col=1:35)
@@ -540,12 +540,16 @@ v_df <- bind_rows(v_df, .id = "column_label")
 hares.triangd.df <- as_tibble(hares.triangd)
 hares.triangd.df <- hares.triangd.df %>% mutate(Frequency = as.factor(Frequency))
 
+# load complexity sampling points
+bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
+bl_cs_pts <- st_transform(bl_cs_pts, crs = st_crs(vaancn))
+
 # plot contours
 png("graphics/heatmapindividuals.png", width = 3000, height = 3000, units = "px", res = 600)
 ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
   stat_density_2d(aes(group = Frequency, fill = stat(nlevel)), geom = "polygon", alpha = 0.15) + 
   scale_fill_viridis_c() +
-  geom_point(aes(x = POINT_X, y = POINT_Y), bl_cs_pts)+
+  geom_point(aes(x = POINT_X_x, y = POINT_Y_y), bl_cs_pts)+
   theme(#legend.position =  'none',
     legend.title = element_text(size = 8),
         panel.border = element_rect(size = 1, fill = NA),
@@ -560,7 +564,7 @@ png("graphics/heatmapalldata.png", width = 3000, height = 3000, units = "px", re
 ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
   stat_density_2d(aes(fill = stat(nlevel)), geom = "polygon", alpha = 0.25) + 
   scale_fill_viridis_c() +
-  geom_point(aes(x = POINT_X, y = POINT_Y), bl_cs_pts)+
+  geom_point(aes(x = POINT_X_x, y = POINT_Y_y), bl_cs_pts)+
   theme(legend.position =  'none',
         panel.border = element_rect(size = 1, fill = NA),
         panel.background = element_rect(fill = "white"),
