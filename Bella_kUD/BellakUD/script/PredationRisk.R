@@ -9,7 +9,6 @@
 # load required packages 
 easypackages::packages("maptools", "sf", "matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl", "tibble", "rgdal")
 
-
 # --------------------------------------- #
 #             Data Preparation            #
 # --------------------------------------- #
@@ -33,11 +32,11 @@ vUDBrick <- brick("output/vUDRaster.grd")
 
 # convert datasets into tibbles, rename plots, code dates to make manipulation easier 
 cc <- as_tibble(canopyclosure, .name_repair = "universal")
-cc <- cc %>% rename(Plot = ï..Plot) %>%
+cc <- cc %>% dplyr::rename(Plot = ï..Plot) %>%
   mutate(Date = lubridate::ymd(Date))
 
 hc <- as_tibble(horizcomplex, .name_repair = "universal")
-hc <- hc %>% rename(Plot = ï..Plot) %>%
+hc <- hc %>% dplyr::rename(Plot = ï..Plot) %>%
   mutate_all(factor) %>%
   mutate(Date = lubridate::ymd(Date))
 hc <- drop_na(hc)
@@ -68,7 +67,7 @@ hc <- hc %>% mutate(score = as.numeric(Score))
 
 hcmean <- hc %>%
   group_by(Plot) %>%
-  summarise(meanhc = mean(score))
+  dplyr::summarise(meanhc = mean(score))
 
 cchc <- inner_join(cc, hcmean, by = "Plot")
 
@@ -84,11 +83,11 @@ cchc.spatial <- inner_join(cchc, bl_cs_pts, by = "Plot")
 # convert VAAN C:N raster to dataframe to plot in ggplot
 vaancnclip.df <- as.data.frame(vaancnclip, xy=TRUE)
 # plot the stoich layer with the sampling points
-ggplot(cchc.spatial, aes(x = POINT_X, y = POINT_Y))+
+ggplot(cchc.spatial, aes(x = POINT_X_x, y = POINT_Y_y))+
   geom_raster(aes(x=x, y=y, fill = VAAN_CN), data = vaancnclip.df)+
   geom_point()
 # convert cchc.spatial into a SpatialPointsDataFrame
-pts <- cbind(cchc.spatial$POINT_X, cchc.spatial$POINT_Y)
+pts <- cbind(cchc.spatial$POINT_X_x, cchc.spatial$POINT_Y_y)
 cchc.spatial <- SpatialPointsDataFrame(pts, cchc.spatial, proj4string = CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m +no_defs"))
 # extract the stoich and kUD values at each sampling point
 # create raster brick of kUD values and stoich values for easier extraction 
@@ -195,11 +194,15 @@ hares.kUDhr.50 <- readOGR("output", "hares.kudhr.50")
 hares.kUDhr.50 <- spTransform(hares.kUDhr.50, CRSobj = "+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m +no_defs")
 cchc.spatial
 # map the hare home ranges with the complexity sampling points 
-hares.kUDhr.50.df <- as.data.frame(hares.kUDhr.50)
+hares.kUDhr.50@data$id <- rownames(hares.kUDhr.50@data)
+hares.kUDhr.50.points <- fortify(hares.kUDhr.50, region = "id")
+hares.kUDhr.50.df <- plyr::join(hares.kUDhr.50.points, hares.kUDhr.50@data, by = "id")
 
-plot(hares.kUDhr.50)
-plot(cchc.spatial, add = TRUE)
-pointLabel(coordinates(cchc.spatial), labels = cchc.spatial$Plot)
+ggplot(hares.kUDhr.50.df, aes(long, lat))+
+  geom_polygon(aes(group = id, fill = id, alpha = 0.25))+
+  geom_point(aes(x = POINT_X_x, y = POINT_Y_y),bl_cs_pts)+
+  coord_equal()+
+  scale_fill_discrete()
 # extract the home ranges that overlap each complexity sampling point
 overlapValues <- raster::extract(hares.kUDhr.50, cchc.spatial,fun=sum,df = TRUE)
 # count the number of overlapping home ranges  
@@ -209,8 +212,12 @@ overlapcount <- overlapValues %>% as_tibble(overlapValues) %>%
 overlapcount <- rename(overlapcount, overlap = "n()")
 overlapValues <- inner_join(overlapValues, overlapcount, by = "point.ID") 
 # make sure that the overlap count did not count NA rows as 1 
-overlapValues$overlap <- ifelse(is.na(overlapValues$poly.ID), 0, overlapValues$overlap)
-# transpose df so that it can be joined with explanatory variables 
-
-
-
+overlapValues$overlap <- ifelse(is.na(overlapValues$poly.ID), 0.001, overlapValues$overlap)
+# removing many redundant rows and keeping one row per complexity sampling point
+overlapcount <- overlapValues %>% distinct(overlapValues,point.ID,.keep_all = TRUE)
+# join with explanatory variables df so that we can run analysis 
+overlapdata <- bind_cols(overlapcount, cscchc)
+# now run the analysis 
+overlapmodel <- glm(overlap ~ VAAN_CN + CoverValue + meanhc, data = overlapdata)
+summary(overlapmodel)
+plot(overlapmodel)
