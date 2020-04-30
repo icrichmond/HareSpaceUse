@@ -192,9 +192,7 @@ head(cscchc_stack)
 # load the 50% kernel home range
 hares.kUDhr.50 <- readOGR("output", "hares.kudhr.50")
 hares.kUDhr.50 <- spTransform(hares.kUDhr.50, CRSobj = "+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m +no_defs")
-cchc.spatial
 # map the hare home ranges with the complexity sampling points 
-hares.kUDhr.50@data$id <- rownames(hares.kUDhr.50@data)
 hares.kUDhr.50.points <- fortify(hares.kUDhr.50, region = "id")
 hares.kUDhr.50.df <- plyr::join(hares.kUDhr.50.points, hares.kUDhr.50@data, by = "id")
 
