@@ -7,7 +7,7 @@
 # source code for the kUD file in this code is KernelEstimation.R 
 
 # load required packages 
-easypackages::packages("maptools", "sf", "matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl", "tibble", "rgdal")
+easypackages::packages("broom", "maptools", "sf", "matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl", "tibble", "rgdal")
 
 # --------------------------------------- #
 #             Data Preparation            #
@@ -195,14 +195,20 @@ hares.kUDhr.50 <- spTransform(hares.kUDhr.50, CRSobj = "+proj=tmerc +lat_0=0 +lo
 # map the hare home ranges with the complexity sampling points 
 hares.kUDhr.50.points <- fortify(hares.kUDhr.50, region = "id")
 hares.kUDhr.50.df <- plyr::join(hares.kUDhr.50.points, hares.kUDhr.50@data, by = "id")
-
+# plot complexity sampling and home ranges 
+png("graphics/mapoverlap.png", width = 3000, height = 3000, units = "px", res = 600)
 ggplot(hares.kUDhr.50.df, aes(long, lat))+
-  geom_polygon(aes(group = id, fill = id, alpha = 0.25))+
+  geom_polygon(aes(group = id, fill = id), alpha = 0.30)+
   geom_point(aes(x = POINT_X_x, y = POINT_Y_y),bl_cs_pts)+
   coord_equal()+
-  scale_fill_discrete()
+  scale_fill_hue() +
+  labs(y = "Latitude", x = "Longitude")+
+  theme(legend.position = "none")
+  #labs(fill = "Collar ID")
+  #theme(legend.title = element_text(size = 8), legend.text = element_text(size = 6), legend.key.size = unit(0.5,"line"))
+dev.off()
 # extract the home ranges that overlap each complexity sampling point
-overlapValues <- raster::extract(hares.kUDhr.50, cchc.spatial,fun=sum,df = TRUE)
+overlapValues <- raster::extract(hares.kUDhr.50, cchc.spatial,df = TRUE)
 # count the number of overlapping home ranges  
 overlapcount <- overlapValues %>% as_tibble(overlapValues) %>%
   group_by(point.ID) %>%
@@ -216,6 +222,37 @@ overlapcount <- overlapValues %>% distinct(overlapValues,point.ID,.keep_all = TR
 # join with explanatory variables df so that we can run analysis 
 overlapdata <- bind_cols(overlapcount, cscchc)
 # now run the analysis 
-overlapmodel <- glm(overlap ~ VAAN_CN + CoverValue + meanhc, data = overlapdata)
+overlapmodel <- glm(overlap ~ VAAN_CN + CoverValue + meanhc, family = Gamma, data = overlapdata)
 summary(overlapmodel)
-plot(overlapmodel)
+# make the diagnostic plots
+# first plot is a residual vs fitted plot
+p1 <- ggplot(overlapmodel, aes(.fitted, .resid))+geom_point()
+p1 <- p1+stat_smooth(method="loess")+geom_hline(yintercept=0, col="red", linetype="dashed")
+p1 <- p1+xlab("Fitted values")+ylab("Residuals")
+p1 <- p1+ggtitle("Residual vs Fitted Plot")+theme_bw()+theme(plot.title = element_text(size=9),axis.title = element_text(size=8))
+# second plot is a qqplot to test normality
+p2 <- ggplot(overlapmodel, aes(sample=.stdresid))+stat_qq()
+p2 <- p2+geom_qq_line(col='red')+xlab("Theoretical Quantiles")+ylab("Stdized Residuals")
+p2 <- p2+ggtitle("Normal Q-Q")+theme_bw()+theme(plot.title = element_text(size=9),axis.title = element_text(size=8))
+# third plot is a Cook's distance plot to assess outliers 
+p3 <- ggplot(overlapmodel, aes(seq_along(.cooksd), .cooksd))+geom_bar(stat="identity", position="identity")
+p3 <- p3+xlab("Obs. Number")+ylab("Cook's distance")
+p3 <- p3+ggtitle("Cook's distance")+theme_bw()+theme(plot.title = element_text(size=9),axis.title = element_text(size=8))
+# last plot is a check of influential data points, similar to Cook's distance
+p4 <- ggplot(overlapmodel, aes(.hat, .stdresid))+geom_point(aes(size=.cooksd), na.rm=TRUE)
+p4 <- p4+stat_smooth(method="loess", na.rm=TRUE)
+p4 <- p4+xlab("Leverage")+ylab("Stdized Residuals")
+p4 <- p4+ggtitle("Residual vs Leverage Plot")
+p4 <- p4+scale_size_continuous("Cook's Distance", range=c(1,5))
+p4 <- p4+theme_bw()+theme(plot.title = element_text(size=9),axis.title = element_text(size=8), legend.position="bottom")
+# plot with patchwork and save
+png("graphics/overlapdiagnostics.png", width = 3000, height = 3000, units = "px", res = 600)
+(p1 | p2) /
+  (p3 | p4) +
+  patchwork::plot_annotation(title = paste("Diagnostic plots", "Overlap Model"))
+dev.off()
+# remove the four outliers from the dataset and see what happens 
+overlapdata_outliers <- drop_na(overlapdata)
+overlapmodel2 <- glm(overlap ~ VAAN_CN + CoverValue + meanhc, data = overlapdata_outliers)
+summary(overlapmodel)
+# results do not change without outliers. Biologically significant so leaving them in.
