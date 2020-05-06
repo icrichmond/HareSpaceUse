@@ -7,7 +7,7 @@
 # source code for the kUD file in this code is KernelEstimation.R 
 
 # load required packages 
-easypackages::packages("broom", "maptools", "sf", "matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl", "tibble", "rgdal")
+easypackages::packages("ggpubr", "patchwork", "AICcmodavg", "broom", "maptools", "sf", "matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl", "tibble", "rgdal")
 
 # --------------------------------------- #
 #             Data Preparation            #
@@ -256,3 +256,45 @@ overlapdata_outliers <- drop_na(overlapdata)
 overlapmodel2 <- glm(overlap ~ VAAN_CN + CoverValue + meanhc, data = overlapdata_outliers)
 summary(overlapmodel)
 # results do not change without outliers. Biologically significant so leaving them in.
+# do an AIC to compare canopy cover to horizontal complexity
+overlap1 <- glm(overlap ~ CoverValue + meanhc, family = Gamma, data = overlapdata)
+overlap2 <- glm(overlap ~ CoverValue, family= Gamma, data = overlapdata)
+overlap3 <- glm(overlap ~ meanhc, family = Gamma, data = overlapdata)
+overlap4 <- glm(overlap ~ 1, family = Gamma, data = overlapdata)
+overlapmodels <- list(overlap1,overlap2,overlap3,overlap4)
+overlapmodels <- aictab(cand.set = overlapmodels)
+print(overlapmodels)
+# intercept is top model in this AIC analysis 
+
+# plot relationships
+# make formulas of each relationship 
+cover <- 
+
+png("graphics/modelrelationships.png", width = 3000, height = 5000, units = "px", res = 600)
+cover <- ggplot(overlapdata, aes(x = CoverValue, y = overlap))+geom_point(color=rgb(35,77,32, maxColorValue = 255))+
+  geom_smooth(method="lm", color = rgb(201,223,138, maxColorValue=255))+
+  stat_cor(aes(label = paste(..rr.label..)), color = rgb(35,77,32, maxColorValue = 255))+
+  theme(plot.background = element_rect(fill = rgb(119,171,89, maxColorValue = 255)))+
+  theme(panel.background = element_rect(fill = rgb(240,247,218, maxColorValue = 255),colour =  rgb(240,247,218, maxColorValue = 255)))+
+  theme(axis.title = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
+  theme(axis.text = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
+  labs(x = "Canopy Closure", y = "")
+stoich <- ggplot(overlapdata, aes(x = VAAN_CN, y = overlap))+geom_point(color=rgb(35,77,32, maxColorValue = 255))+
+  geom_smooth(method="lm", color = rgb(201,223,138, maxColorValue=255))+
+  stat_cor(aes(label = paste(..rr.label..)), color = rgb(35,77,32, maxColorValue = 255))+
+  theme(plot.background = element_rect(fill = rgb(119,171,89, maxColorValue = 255)))+
+  theme(panel.background = element_rect(fill = rgb(240,247,218, maxColorValue = 255),colour =  rgb(240,247,218, maxColorValue = 255)))+
+  theme(axis.title = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
+  theme(axis.text = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
+  labs(x = "Lowland Blueberry C:N", y = "")
+hc <- ggplot(overlapdata, aes(x = meanhc, y = overlap))+geom_point(color=rgb(35,77,32, maxColorValue = 255))+
+  geom_smooth(method="lm", color = rgb(201,223,138, maxColorValue=255))+
+  stat_cor(aes(label = paste(..rr.label..)), color = rgb(35,77,32, maxColorValue = 255))+
+  theme(plot.background = element_rect(fill = rgb(119,171,89, maxColorValue = 255)))+
+  theme(axis.title = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
+  theme(panel.background = element_rect(fill = rgb(240,247,218, maxColorValue = 255),colour =  rgb(240,247,218, maxColorValue = 255)))+
+  theme(axis.title.y = element_text(size = 13))+
+  theme(axis.text = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
+  labs(x = "Horizontal Complexity", y = "Core Area Overlap")
+(cover/hc/stoich)
+dev.off()
