@@ -1,94 +1,65 @@
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: April 22, 2020
+# Last Edited: June 10, 2020
 
 # This script is for estimating the predation risk of snowshoe hare habitat using structural
 # complexity of the environment
 
-# source code for the kUD file in this code is KernelEstimation.R 
+# KernelEstimation.R shows how the kUD and home range areas were calculated
+# HabitatComplexity.R shows the calculation of range use ratio and ordination 
+# of habitat complexity/predation risk values
 
 # load required packages 
-easypackages::packages("ggpubr", "patchwork", "AICcmodavg", "broom", "maptools", "sf", "matrixStats", "tidyr", "lubridate", "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", "RCurl", "tibble", "rgdal")
+easypackages::packages("ggpubr", "patchwork", "AICcmodavg", "broom", 
+                       "maptools", "sf", "matrixStats", "tidyr", "lubridate", 
+                       "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", 
+                       "RCurl", "tibble", "rgdal")
 
 # --------------------------------------- #
 #             Data Preparation            #
 # --------------------------------------- #
 
-# import structural complexity datasets
-canopyclosure <- read.csv("input/CSRawData_CanopyClosure.csv")
-head(canopyclosure)
-horizcomplex <- read.csv("input/CSRawData_HorizontalComplexity.csv")
-head(horizcomplex)
-# load lowland blueberry C:N stoich raster (as per Juliana's results)
+# import predation risk dataset with PCA axes data
+predrisk <- read_csv("output/predationriskpca.csv")
+# load lowland blueberry C:N and C:P stoich rasters (as per JBF's and MR's results)
 vaancn <- raster("input/VAAN_CN.tif")
+vaancp <- raster("input/VAAN_CP.tif")
 # clip raster to study area 
 e <- extent(860000, 863000, 5383000, 5386000)
 vaancnclip <- crop(vaancn, e)
 image(vaancnclip)
+vaancpclip <- crop(vaancp, e)
 # load complexity sampling locations shapefile
 bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
 bl_cs_pts <- st_transform(bl_cs_pts, crs = st_crs(vaancn))
 # load vUD raster layer 
 vUDBrick <- brick("output/vUDRaster.grd")
+# load home range areas and polygons 
+# ratio in rangeuse refers to 50%:95% home range area (ha)
+rangeuse <- read_csv("output/rangeuseratio.csv")
+kernel95 <- read_sf("output/hares.kudhr.95.shp")
+kernel95 <- st_transform(kernel95, crs = st_crs(vaancn))
+kernel50 <- read_sf("output/hares.kudhr.50.shp")
+kernel50 <- st_transform(kernel50, crs = st_crs(vaancn))
 
-# convert datasets into tibbles, rename plots, code dates to make manipulation easier 
-cc <- as_tibble(canopyclosure, .name_repair = "universal")
-cc <- cc %>% dplyr::rename(Plot = ï..Plot) %>%
+# convert datasets into tibbles and code dates to make manipulation easier 
+predrisk <- as_tibble(predrisk, .name_repair = "universal") %>%
   mutate(Date = lubridate::ymd(Date))
 
-hc <- as_tibble(horizcomplex, .name_repair = "universal")
-hc <- hc %>% dplyr::rename(Plot = ï..Plot) %>%
-  mutate_all(factor) %>%
-  mutate(Date = lubridate::ymd(Date))
-hc <- drop_na(hc)
+rangeuse <- as_tibble(rangeuse)
 
-
-# horizontal complexity data was measured using a Nudds board (Nudds, 1977)
-# to choose what distance we use to measure horizontal complexity, we need to determine
-# which distance has the greatest variation in scores 
-hcsum <- hc %>%
-  group_by(Distance, Score) %>%
-  tally()
-
-ggplot(hcsum, aes(x=Distance,y=n, fill=Score))+
-  geom_col()+
-  scale_fill_brewer(palette = 1)+
-  theme(panel.background = element_rect(fill = "darkgrey"))+
-  labs(fill="Score")
-# inspection of the graph shows that a distance of 10 metres experiences the most
-# variation in horizontal complexity scores
-# therefore, use values from 10 m only going forward 
-hc <- hc %>% filter(Distance == 10)
-# terrestrial predators are all under 1 m tall (coyote & lynx), subset these heights
-# from the dataset and average for each plot 
-hc <- hc %>% filter(Height %in% c(0.5,1))
-# calculate an average horizontal complexity score for each plot
-# to do this we have to change the Score variable to an integer
-hc <- hc %>% mutate(score = as.numeric(Score))
-
-hcmean <- hc %>%
-  group_by(Plot) %>%
-  dplyr::summarise(meanhc = mean(score))
-
-cchc <- inner_join(cc, hcmean, by = "Plot")
-
-# test for correlation between these two variables 
-canopyhorizcorr <- tibble(cchc$CoverValue, cchc$meanhc)
-cchccorr <- (cor(canopyhorizcorr))
-ggcorrplot(cchccorr, hc.order = TRUE, lab = TRUE)
-# correlation is not highly significant (-0.32)
-
-# make canopy cover and horizontal complexity data spatially explicit by combining
-# coordinate data and cchc data
-cchc.spatial <- inner_join(cchc, bl_cs_pts, by = "Plot")
-# convert VAAN C:N raster to dataframe to plot in ggplot
+# make predation risk data spatially explicit by associating coordinate data 
+predriskspatial <- inner_join(predrisk, bl_cs_pts, by = "Plot")
+# convert VAAN rasters to dataframe to plot in ggplot
 vaancnclip.df <- as.data.frame(vaancnclip, xy=TRUE)
+vaancpclip.df <- as.data.frame(vaancpclip, xy=TRUE)
 # plot the stoich layer with the sampling points
-ggplot(cchc.spatial, aes(x = POINT_X_x, y = POINT_Y_y))+
+ggplot(predriskspatial, aes(x = POINT_X_x, y = POINT_Y_y))+
   geom_raster(aes(x=x, y=y, fill = VAAN_CN), data = vaancnclip.df)+
   geom_point()
-# convert cchc.spatial into a SpatialPointsDataFrame
-pts <- cbind(cchc.spatial$POINT_X_x, cchc.spatial$POINT_Y_y)
-cchc.spatial <- SpatialPointsDataFrame(pts, cchc.spatial, proj4string = CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m +no_defs"))
+# convert predriskspatial into a SpatialPointsDataFrame
+pts <- cbind(predriskspatial$POINT_X_x, predriskspatial$POINT_Y_y)
+predriskspatial <- SpatialPointsDataFrame(pts, predriskspatial, proj4string = CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m +no_defs"))
+
 # extract the stoich and kUD values at each sampling point
 # create raster brick of kUD values and stoich values for easier extraction 
 stoichkUD <- brick(list(vaancnclip, vUDBrick))
