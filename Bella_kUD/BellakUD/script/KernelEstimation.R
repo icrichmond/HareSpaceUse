@@ -5,13 +5,13 @@
 # Last Edited: April 22, 2020
 
 # load required packages 
+devtools::install_version("SDMTools", version = "1.1-221.2", repos = "https://cran.r-project.org")
+devtools::install_version("sigloc", version = "0.0.4", repos = "https://cran.r-project.org")
 easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
               "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", "ggplot2",
               "nleqslv", "adehabitatMA", "adehabitatHR","dplyr", "gdtools", "ggmap",  
               "ggrepel", "ggsci", "ggthemes", "maps", "raster", "spatial", "XML", 
-              "tidyr", "readr","rgdal", "rgeos", "reshape2", "dismo", "tibble")
-
-
+              "tidyr", "readr","rgdal", "rgeos", "reshape2", "dismo", "tibble", "sigloc")
 ### NOTE: one package (sigloc) is no longer maintained - need to manaully load package ###
 # Package can still be found on CRAN archive: https://cran.r-project.org/src/contrib/Archive/sigloc/
 
@@ -22,11 +22,11 @@ easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools",
 
 # import telemetry datasetss
 VHF2019 <- read.csv("input/TelemetryPoints_VHF_2019.csv")
-View(VHF2019)
+head(VHF2019)
 VHF2018 <- read.csv("input/VHF_CleanData_2018.csv")
-View(VHF2018)
+head(VHF2018)
 VHF2017 <- read.csv("input/VHF_CleanData_2017.csv")
-View(VHF2017)
+head(VHF2017)
 
 # 2019 uses lat/long and 2017-2018 use UTM
 # convert all of them to meters to match stoich raster CRS
@@ -507,24 +507,27 @@ xyzv <- as.image.SpatialGridDataFrame(hares.vUD[[1]])
 contour(xyzv, add=TRUE)
 
 # Estimate kUD area using a range of percent levels
-kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(50, 95, 5), 
+kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(20, 95, 5), 
                                 unout = "ha")
 kUD.hr.estimates
 plot(kUD.hr.estimates)
 
 
-# and extract values only for the core area to be used in later modelling
-hrArea.50 <- kUD.hr.estimates[1, ]
-hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to = "CollarFrequency", values_to = "HRsize", names_prefix = "X")
+# and extract values to be used in later modelling
+hrArea <- kUD.hr.estimates[1:16, ]
+hrArea <- rownames_to_column(hrArea)
+hrArea <- rename(hrArea, Kernel = rowname)
+write_csv(hrArea, "output/homerangeareas.csv")
+#hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to = c("CollarFrequency"), values_to = "HRsize", names_prefix = "X")
 
 # now, let's extract the home range
-hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
+hares.kUDhr.95 <- getverticeshr(hares.kUD, percent = 95)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
-writeOGR(hares.kUDhr.90, "output", "hares.kudhr.90", driver = "ESRI Shapefile")
+writeOGR(hares.kUDhr.95, "output", "hares.kudhr.95", driver = "ESRI Shapefile")
 writeOGR(hares.kUDhr.50, "output", "hares.kudhr.50", overwrite = TRUE, driver = "ESRI Shapefile")
 
-plot(hares.kUDhr.90, col=1:35)
-plot(hares.kUDhr.50, col=1:35)
+plot(hares.kUDhr.95, col=1:35)
+plot(hares.kUDhr.50, col=1:35, add = TRUE)
 
 # loop through estUDm data and make each collar a raster layer and combine into a raster brick
 vUDBrick <- brick(lapply(hares.vUD, function(x) try(raster(x))))
