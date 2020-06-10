@@ -6,6 +6,43 @@
 # Author: Isabella Richmond
 # Last Edited: June 10, 2020
 
+
+################################
+##     Horizontal Complexity  ##
+################################
+# NOTE: before this analysis, the horizontal complexity data was calculated as per 
+# code below and populated predrisk.csv
+# horizontal complexity data was measured using a Nudds board (Nudds, 1977)
+# to choose what distance we use to measure horizontal complexity, we need to determine
+# which distance has the greatest variation in scores 
+hcsum <- hc %>%
+  group_by(Distance, Score) %>%
+  tally()
+
+ggplot(hcsum, aes(x=Distance,y=n, fill=Score))+
+  geom_col()+
+  scale_fill_brewer(palette = 1)+
+  theme(panel.background = element_rect(fill = "darkgrey"))+
+  labs(fill="Score")
+# inspection of the graph shows that a distance of 10 metres experiences the most
+# variation in horizontal complexity scores
+# therefore, use values from 10 m only going forward 
+hc <- hc %>% filter(Distance == 10)
+# terrestrial predators are all under 1 m tall (coyote & lynx), subset these heights
+# from the dataset and average for each plot 
+hc <- hc %>% filter(Height %in% c(0.5,1))
+# calculate an average horizontal complexity score for each plot
+# to do this we have to change the Score variable to an integer
+hc <- hc %>% mutate(score = as.numeric(Score))
+hcmean <- hc %>%
+  group_by(Plot) %>%
+  dplyr::summarise(meanhc = mean(score))
+cchc <- inner_join(cc, hcmean, by = "Plot")
+
+################################
+##       Data Preparation     ##
+################################
+
 # load required packages 
 library(easypackages)
 devtools::install_github("vqv/ggbiplot")
@@ -30,6 +67,10 @@ rangeuse <- pivot_wider(rangeuse, names_from = "Kernel", values_from = "HomeRang
 # calculating a 50:95 range use ratio (Webber et al., 2020)
 rangeuse <- add_column(rangeuse, ratio = rangeuse$`50`/rangeuse$`95`)
 write_csv(rangeuse, "output/rangeuseratio.csv")
+
+################################
+##         Ordination         ##
+################################
 
 # perform ordination on predation risk data to see which variables are most important
 # subset data to only numeric variables
