@@ -15,6 +15,7 @@
 # horizontal complexity data was measured using a Nudds board (Nudds, 1977)
 # to choose what distance we use to measure horizontal complexity, we need to determine
 # which distance has the greatest variation in scores 
+# hc refers to raw dataset with only horizontal complexity
 hcsum <- hc %>%
   group_by(Distance, Score) %>%
   tally()
