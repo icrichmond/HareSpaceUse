@@ -7,9 +7,9 @@
 # Last Edited: June 10, 2020
 
 
-################################
-##     Horizontal Complexity  ##
-################################
+#------------------------------#
+#      Horizontal Complexity   #
+#------------------------------#
 # NOTE: before this analysis, the horizontal complexity data was calculated as per 
 # code below and populated predrisk.csv
 # horizontal complexity data was measured using a Nudds board (Nudds, 1977)
@@ -39,9 +39,9 @@ hcmean <- hc %>%
   dplyr::summarise(meanhc = mean(score))
 cchc <- inner_join(cc, hcmean, by = "Plot")
 
-################################
-##       Data Preparation     ##
-################################
+#------------------------------#
+#        Data Preparation      #
+#------------------------------#
 
 # load required packages 
 library(easypackages)
@@ -68,9 +68,9 @@ rangeuse <- pivot_wider(rangeuse, names_from = "Kernel", values_from = "HomeRang
 rangeuse <- add_column(rangeuse, ratio = rangeuse$`50`/rangeuse$`95`)
 write_csv(rangeuse, "output/rangeuseratio.csv")
 
-################################
-##         Ordination         ##
-################################
+#------------------------------#
+#          Ordination          #
+#------------------------------#
 
 # perform ordination on predation risk data to see which variables are most important
 # subset data to only numeric variables
