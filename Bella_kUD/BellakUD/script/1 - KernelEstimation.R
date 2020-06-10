@@ -518,7 +518,12 @@ hrArea <- kUD.hr.estimates[1:16, ]
 hrArea <- rownames_to_column(hrArea)
 hrArea <- rename(hrArea, Kernel = rowname)
 write_csv(hrArea, "output/homerangeareas.csv")
-#hrArea.50 <- tidyr::pivot_longer(hrArea.50, cols = 1:ncol(hrArea.50), names_to = c("CollarFrequency"), values_to = "HRsize", names_prefix = "X")
+# calculate range use ratio with 50:95 home range areas 
+rangeuse <- pivot_longer(hrArea, cols = 2:ncol(hrArea), names_to = "CollarFrequency", values_to = "HomeRangeArea")
+rangeuse <- pivot_wider(rangeuse, names_from = "Kernel", values_from = "HomeRangeArea")
+# calculating a 50:95 range use ratio (Webber et al., 2020)
+rangeuse <- add_column(rangeuse, ratio = rangeuse$`50`/rangeuse$`95`)
+write_csv(rangeuse, "output/rangeuseratio.csv")
 
 # now, let's extract the home range
 hares.kUDhr.95 <- getverticeshr(hares.kUD, percent = 95)
