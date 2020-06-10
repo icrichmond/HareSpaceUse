@@ -49,24 +49,9 @@ devtools::install_github("vqv/ggbiplot")
 easypackages::packages("tidyverse", "vegan", "sf", "ggbiplot")
 
 # load required data
-# home range areas 
-homeranges <- read_csv("output/homerangeareas.csv")
-kernel95 <- read_sf("output/hares.kudhr.95.shp")
-kernel50 <- read_sf("output/hares.kudhr.50.shp")
 # habitat complexity/predation risk data
 predrisk <- read_csv("input/HC_CleanData_2019.csv")
-# visualize home ranges 
-ggplot(kernel95) +
-  geom_sf(fill = "dark grey") +
-  geom_sf(data = kernel50, aes(fill = "light grey"))
-  xlab("Longitude") + ylab("Latitude")
 
-# prepare home range data - we are using range ratio with 50:95 home range areas 
-rangeuse <- pivot_longer(homeranges, cols = 2:ncol(homeranges), names_to = "CollarFrequency", values_to = "HomeRangeArea")
-rangeuse <- pivot_wider(rangeuse, names_from = "Kernel", values_from = "HomeRangeArea")
-# calculating a 50:95 range use ratio (Webber et al., 2020)
-rangeuse <- add_column(rangeuse, ratio = rangeuse$`50`/rangeuse$`95`)
-write_csv(rangeuse, "output/rangeuseratio.csv")
 
 #------------------------------#
 #          Ordination          #
