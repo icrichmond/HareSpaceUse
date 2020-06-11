@@ -17,7 +17,6 @@ easypackages::packages("ggpubr", "patchwork", "AICcmodavg", "broom",
 # --------------------------------------- #
 #             Data Preparation            #
 # --------------------------------------- #
-
 # import predation risk dataset with PCA axes data
 predrisk <- read_csv("output/predationriskpca.csv")
 # load lowland blueberry C:N and C:P stoich rasters (as per JBF's and MR's results)
@@ -41,6 +40,9 @@ kernel95 <- st_transform(kernel95, crs = st_crs(vaancn))
 kernel50 <- read_sf("output/hares.kudhr.50.shp")
 kernel50 <- st_transform(kernel50, crs = st_crs(vaancn))
 
+# --------------------------------------- #
+#               Extract Data              #
+# --------------------------------------- #
 # visualize home ranges 
 ggplot(kernel95) +
   geom_sf(fill = "dark grey") +
@@ -74,22 +76,27 @@ tmap_save(cn95cs, "graphics/CN_95_CS.png")
 pts <- cbind(predriskspatial$POINT_X_x, predriskspatial$POINT_Y_y)
 predriskspatial <- SpatialPointsDataFrame(pts, predriskspatial, proj4string = CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m +no_defs"))
 
-
-
-
-# extract the stoich and kUD values at each sampling point
+# extract the stoich values for each home range
 # create raster brick of kUD values and stoich values for easier extraction 
-stoichkUD <- brick(list(vaancnclip, vUDBrick))
-csValues <- raster::extract(stoichkUD, cchc.spatial, df = TRUE)
-# want to combine cchc and csValues dataframes so that there are all values for 
-# each sampling plot 
-cchc <- as_tibble(cchc) %>%
-  mutate(Plot = as.character(Plot))
-csValues <- as_tibble(csValues) %>%
-  mutate(ID = as.character(ID))
-# use bind and not join because the plots are in the same order 
-cscchc <- bind_cols(csValues, cchc)
-# get median value of all collars for each sampling plot 
-cscchc <- as_tibble(cscchc) %>%
-  rowwise() %>% 
-  mutate(kUDmedian =  median(c(!!! rlang::syms(grep('X', names(.), value=TRUE)))))
+stoich <- brick(list(vaancnclip, vaancpclip))
+# extract the mean and the individual measurements for each home range 
+stoichhr <- raster::extract(stoich, kernel95, df = TRUE,na.rm =  TRUE)
+stoichhrmean <- stoichhr %>% drop_na() %>%
+  dplyr::group_by(ID) %>%
+  dplyr::summarise(MeanCN = mean(VAAN_CN), MeanCP = mean(VAAN_CP), NumberCells = n())
+# extract the predation risk values for each home range 
+# need pred risk to be SpatialPoints and kernel95 to be SpatialPolygons
+predrisksf <- st_as_sf(predriskspatial)
+predriskhr <- sf::st_intersection(kernel95, predrisksf)
+# want to calculate mean for each home range and also calculate the number of measurements per home range
+predriskhr <- dplyr::rename(predriskhr, CollarFrequency = id)
+predriskhr <- predriskhr %>% dplyr::group_by(CollarFrequency) %>%
+  dplyr::summarise(MeanPC1 = mean(PC1), MeanPC2 = mean(PC2), NumberPoints = n_distinct(Plot))
+# join predation risk and stoich data together 
+# rasters extract in the same order as the polygon ID - sort predation risk by collar and then join
+predriskhr <- dplyr::arrange(predriskhr, CollarFrequency)
+prstoichhr <- bind_cols(predriskhr, stoichhrmean)
+# join home range area and ratio data 
+rangeuse <- dplyr::arrange(rangeuse, CollarFrequency)
+finaldata <- bind_cols(prstoichhr, rangeuse)
+write_csv(finaldata, "output/RangeStoichRisk.csv")
