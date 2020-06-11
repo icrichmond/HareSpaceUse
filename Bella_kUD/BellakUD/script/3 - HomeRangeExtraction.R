@@ -1,5 +1,5 @@
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 10, 2020
+# Last Edited: June 11, 2020
 
 # This script is for estimating the predation risk of snowshoe hare habitat using structural
 # complexity of the environment
