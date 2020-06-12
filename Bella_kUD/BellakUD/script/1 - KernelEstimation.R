@@ -2,7 +2,7 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: April 22, 2020
+# Last Edited: June 12, 2020
 
 # load required packages 
 devtools::install_version("SDMTools", version = "1.1-221.2", repos = "https://cran.r-project.org")
@@ -523,6 +523,9 @@ rangeuse <- pivot_longer(hrArea, cols = 2:ncol(hrArea), names_to = "CollarFreque
 rangeuse <- pivot_wider(rangeuse, names_from = "Kernel", values_from = "HomeRangeArea")
 # calculating a 50:95 range use ratio (Webber et al., 2020)
 rangeuse <- add_column(rangeuse, ratio = rangeuse$`50`/rangeuse$`95`)
+# test if the 50% and 95% home range areas are correlated 
+ggplot(data = rangeuse, aes(x = rangeuse$`20`, y = rangeuse$`70`))+geom_point()
+# highly correlated, don't use ratio going forward. Use core area as response variable
 write_csv(rangeuse, "output/rangeuseratio.csv")
 
 # now, let's extract the home range
