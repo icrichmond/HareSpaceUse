@@ -6,6 +6,97 @@
 # Author: Isabella Richmond
 # Last Edited: June 10, 2020
 
+#------------------------------#
+#        Data Preparation      #
+#------------------------------#
+
+# load required packages 
+library(easypackages)
+devtools::install_github("vqv/ggbiplot")
+easypackages::packages("tidyverse", "vegan", "sf", "ggbiplot", "data.table")
+
+# load required data
+# habitat complexity/predation risk data
+predrisk <- read_csv("input/HC_CleanData_2019.csv")
+head(predrisk)
+# drop na's from dataset so that subsets are same number of rows and there are no 
+# na's present for PCA
+predrisk <- drop_na(predrisk)
+# separate the data into two datasets - one for understorey variables and one for 
+# overstorey variables 
+under <- subset(predrisk, select = c(Plot, Date, Observers, ShrubCountTotal, FallenLogsTotal,
+                                     HorizComplex, LeafLittDepth, AvgShrubHeight, AvgShrubDiam,
+                                     StumpCount, AvgFallenDist))
+over <- subset(predrisk, select = c(Plot, Date, Observers, CanopyIntOver, CanopyIntUnder,
+                                    CanopyIntTotal, CanClos, DeadCount, AvgOverDist,
+                                    AvgOverDBH,AvgUnderDist,AvgUnderDBH))
+#------------------------------#
+#          Ordination          #
+#------------------------------#
+
+# perform ordination on understorey predation data to see which variables are most 
+# important
+# subset data to only numeric variables
+# drop any NA values
+underord = prcomp(under[,c(4:11)], scale = TRUE, center = TRUE)
+summary(underord)
+# visualize understorey PCA
+ggbiplot(underord, choices=c(1,2))
+ggsave("graphics/understoreypredriskpca.jpg", height = 200, width = 200, units = "mm")
+
+# perform ordination on overstorey predation data to see which variables are most 
+# important 
+# subset data to only numeric variables 
+# drop any NA values 
+overord = prcomp(over[,c(4:12)], scale = TRUE, center = TRUE)
+summary(overord)
+ggbiplot(overord, choices=c(1,2))
+# remove highly correlated variables (same magnitude and direction of vectors)
+# Remove AvgOverDBH, CanopyIntUnder, CanopyIntOVer
+newover <- select(over, c(-AvgOverDBH, -CanopyIntUnder, -CanopyIntOver))
+newoverord = prcomp(newover[,c(4:9)], scale = TRUE, center = TRUE)
+summary(newoverord)
+ggbiplot(newoverord, choices=c(1,2))
+ggsave("graphics/overstoreypredriskpca.jpg", height = 200, width = 200, units = "mm")
+
+
+# extract PC1 from understorey PCA and overstorey PCA for modelling 
+predriskpca <- predriskpca %>% add_column(underPCA = underord$x[,1]) %>%
+  add_column(overPCA = newoverord$x[,1])
+write_csv(predriskpca, "output/predationriskpca.csv")
+
+# regress PCA axes against variables to determine their relationship 
+underpca <- under %>% add_column(underPCA = underord$x[,1])
+undermelt <- melt(underpca,id.vars = c("Plot","Date","Observers", "underPCA") )
+ggplot(data=undermelt, aes(x=underPCA, y = value))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_wrap(~variable, scales="free_y")
+ggsave("graphics/underPCAvariables.png")
+# understorey PCA axis has a positive relationship with ShrubCountTotal, HorizComplex,
+# AvgFallenDist, StumpCount, LeafLittDepth, and ShrubHeight
+# understorey PCA axis has a negative relationship with FallenLogsTotal and AvgShrubDiam
+# therefore, understorey PCA axis overall has a positive relationship with predation risk
+# and/or habitat complexity, which is what we want 
+
+overpca <- newover %>% add_column(overPCA = newoverord$x[,1])
+overmelt <- melt(overpca,id.vars = c("Plot","Date","Observers", "overPCA") )
+ggplot(data=overmelt, aes(x=overPCA, y = value))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_wrap(~variable, scales="free_y")
+ggsave("graphics/overPCAvariables.png")
+# overstorey PCA axis has a negative relationship with CanopyIntTotal, CanClos,
+# AvgUnderDist, and DeadCount
+# overstorey PCA axis has a positive relationship with AvgOverDist and AvgUnderDBH
+# therefore, overstorey PCA axis overall has a negative relationship with predation risk
+# and/or habitat complexity, which means we will multiply it be -1 so that the
+# relationship is inverted and it is easier to interpret
+predriskpca <- predriskpca %>% mutate(overPCA = (overPCA*-1))
+write_csv(predriskpca, "output/predationriskpca.csv")
+
+
+
 
 #------------------------------#
 #      Horizontal Complexity   #
@@ -16,10 +107,12 @@
 # to choose what distance we use to measure horizontal complexity, we need to determine
 # which distance has the greatest variation in scores 
 # hc refers to raw dataset with only horizontal complexity
+hc <- read_csv("input/CSRawData_HorizontalComplexity.csv")
 hcsum <- hc %>%
   group_by(Distance, Score) %>%
   tally()
-
+hcsum <- hcsum %>% 
+  mutate(Score = as.factor(Score))
 ggplot(hcsum, aes(x=Distance,y=n, fill=Score))+
   geom_col()+
   scale_fill_brewer(palette = 1)+
@@ -38,38 +131,3 @@ hc <- hc %>% mutate(score = as.numeric(Score))
 hcmean <- hc %>%
   group_by(Plot) %>%
   dplyr::summarise(meanhc = mean(score))
-cchc <- inner_join(cc, hcmean, by = "Plot")
-
-#------------------------------#
-#        Data Preparation      #
-#------------------------------#
-
-# load required packages 
-library(easypackages)
-devtools::install_github("vqv/ggbiplot")
-easypackages::packages("tidyverse", "vegan", "sf", "ggbiplot")
-
-# load required data
-# habitat complexity/predation risk data
-predrisk <- read_csv("input/HC_CleanData_2019.csv")
-
-
-#------------------------------#
-#          Ordination          #
-#------------------------------#
-
-# perform ordination on predation risk data to see which variables are most important
-# subset data to only numeric variables
-# drop any NA values
-
-ord = prcomp(drop_na(predrisk[,c(4:20)]), scale = TRUE, center = TRUE)
-summary(ord)
-# visualize PCA
-ggbiplot(ord, choices=c(1,2))
-ggsave("graphics/predriskpca.jpg", height = 200, width = 200, units = "mm")
-# add PC1 and PC2 to predrisk dataset
-# drop NA from dataset
-predriskpca <- drop_na(predrisk)
-predriskpca <- predriskpca %>% add_column(PC1 = ord$x[,1]) %>%
-  add_column(PC2 = ord$x[,2])
-write_csv(predriskpca, "output/predationriskpca.csv")
