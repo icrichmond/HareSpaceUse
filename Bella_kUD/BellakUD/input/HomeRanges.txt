@@ -70,7 +70,7 @@ GOOD
 GOOD
 
 150.132 - 18 dates
-NOT ENOUGH - REMOVED FROM ANALYSIS
+GOOD
 
 150.154 - 26 dates
 ** Some didn't calculate correctly but bearings look fine **
