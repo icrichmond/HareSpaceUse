@@ -555,21 +555,23 @@ hares.triangd.df <- hares.triangd.df %>% mutate(Frequency = as.factor(Frequency)
 bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
 bl_cs_pts <- st_transform(bl_cs_pts, crs = st_crs(vaancn))
 
+bl_grid_pts <- read_sf("input/Mapping", layer = "bl_grid_points")
+bl_grid_pts <- st_transform(bl_grid_pts, crs = st_crs(vaancn))
+gridcoords <- as_tibble(st_coordinates(bl_grid_pts))
+bl_grid_pts <- add_column(bl_grid_pts, X = gridcoords$X, Y = gridcoords$Y)
+
 # plot contours
-png("graphics/heatmapindividuals.png", width = 3000, height = 3000, units = "px", res = 600)
 ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
   stat_density_2d(aes(group = Frequency, fill = stat(nlevel)), geom = "polygon", alpha = 0.15) + 
   scale_fill_viridis_c() +
   geom_point(aes(x = POINT_X_x, y = POINT_Y_y), bl_cs_pts)+
-  theme(#legend.position =  'none',
+  geom_point(aes(x = X, y = Y),shape = 2, bl_grid_pts)+
+  theme(
     legend.title = element_text(size = 8),
         panel.border = element_rect(size = 1, fill = NA),
-        panel.background = element_rect(fill = "white"),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(), 
-        axis.title = element_blank()) +
+        panel.background = element_rect(fill = "white"),)+
   labs(fill = "Probability")
-dev.off()
+ggsave("graphics/heatmapindividualsgrid.png")
 
 png("graphics/heatmapalldata.png", width = 3000, height = 3000, units = "px", res = 600)
 ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
