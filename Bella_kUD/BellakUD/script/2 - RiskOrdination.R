@@ -33,6 +33,17 @@ over <- subset(predrisk, select = c(Plot, Date, Observers, CanopyIntOver, Canopy
 #------------------------------#
 #          Ordination          #
 #------------------------------#
+# perform ordination on all variables to see how informative the axes are 
+predord <- prcomp(predrisk[,c(4:20)], scale=TRUE, center=TRUE)
+summary(predord)
+ggbiplot(predord, choices=c(1,2))
+# remove highly correlated variables, CanopyIntOver, AvgOverDBH, AvgUnderDBH, AvgOverDist
+newpredrisk <- select(predrisk, c(-AvgOverDBH, -CanopyIntOver, -AvgUnderDBH, -AvgOverDist,-FallenLogsTotal))
+newpredord <- prcomp(newpredrisk[,c(4:15)],scale=TRUE,center=TRUE)
+summary(newpredord)
+ggbiplot(newpredord)
+# removing the highly correlated variable does not improve performance, split variables
+# into understorey and overstorey
 
 # perform ordination on understorey predation data to see which variables are most 
 # important
