@@ -100,3 +100,5 @@ prstoichhr <- bind_cols(predriskhr, stoichhrmean)
 rangeuse <- dplyr::arrange(rangeuse, CollarFrequency)
 finaldata <- bind_cols(prstoichhr, rangeuse)
 write_csv(finaldata, "output/RangeStoichRisk.csv")
+
+# now extract the stoich and predation risk values for each core area 

@@ -4,7 +4,7 @@
 # that are used in this script
 
 # Author: Isabella Richmond
-# Last Edited: June 10, 2020
+# Last Edited: June 16, 2020
 
 #------------------------------#
 #        Data Preparation      #
