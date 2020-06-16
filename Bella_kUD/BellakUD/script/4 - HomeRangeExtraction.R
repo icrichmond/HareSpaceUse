@@ -1,12 +1,10 @@
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
 # Last Edited: June 11, 2020
 
-# This script is for estimating the predation risk of snowshoe hare habitat using structural
-# complexity of the environment
-
+# This script is for extracting the food quality and predation risk of each individual's
+# core area and home range.
 # KernelEstimation.R shows how the kUD and home range areas were calculated
-# HabitatComplexity.R shows the calculation of range use ratio and ordination 
-# of habitat complexity/predation risk values
+# RiskOrdination.R shows the ordination of habitat complexity/predation risk values
 
 # load required packages 
 easypackages::packages("ggpubr", "patchwork", "AICcmodavg", "broom", 
