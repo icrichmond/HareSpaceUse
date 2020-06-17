@@ -115,5 +115,7 @@ predriskcamean <- dplyr::rename(predriskcamean, CollarFrequency=id)
 predriskca <- dplyr::arrange(predriskcamean, CollarFrequency)
 prstoichca <- bind_cols(predriskcamean, stoichcamean)
 # join core area data to home range and ratio data 
-finaldata <- st_join(homerangedata, prstoichca, join=st_equals)
+prstoichca <- as_tibble(prstoichca)
+homerangedata <- as_tibble(homerangedata)
+finaldata <- inner_join(prstoichca, homerangedata, by="CollarFrequency")
 write_csv(finaldata, "output/RangeStoichRisk.csv")
