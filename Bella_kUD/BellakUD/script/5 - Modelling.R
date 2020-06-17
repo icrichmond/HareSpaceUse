@@ -1,7 +1,7 @@
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 11, 2020
+# Last Edited: June 17, 2020
 
-# This script is for 
+# This script is for the analysis of...
 
 
 # load required packages 
@@ -10,7 +10,34 @@ easypackages::packages("tidyverse", "lme4", "glmmTMB")
 # --------------------------------------- #
 #             Data Preparation            #
 # --------------------------------------- #
-rangeuse <- read_csv("output/RangeStoichRisk.csv")
+ranges <- read_csv("output/RangeStoichRisk.csv")
+head(ranges)
+# melt data so that it can be compared in t-test form 
+rangesCN <- subset(ranges, select = c(CollarFrequency, MeanCN_Core, MeanCN_Home))
+rangesCN <- reshape2::melt(rangesCN, id.vars=c("CollarFrequency"))
+ggplot(rangesCN, aes(variable, value))+
+  geom_boxplot()+
+  stat_compare_means()
+
+rangesCP <- subset(ranges, select = c(CollarFrequency, MeanCP_Core, MeanCP_Home))
+rangesCP <- reshape2::melt(rangesCP, id.vars=c("CollarFrequency"))
+ggplot(rangesCP, aes(variable, value))+
+  geom_boxplot()+
+  stat_compare_means()
+
+rangesover <- subset(ranges, select = c(CollarFrequency, MeanOverPCA_Core, MeanOverPCA_Home))
+rangesover <- reshape2::melt(rangesover, id.vars=c("CollarFrequency"))
+ggplot(rangesover, aes(variable, value))+
+  geom_boxplot()+
+  stat_compare_means()
+
+rangesunder <- subset(ranges, select = c(CollarFrequency, MeanUnderPCA_Core, MeanUnderPCA_Home))
+rangesunder <- reshape2::melt(rangesunder, id.vars=c("CollarFrequency"))
+ggplot(rangesunder, aes(variable, value))+
+  geom_boxplot()+
+  stat_compare_means()
+
+
 
 # standardize the explanatory variables
 cscchc_stack <- cscchc_stack %>%
