@@ -333,6 +333,12 @@ hares.triangd <- do.call("rbind", hares.list)
 # remove the two collars that are not in Bloomfield
 hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
                           hares.triangd$Frequency != "149.474")
+# remove the four individuals that appear in more than one year - keeping the year 
+# with the highest number of relocations
+hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.003" &
+                          hares.triangd$Frequency != "149.053" &
+                          hares.triangd$Frequency != "149.274" &
+                          hares.triangd$Frequency != "149.653")
 
 
 
@@ -341,9 +347,6 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
 # --------------------------------------- #
 # This code taken directly from Matteo Rizzuto's HomeRangeEstimation.R script
 # Find Matteo's repository at github.com/matteorizzuto/Chapter_2
-
-# finally, remove the two collars that are not in Bloomfield
-hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" & hares.triangd$Frequency != "149.474")
 
 # add a grid identifier to the hares.triangd dataframe to calculate an overall
 # home range
@@ -529,7 +532,7 @@ ggplot(data = rangeuse, aes(x = rangeuse$`20`, y = rangeuse$`70`))+geom_point()
 write_csv(rangeuse, "output/rangeuseratio.csv")
 
 # now, let's extract the home range
-hares.kUDhr.95 <- getverticeshr(hares.kUD, percent = 95)
+hares.kUDhr.95 <- getverticeshr(hares.kUD, percent = 90)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 writeOGR(hares.kUDhr.95, "output", "hares.kudhr.95", driver = "ESRI Shapefile")
 writeOGR(hares.kUDhr.50, "output", "hares.kudhr.50", overwrite = TRUE, driver = "ESRI Shapefile")
