@@ -531,12 +531,12 @@ ggplot(data = rangeuse, aes(x = rangeuse$`20`, y = rangeuse$`70`))+geom_point()
 write_csv(rangeuse, "output/rangeuseratio.csv")
 
 # now, let's extract the home range
-hares.kUDhr.95 <- getverticeshr(hares.kUD, percent = 90)
+hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
 hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
-writeOGR(hares.kUDhr.95, "output", "hares.kudhr.95", driver = "ESRI Shapefile")
+writeOGR(hares.kUDhr.90, "output", "hares.kudhr.90", overwrite = TRUE, driver = "ESRI Shapefile")
 writeOGR(hares.kUDhr.50, "output", "hares.kudhr.50", overwrite = TRUE, driver = "ESRI Shapefile")
 
-plot(hares.kUDhr.95, col=1:35)
+plot(hares.kUDhr.90, col=1:35)
 plot(hares.kUDhr.50, col=1:35, add = TRUE)
 
 # loop through estUDm data and make each collar a raster layer and combine into a raster brick
