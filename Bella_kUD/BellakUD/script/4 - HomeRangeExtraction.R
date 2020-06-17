@@ -1,5 +1,5 @@
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 11, 2020
+# Last Edited: June 17, 2020
 
 # This script is for extracting the food quality and predation risk of each individual's
 # core area and home range.
@@ -28,8 +28,6 @@ vaancpclip <- crop(vaancp, e)
 # load complexity sampling locations shapefile
 bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
 bl_cs_pts <- st_transform(bl_cs_pts, crs = st_crs(vaancn))
-# load vUD raster layer 
-vUDBrick <- brick("output/vUDRaster.grd")
 # load home range areas and polygons 
 # ratio in rangeuse refers to 50%:95% home range area (ha)
 rangeuse <- read_csv("output/rangeuseratio.csv")
@@ -82,7 +80,7 @@ stoich <- brick(list(vaancnclip, vaancpclip))
 stoichhr <- raster::extract(stoich, kernel90, df = TRUE,na.rm =  TRUE)
 stoichhrmean <- stoichhr %>% drop_na() %>%
   dplyr::group_by(ID) %>%
-  dplyr::summarise(MeanCN = mean(VAAN_CN), MeanCP = mean(VAAN_CP), NumberCells = n())
+  dplyr::summarise(MeanCN_Home = mean(VAAN_CN), MeanCP_Home = mean(VAAN_CP), NumberCells_Home = n())
 # extract the predation risk values for each home range 
 # need pred risk to be SpatialPoints and kernel95 to be SpatialPolygons
 predrisksf <- st_as_sf(predriskspatial)
@@ -90,14 +88,32 @@ predriskhr <- st_intersection(kernel90, predrisksf)
 # want to calculate mean for each home range and also calculate the number of measurements per home range
 predriskhr <- dplyr::rename(predriskhr, CollarFrequency = id)
 predriskhr <- predriskhr %>% dplyr::group_by(CollarFrequency) %>%
-  dplyr::summarise(MeanOverPCA = mean(overPCA), MeanUnderPCA = mean(underPCA), NumberPoints = n_distinct(Plot))
+  dplyr::summarise(MeanOverPCA_Home = mean(overPCA), MeanUnderPCA_Home = mean(underPCA), NumberPoints_Home = n_distinct(Plot))
 # join predation risk and stoich data together 
 # rasters extract in the same order as the polygon ID - sort predation risk by collar and then join
 predriskhr <- dplyr::arrange(predriskhr, CollarFrequency)
 prstoichhr <- bind_cols(predriskhr, stoichhrmean)
 # join home range area and ratio data 
 rangeuse <- dplyr::arrange(rangeuse, CollarFrequency)
-finaldata <- bind_cols(prstoichhr, rangeuse)
-write_csv(finaldata, "output/RangeStoichRisk.csv")
+homerangedata <- bind_cols(prstoichhr, rangeuse)
 
 # now extract the stoich and predation risk values for each core area 
+# extract the mean and the individual measurements for each core area 
+stoichca <- raster::extract(stoich, kernel50, df = TRUE,na.rm =  TRUE)
+stoichcamean <- stoichca %>% drop_na() %>%
+  dplyr::group_by(ID) %>%
+  dplyr::summarise(MeanCN_Core = mean(VAAN_CN), MeanCP_Core = mean(VAAN_CP), NumberCells_Core = n())
+# extract the predation risk values for each core area 
+# need pred risk to be SpatialPoints and kernel95 to be SpatialPolygons
+predriskca <- st_join(kernel50, predrisksf)
+predriskcamean <- predriskca %>%
+  dplyr::group_by(id) %>%
+  dplyr::summarise(MeanOverPCA_Core = mean(overPCA), MeanUnderPCA_Core = mean(underPCA), NumberPoints_Core = n_distinct(Plot))
+predriskcamean <- dplyr::rename(predriskcamean, CollarFrequency=id)
+# join predation risk and stoich data together 
+# rasters extract in the same order as the polygon ID - sort predation risk by collar and then join
+predriskca <- dplyr::arrange(predriskcamean, CollarFrequency)
+prstoichca <- bind_cols(predriskcamean, stoichcamean)
+# join core area data to home range and ratio data 
+finaldata <- st_join(homerangedata, prstoichca, join=st_equals)
+write_csv(finaldata, "output/RangeStoichRisk.csv")
