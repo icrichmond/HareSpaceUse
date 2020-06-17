@@ -2,16 +2,15 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 12, 2020
+# Last Edited: June 17, 2020
 
 # load required packages 
 devtools::install_version("SDMTools", version = "1.1-221.2", repos = "https://cran.r-project.org")
-devtools::install_version("sigloc", version = "0.0.4", repos = "https://cran.r-project.org")
 easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
               "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", "ggplot2",
               "nleqslv", "adehabitatMA", "adehabitatHR","dplyr", "gdtools", "ggmap",  
               "ggrepel", "ggsci", "ggthemes", "maps", "raster", "spatial", "XML", 
-              "tidyr", "readr","rgdal", "rgeos", "reshape2", "dismo", "tibble", "sigloc")
+              "tidyr", "readr","rgdal", "rgeos", "reshape2", "dismo", "tibble")
 ### NOTE: one package (sigloc) is no longer maintained - need to manaully load package ###
 # Package can still be found on CRAN archive: https://cran.r-project.org/src/contrib/Archive/sigloc/
 
