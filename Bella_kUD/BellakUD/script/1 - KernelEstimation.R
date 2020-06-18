@@ -2,7 +2,7 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 17, 2020
+# Last Edited: June 18, 2020
 
 # load required packages 
 devtools::install_version("SDMTools", version = "1.1-221.2", repos = "https://cran.r-project.org")
@@ -26,6 +26,7 @@ VHF2018 <- read.csv("input/VHF_CleanData_2018.csv")
 head(VHF2018)
 VHF2017 <- read.csv("input/VHF_CleanData_2017.csv")
 head(VHF2017)
+
 
 # 2019 uses lat/long and 2017-2018 use UTM
 # convert all of them to meters to match stoich raster CRS
@@ -325,10 +326,7 @@ for (i in 1:length(UniqIDs)) {
 hares.triangd <- do.call("rbind", hares.list)
 
 # manually went through and removed problematic points from the dataset using Excel 
-# check with Matteo on this 
 # input/HomeRanges.txt file describing which points are removed
-# check with Matteo that datasets are the same and all problem points have been removed
-
 # remove the two collars that are not in Bloomfield
 hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.374" &
                           hares.triangd$Frequency != "149.474")
@@ -507,13 +505,11 @@ image(hares.vUD)
 image(hares.vUD[[1]])
 xyzv <- as.image.SpatialGridDataFrame(hares.vUD[[1]])
 contour(xyzv, add=TRUE)
-
-# Estimate kUD area using a range of percent levels
+# estimate kUD area using a range of percent levels
 kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(20, 95, 5), 
                                 unout = "ha")
 kUD.hr.estimates
 plot(kUD.hr.estimates)
-
 
 # and extract values to be used in later modelling
 hrArea <- kUD.hr.estimates[1:16, ]
@@ -536,13 +532,40 @@ hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
 writeOGR(hares.kUDhr.90, "output", "hares.kudhr.90", overwrite = TRUE, driver = "ESRI Shapefile")
 writeOGR(hares.kUDhr.50, "output", "hares.kudhr.50", overwrite = TRUE, driver = "ESRI Shapefile")
 
-plot(hares.kUDhr.90, col=1:35)
-plot(hares.kUDhr.50, col=1:35, add = TRUE)
-
 # loop through estUDm data and make each collar a raster layer and combine into a raster brick
 vUDBrick <- brick(lapply(hares.vUD, function(x) try(raster(x))))
 writeRaster(vUDBrick,"output/vUDRaster.grd", format="raster", overwrite = TRUE)
 
+# plot the kernel area percent home range area ~ isopleth volume to see the type of curve
+# as per Vander Wal &  Rodgers (2012), should be exponential
+# melt the hrArea dataset 
+hrAreamelt <- melt(hrArea, id.vars = "Kernel", variable.name = "CollarFrequency",value.name = "Area")
+ggplot(hrAreamelt, aes(x=Kernel, y=Area))+
+  geom_point()
+# standardize the home range area proportional to the total area covered by the UD 
+# and display as a percentage
+hrAreastandard <- hrArea %>%
+  mutate_at(vars(starts_with("X")), function(x){x/x[16]})
+hrAreastandardmelt <- melt(hrAreastandard, id.vars = "Kernel", variable.name = "CollarFrequency", value.name = "StandardizedArea")
+ggplot(hrAreastandardmelt, aes(x=Kernel, y=StandardizedArea))+
+  geom_point()
+# average the value area at each volume and see relationship
+hrAreamean <- hrAreastandard %>%
+  mutate(AreaMean = rowMeans(dplyr::select(hrAreastandard,starts_with("X"))))
+ggplot(hrAreamean, aes(x=Kernel, y=AreaMean))+
+  geom_point()
+# relationship follows the exponential curve that you would expect as per Vander Wal & Rodgers (2012)
+# curve is not very distinct 
+
+# going to try a different kernel method that is more adept at small sample sizes
+
+
+
+
+
+# --------------------------------------- #
+#           Visualize Kernels             #
+# --------------------------------------- #
 
 # loop through estUDm and make each collar a data frame to plot in ggplot
 v_df <- lapply(hares.vUD, function(x) try(as.data.frame.estUD(x)))
