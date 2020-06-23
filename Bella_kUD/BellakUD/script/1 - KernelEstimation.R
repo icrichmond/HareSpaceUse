@@ -2,11 +2,11 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 18, 2020
+# Last Edited: June 22, 2020
 
 # load required packages 
 devtools::install_version("SDMTools", version = "1.1-221.2", repos = "https://cran.r-project.org")
-easypackages::packages("sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
+easypackages::packages("chron", "ctmm", "sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
               "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", "ggplot2",
               "nleqslv", "adehabitatMA", "adehabitatHR","dplyr", "gdtools", "ggmap",  
               "ggrepel", "ggsci", "ggthemes", "maps", "raster", "spatial", "XML", 
@@ -26,6 +26,11 @@ VHF2018 <- read.csv("input/VHF_CleanData_2018.csv")
 head(VHF2018)
 VHF2017 <- read.csv("input/VHF_CleanData_2017.csv")
 head(VHF2017)
+
+# remove NAs
+VHF2019 <- drop_na(VHF2019, Azimuth)
+VHF2018 <- drop_na(VHF2018, Azimuth)
+VHF2017 <- drop_na(VHF2017, Azimuth)
 
 
 # 2019 uses lat/long and 2017-2018 use UTM
@@ -105,11 +110,6 @@ Data19 <- subset(VHF2019, VHF2019$ï..Frequency == "149.124" |
                    VHF2019$ï..Frequency == "150.373" |
                    VHF2019$ï..Frequency == "150.392")
 
-# remove NAs
-Data17 <- drop_na(Data17, Azimuth)
-Data18 <- drop_na(Data18, Azimuth)
-Data19 <- drop_na(Data19, Azimuth)
-
 # add a year variable 
 Data17 <- add_column(Data17, Year="2017")
 Data18 <- add_column(Data18, Year="2018")
@@ -125,9 +125,9 @@ for (i in 1:(nrow(Data19) - 1)) {
 Data19 <- dplyr::rename(Data19, Frequency = ï..Frequency)
 
 # remove unused columns from the dataframes
-Data17 <- dplyr::select(Data17, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive, Time_O))
-Data18 <- dplyr::select(Data18, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive, Time_O))
-Data19 <- dplyr::select(Data19, -c(FixLocation, Time_O, TimeCategory, TempC, Wind, Rain))
+Data17 <- dplyr::select(Data17, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive))
+Data18 <- dplyr::select(Data18, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive))
+Data19 <- dplyr::select(Data19, -c(FixLocation,TimeCategory, TempC, Wind, Rain))
 
 # combine all three years into one dataframe 
 liveData <- rbind(Data17, Data18, Data19)
@@ -192,8 +192,8 @@ for (i in 1:length(UniqIDs)){
 }
 
 vhfData$GID <- as.factor(vhfData$GID)
+vhfData$Time_O <- times(vhfData$Time_O)
 vhfData$Time <- as.numeric(vhfData$Time)
-
 
 
 # --------------------------------------- #
@@ -557,11 +557,43 @@ ggplot(hrAreamean, aes(x=Kernel, y=AreaMean))+
 # relationship follows the exponential curve that you would expect as per Vander Wal & Rodgers (2012)
 # curve is not very distinct 
 
-# going to try a different kernel method that is more adept at small sample sizes
+# going to try an AKDE method that is better for small sample sizes
+# output telemetry data so it can be uploaded to MoveBank
+# convert UTM to lat/long for MoveBank
+harestriangulated <- spTransform(hares.triangd, CRS("+proj=longlat +datum=WGS84"))
+harestriangulated.df <- as.data.frame(harestriangulated)
+harestriangulated.df$Time <- times(harestriangulated.df$Time)
+write.csv(harestriangulated.df, "output/harestriangulated.csv", fileEncoding = "UTF-8")
 
+# ---------------------------------------------------- #
+#    Autocorrelated Kernel Utilization Distribution    #
+# ---------------------------------------------------- #
+# using default autocorrelated Gaussian reference bandwidth with debiased area (Fleming & Calabrese, 2017)
+# using an Ornstein-Uhlenbeck model because of the VHF data 
 
+# upload the triangulated data and recode so that it fits MoveBank requirements
+hares <- read_csv("output/harestriangulated.csv")
+head(hares)
+# need to remove the bad points from the dataset
+# set any zero values to NA 
+hares[hares==0] <- NA
+# remove the BadPoint column 
+hares <- dplyr::select(hares, -BadPoint)
+# drop NAs
+hares <- drop_na(hares)
+# rename required columns for MoveBank analysis
+hares <- hares %>%
+  mutate(location.lat = X, location.long = Y, timestamp = Date, individual.local.identifier = Frequency)
+# select the variables that we created 
+haresmb <- dplyr::select(hares, location.lat, location.long, timestamp, individual.local.identifier)
+haresmb <- as.data.frame
+# convert to telemetry data type
+hares.telem <- as.telemetry(haresmb, timeformat = "%Y/%m/%d")
 
+ctmm.guess()
+ctmm.fit(hares.triangd, CTMM=ctmm(tau==1))
 
+crs(hares.triangd)
 
 # --------------------------------------- #
 #           Visualize Kernels             #
