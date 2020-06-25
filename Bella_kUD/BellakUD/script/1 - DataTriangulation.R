@@ -14,7 +14,7 @@ easypackages::packages("chron", "ctmm", "sp", "sf", "maptools", "tmap", "tmaptoo
 
 ### NOTE: one package (sigloc) is no longer maintained - function-sigloc.R should be run before 
 # using this script ####
-
+source("script/function-sigloc.R")
 
 # --------------------------------------- #
 #             Data Preparation            #
