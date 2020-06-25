@@ -6,8 +6,8 @@ plotOutliers <- function(data,minIndex,maxIndex,output = NULL) {
   
   temp <- data[minIndex:maxIndex,]
   print(unique(temp$tag.local.identifier))
-  studyArea<-matrix(c(min(temp$location.long)-0.02,min(temp$location.lat)-0.02,
-                      max(temp$location.long)+0.01,max(temp$location.lat))+0.01, nrow = 2)
+  studyArea<-matrix(c(min(temp$location.long)-0.002,min(temp$location.lat)-0.002,
+                      max(temp$location.long)+0.001,max(temp$location.lat))+0.001, nrow = 2)
   
   mapData <- get_map(studyArea, zoom=9, source="google", maptype="terrain")
   
