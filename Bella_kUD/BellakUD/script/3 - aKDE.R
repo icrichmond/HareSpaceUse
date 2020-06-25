@@ -35,13 +35,157 @@ for (i in 1:length(ids)){
   dev.off()
   rm(plotName,filePath,finalName)
 }
-# looks like generally high speeds are related to far distances 
+# looks like generally high speeds are related to far distances
+# less worried about speed because there is a minimum of 15 hours
+# between relocs (usually more than that)
 # going to look into outliers for each individual 
+# using plotOutlier and looking at ctmm::outlie output simultaneously
+source("script/function-plotOutliers.R")
+# 149.093
+subsetOutlier <- subset(hares, tag.local.identifier == "149.093")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any
+# 149.124
+subsetOutlier <- subset(hares, tag.local.identifier == "149.124")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 149.173
+subsetOutlier <- subset(hares, tag.local.identifier == "149.173")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 2 points past -53.980
+subsetOutlier <- filter(subsetOutlier, location.long > (-53.980))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 149.213
+subsetOutlier <- subset(hares, tag.local.identifier == "149.213")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 2 points past -53.9930
+subsetOutlier <- filter(subsetOutlier, location.long > (-53.9930))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 149.233
+subsetOutlier <- subset(hares, tag.local.identifier == "149.233")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 2 points past -53.978
+subsetOutlier <- filter(subsetOutlier, location.long < (-53.978))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 149.294
+subsetOutlier <- subset(hares, tag.local.identifier == "149.294")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past -53.9800
+subsetOutlier <- filter(subsetOutlier, location.long < (-53.9800))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better\
+# 149.394
+subsetOutlier <- subset(hares, tag.local.identifier == "149.394")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past 48.354
+subsetOutlier <- filter(subsetOutlier, location.lat < (48.354))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 149.423
+subsetOutlier <- subset(hares, tag.local.identifier == "149.423")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past 48.354
+subsetOutlier <- filter(subsetOutlier, location.lat < (48.354))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 149.452
+subsetOutlier <- subset(hares, tag.local.identifier == "149.452")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 149.513
+subsetOutlier <- subset(hares, tag.local.identifier == "149.513")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point below 48.350
+subsetOutlier <- filter(subsetOutlier, location.lat > (48.350))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 149.535
+subsetOutlier <- subset(hares, tag.local.identifier == "149.535")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past -53.986
+subsetOutlier <- filter(subsetOutlier, location.long > (-53.986))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 149.594
+subsetOutlier <- subset(hares, tag.local.identifier == "149.594")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 149.613
+subsetOutlier <- subset(hares, tag.local.identifier == "149.613")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past -53.9750
+subsetOutlier <- filter(subsetOutlier, location.long < (-53.9750))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 149.633
+subsetOutlier <- subset(hares, tag.local.identifier == "149.633")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not remmoving any 
+# 149.673
+subsetOutlier <- subset(hares, tag.local.identifier == "149.673")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point below -53.9900
+subsetOutlier <- filter(subsetOutlier, location.long > (-53.9900))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 150.032
+subsetOutlier <- subset(hares, tag.local.identifier == "150.032")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 150.052
+subsetOutlier <- subset(hares, tag.local.identifier == "150.052")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past -53.9900 and 1 past 48.349
+subsetOutlier <- filter(subsetOutlier, location.long > (-53.9900) & location.lat > (48.349))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 150.072
+subsetOutlier <- subset(hares, tag.local.identifier == "150.072")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past 48.350
+subsetOutlier <- filter(subsetOutlier, location.lat > (48.350))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 150.091
+subsetOutlier <- subset(hares, tag.local.identifier == "150.091")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 150.111
+subsetOutlier <- subset(hares, tag.local.identifier == "150.111")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past -53.976
+subsetOutlier <- filter(subsetOutlier, location.long < (-53.976))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 150.154
+subsetOutlier <- subset(hares, tag.local.identifier == "150.154")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any
+# 150.173
+subsetOutlier <- subset(hares, tag.local.identifier == "150.173")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 150.191
+subsetOutlier <- subset(hares, tag.local.identifier == "150.191")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 150.232
+subsetOutlier <- subset(hares, tag.local.identifier == "150.232")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past 48.353
+subsetOutlier <- filter(subsetOutlier, location.lat < (48.353))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 150.273
+subsetOutlier <- subset(hares, tag.local.identifier == "150.273")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 150.314
+subsetOutlier <- subset(hares, tag.local.identifier == "150.314")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # removing 1 point past -53.9775
+subsetOutlier <- filter(subsetOutlier, location.long < (-53.9775))
+plotOutliers(subsetOutlier,1,nrow(subsetOutlier)) # looks better
+# 150.332
+subsetOutlier <- subset(hares, tag.local.identifier == "150.332")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 150.373
+subsetOutlier <- subset(hares, tag.local.identifier == "150.373")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any 
+# 150.392
+subsetOutlier <- subset(hares, tag.local.identifier == "150.392")
+plotOutliers(subsetOutlier, 1, nrow(subsetOutlier)) # not removing any
+
+# create a dataset without outliers to run through the analysis 
+haresClean <- hares %>%
+  dplyr::filter(!(tag.local.identifier=="149.173" & location.long < (-53.980)|
+                  tag.local.identifier=="149.213" & location.long < (-53.9930)|
+                  tag.local.identifier=="149.233" & location.long > (-53.978)|
+                  tag.local.identifier=="149.294" & location.long > (-53.9800)|
+                  tag.local.identifier=="149.394" & location.lat > (48.354)|
+                  tag.local.identifier=="149.423" & location.lat > (48.354)|
+                  tag.local.identifier=="149.513" & location.lat < (48.350)|
+                  tag.local.identifier=="149.535" & location.long < (-53.986)|
+                  tag.local.identifier=="149.613" & location.long > (-53.9750)|
+                  tag.local.identifier=="149.673" & location.long < (-53.9900)|
+                  tag.local.identifier=="150.052" & (location.long < (-53.9900) | location.lat < (48.349))|
+                  tag.local.identifier=="150.072" & location.lat < (48.350)|
+                  tag.local.identifier=="150.111" & location.long > (-53.976)|
+                  tag.local.identifier=="150.232" & location.lat > (48.353) |
+                  tag.local.identifier=="150.314" & location.long > (-53.9775)
+                  ))
+# 19 total outliers removed 
+# save this as the cleaned version 
+write.csv(haresClean, "output/haresClean.csv")
 
 
 # looking at the variograms to explore space use patterns
 # load varioPlot function from function-plotVariograms.R 
 # zoom is false because there is only one measurement taken per day (max)
+source("script/function-plotVariograms.R")
 varioPlot(hares.telem,filePath="output/Variograms/",zoom = FALSE)
 # Most of the variograms don't fit well
 
