@@ -170,7 +170,7 @@ locate<-function(x) {
     
     ## Attach date and time stamps to results variable
     transmitter[group,8]<-(x$Date[x$GID==group])[1]
-    transmitter[group,9]<-round(mean(x$Time[x$GID==group]))
+    transmitter[group,9]<-round(median.default(x$Time[x$GID==group]))
   }
     
   ## Return transmitter locations
