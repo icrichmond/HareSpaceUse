@@ -15,7 +15,7 @@ varioPlot <- function(telemList,filePath, zoom = FALSE){
   # Takes a dataframe and the text you want to display
   drawPlot <- function(data, name){
     
-    variog <- ctmm::variogram(data, fast=FALSEs)
+    variog <- ctmm::variogram(data, fast=FALSE)
     level <- c(0.5,0.95) # 50% and 95% CIs
     
     # Zoomed out plot
