@@ -9,7 +9,7 @@
 
 
 devtools::install_github("ctmm-initiative/ctmm")
-easypackages::packages("tidyverse", "adehabitatHR")
+easypackages::packages("tidyverse", "adehabitatHR", "ctmm")
 
 # -------------------------------------#
 #           Data Preparation           #
@@ -20,7 +20,35 @@ head(hares)
 # convert to a list of telemetry objects
 hares.telem <- as.telemetry(hares)
 
-#### Data Visualization & Variograms ####
+# -------------------------------------#
+#           Error Calibration          #
+# -------------------------------------#
+# upload the sigloc dataset with error ellipses
+sighares <- read.csv("output/harestriangulated.csv")
+sighares <- sighares %>% rename(location.lat = coords.x2) %>%
+  rename(location.long = coords.x1)
+# join based on coordinates because hares has one less row than sighares 
+hares <- inner_join(hares,sighares, by=c("location.lat", 'location.long'))
+# rename ellipses to appropriate column headers for as.telemetry 
+# https://groups.google.com/forum/?oldui=1#!searchin/ctmm-user/VHF$20error$20ellipse%7Csort:date/ctmm-user/TrLypiFqG7E/fuiHCi7eFgAJ
+hares <- hares %>%
+  rename(COV.x.x = Var_X) %>%
+  rename(COV.y.y = Var_Y) %>%
+  rename(COV.x.y = Cov_XY) # these are the error ellipses values
+# remove columns inappropriate for as.telemetry()
+hares <- dplyr::select(hares, -c(datetime, Frequency, Date, Time, X, BadPoint, AngleDiff))
+hares.telem <- as.telemetry(hares)
+
+names(hares.telem[[1]])
+UERE <- uere.fit(hares.telem[1:29]) # only using calibration data
+summary(UERE)
+
+uere(hares.telem) <- UERE
+names(hares.telem[[3]]) # now the data are calibrated, as VAR is present"
+
+# -------------------------------------#
+#           Removing Outliers          #
+# -------------------------------------#
 # investigate the data 
 plot(hares.telem, col=rainbow(length(hares.telem)))
 # use ctmm::outlie to investigate outliers 
@@ -180,28 +208,31 @@ haresClean <- hares %>%
 # 19 total outliers removed 
 # save this as the cleaned version 
 write.csv(haresClean, "output/haresClean.csv")
+# convert to telemetry object to use going forward
+hares.telem.clean <- as.telemetry(haresClean)
 
 
 # looking at the variograms to explore space use patterns
 # load varioPlot function from function-plotVariograms.R 
 # zoom is false because there is only one measurement taken per day (max)
 source("script/function-plotVariograms.R")
-varioPlot(hares.telem,filePath="output/Variograms/",zoom = FALSE)
+varioPlot(hares.telem.clean,filePath="output/Variograms/",zoom = FALSE)
 # Most of the variograms don't fit well
 
 # ----------------------------------- #
 #        Select Model Parameters      #
 # ----------------------------------- #
 # loop through individuals and guess the parameters for each 
-hares.guess.initial <- lapply(hares.telem[1:length(hares.telem)], 
+hares.guess.initial <- lapply(hares.telem.clean[1:length(hares.telem.clean)], 
                               function(b) ctmm.guess(b,CTMM=ctmm(error=TRUE),
                                                      interactive=FALSE) )
 
 # then use the guessed parameter values in ctmm.fit for each individual
 # Using initial guess parameters and ctmm.select
 # ctmm.select will rank models and the top model can be chosen to generate an aKDE
-hares.fit <- lapply(1:length(hares.telem), 
-                    function(i) ctmm.select(data=hares.telem[[i]],
+# chose pHREML due to the small sample size (Fleming et al., 2019)
+hares.fit <- lapply(1:length(hares.telem.clean), 
+                    function(i) ctmm.select(data=hares.telem.clean[[i]],
                                             CTMM=hares.guess.initial[[i]],
                                             verbose=TRUE,trace=TRUE, cores=0,
                                             method = "pHREML") )
@@ -255,3 +286,6 @@ lapply(1:length(hares.telem),
        }
 )
 
+# ---------------------------------- #
+#           Create aKDE              #
+# ---------------------------------- #
