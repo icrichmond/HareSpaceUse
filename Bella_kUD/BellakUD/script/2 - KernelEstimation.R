@@ -2,7 +2,7 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 25, 2020
+# Last Edited: June 26, 2020
 
 easypackages::packages("chron", "ctmm", "sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
                        "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", "ggplot2",
@@ -17,7 +17,8 @@ easypackages::packages("chron", "ctmm", "sp", "sf", "maptools", "tmap", "tmaptoo
 # Find Matteo's repository at github.com/matteorizzuto/Chapter_2
 
 # load triangulated hare data
-hares.triangd <- read_csv("input/harestriangd.csv")
+hares.triangd <- read_sf("output/Shapefiles/hares.triangd.shp")
+hares.triangd <- as_Spatial(hares.triangd)
 # load stoich data that is going to be used - Lowland blueberry (Vaccinium angustifolium) C:N
 vaancn <- raster("input/VAAN_CN.tif")
 image(vaancn)
@@ -120,7 +121,10 @@ ggplot(hrAreamean, aes(x=Kernel, y=AreaMean))+
 # convert UTM to lat/long for MoveBank
 harestriangulated <- spTransform(hares.triangd, CRS("+proj=longlat +datum=WGS84"))
 harestriangulated.df <- as.data.frame(harestriangulated)
-harestriangulated.df$Time <- times(harestriangulated.df$Time)
+harestriangulated.df$Time <- str_pad(harestriangulated.df$Time, width=6, side="left", pad=0)
+harestriangulated.df <- add_column(harestriangulated.df, datetime = as.POSIXct(paste(harestriangulated.df$Date, harestriangulated.df$Time), format="%Y-%m-%d %H%M%S", tz = "America/St_Johns", usetz = TRUE)) 
+# some NAs due to how sigloc calculates time - going to go in and manually fix after 
+# saving .csv
 write.csv(harestriangulated.df, "output/harestriangulated.csv", fileEncoding = "UTF-8")
 
 # --------------------------------------- #

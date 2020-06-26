@@ -2,7 +2,7 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 25, 2020
+# Last Edited: June 26, 2020
 
 # load required packages 
 devtools::install_version("SDMTools", version = "1.1-221.2", repos = "https://cran.r-project.org")
@@ -194,6 +194,7 @@ for (i in 1:length(UniqIDs)){
 
 vhfData$GID <- as.factor(vhfData$GID)
 vhfData$Time_O <- times(vhfData$Time_O)
+vhfData$Time <- str_pad(vhfData$Time, width=6, side="left", pad=0)
 vhfData$Time <- as.numeric(vhfData$Time)
 
 
@@ -338,6 +339,7 @@ hares.triangd <- subset(hares.triangd, hares.triangd$Frequency != "149.003" &
                           hares.triangd$Frequency != "149.274" &
                           hares.triangd$Frequency != "149.653")
 
+writeOGR(hares.triangd, "output/Shapefiles", "hares.triangd", overwrite = TRUE, driver = "ESRI Shapefile")
 write.csv(hares.triangd, "input/harestriangd.csv")
 
 # --------------------------------------- #
