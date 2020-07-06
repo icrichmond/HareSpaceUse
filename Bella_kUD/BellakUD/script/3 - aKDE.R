@@ -37,14 +37,12 @@ hares <- hares %>%
   rename(COV.x.y = Cov_XY) # these are the error ellipses values
 # remove columns inappropriate for as.telemetry()
 hares <- dplyr::select(hares, -c(datetime, Frequency, Date, Time, X, BadPoint, AngleDiff))
-hares.telem <- as.telemetry(hares)
-
-names(hares.telem[[1]])
-UERE <- uere.fit(hares.telem[1:29]) # only using calibration data
-summary(UERE)
-
-uere(hares.telem) <- UERE
-names(hares.telem[[3]]) # now the data are calibrated, as VAR is present"
+# recalculate the as.telemetry() object with keep = TRUE so that COV.x.y is included 
+hares.telem <- as.telemetry(hares, keep = TRUE)
+# can see in the plotting that the ellipses are present
+par(mfrow=c(1,1))
+plot(hares.telem, error = 1, xlim = c(2000,-2000))
+plot(hares.telem, error = 0)
 
 # -------------------------------------#
 #           Removing Outliers          #
@@ -208,8 +206,13 @@ haresClean <- hares %>%
 # 19 total outliers removed 
 # save this as the cleaned version 
 write.csv(haresClean, "output/haresClean.csv")
+
 # convert to telemetry object to use going forward
-hares.telem.clean <- as.telemetry(haresClean)
+hares.telem.clean <- as.telemetry(haresClean, keep = TRUE)
+
+# sigloc creates some error ellipses that result in negative variances, this creates an error in ctmm.fit()
+# Chris Fleming addresses this issue in: https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!searchin/ctmm-user/sigloc/ctmm-user/A3Ks0tzN_7U/97oGkiBCBQAJ
+# going to try solution number one - remove all times with negative variances 
 
 
 # looking at the variograms to explore space use patterns
@@ -222,9 +225,10 @@ varioPlot(hares.telem.clean,filePath="output/Variograms/",zoom = FALSE)
 # ----------------------------------- #
 #        Select Model Parameters      #
 # ----------------------------------- #
+# this is without the error included (how I ran it initially)
 # loop through individuals and guess the parameters for each 
 hares.guess.initial <- lapply(hares.telem.clean[1:length(hares.telem.clean)], 
-                              function(b) ctmm.guess(b,CTMM=ctmm(error=TRUE),
+                              function(b) ctmm.guess(b,CTMM=ctmm(),
                                                      interactive=FALSE) )
 
 # then use the guessed parameter values in ctmm.fit for each individual
@@ -260,6 +264,47 @@ topModels <- distinct(modelSummary,.id, .keep_all=TRUE)
 names(modelSummary) <- enc2utf8(names(modelSummary))
 write_csv(modelSummary,"output/haresmodelsummary.csv")
 write_csv(topModels,"output/harestopmodels.csv")
+
+# now include the error ellipses, added using keep=TRUE with COV.x.y
+# loop through individuals and guess the parameters for each 
+hares.guess.initial.e <- lapply(hares.telem.clean[1:length(hares.telem.clean)], 
+                              function(b) ctmm.guess(b,CTMM=ctmm(error=TRUE),
+                                                     interactive=FALSE) )
+
+# then use the guessed parameter values in ctmm.fit for each individual
+# Using initial guess parameters and ctmm.select
+# ctmm.select will rank models and the top model can be chosen to generate an aKDE
+# chose pHREML due to the small sample size (Fleming et al., 2019)
+hares.fit.e <- lapply(1:length(hares.telem.clean), 
+                    function(i) ctmm.select(data=hares.telem.clean[[i]],
+                                            CTMM=hares.guess.initial.e[[i]],
+                                            verbose=TRUE,trace=TRUE, cores=0,
+                                            method = "pHREML") )
+# Add seasonal animal ID names to fitModels list
+names(hares.fit.e) <- names(hares.telem)
+# The warning "pREML failure: indefinite ML Hessian" is normal if some autocorrelation parameters cannot be well resolved.
+
+# Place model selection parameters for all individuals in dataframe
+hares.models.summary.e <- lapply(hares.fit.e,function(x) summary(x))
+hares.models.summary.e <- plyr::ldply(hares.models.summary.e, rbind)
+
+# Place model name in df
+modelRows.e <- lapply(hares.fit.e,function(x) row.names(summary(x)))
+modelRows.e <- plyr::ldply(modelRows.e, rbind)
+modelRows.e <- modelRows.e %>% 
+  pivot_longer(cols = -.id,
+               values_to="model",names_to="rank",
+               values_drop_na = TRUE)
+
+modelSummary.e <- cbind(modelRows.e,hares.models.summary.e)
+# Delete duplicate id column. Join doesn't work because .id is not a unique key
+modelSummary.e <- modelSummary.e[,-4]
+# Subset only the highest ranked models
+topModels.e <- distinct(modelSummary.e,.id, .keep_all=TRUE) 
+names(modelSummary.e) <- enc2utf8(names(modelSummary.e))
+write_csv(modelSummary.e,"output/haresmodelsummary.e.csv")
+write_csv(topModels.e,"output/harestopmodels.e.csv")
+# moving forward, only use models that include error ellipses
 
 
 # ---------------------------------- #
