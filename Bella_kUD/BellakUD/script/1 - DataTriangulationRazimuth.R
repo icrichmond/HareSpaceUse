@@ -1,18 +1,26 @@
+# This script is for cleaning the VHF collar bearings taken for snowshoe hares 
+# over three years (2016-2019). Relocations only taken in summer season.
+
+# Author: Isabella Richmond (code and data shared between 
+# Matteo Rizzuto: github.com/matteorizzuto and Alec Robitaille: github.com/robitalec)
+
+# Last Edited: July 8, 2020
+
+
 devtools::install_github("cppeck/razimuth")
-easypackages::packages("razimuth", "stringr")
+easypackages::packages("razimuth", "stringr", "data.table", "tidyverse", "chron", "sf")
 
 # --------------------------------------- #
 #             Data Preparation            #
 # --------------------------------------- #
 
-# import telemetry datasetss
+# import telemetry datasets
 VHF2019 <- read.csv("input/TelemetryPoints_VHF_2019.csv")
 head(VHF2019)
 VHF2018 <- read.csv("input/VHF_CleanData_2018.csv")
 head(VHF2018)
 VHF2017 <- read.csv("input/VHF_CleanData_2017.csv")
 head(VHF2017)
-
 # remove NAs
 VHF2019 <- drop_na(VHF2019, Azimuth)
 VHF2018 <- drop_na(VHF2018, Azimuth)
@@ -22,7 +30,7 @@ VHF2017 <- drop_na(VHF2017, Azimuth)
 # convert all of them to meters to match stoich raster CRS
 VHF2017 <- drop_na(VHF2017, Easting)
 coordinates(VHF2017) <- c("Easting", "Northing")
-proj4string(VHF2017) <- CRS("+proj=utm +zone=22 ellps=WGS84")
+proj4string(VHF2017) <- CRS("+init=epsg:32622")
 
 VHF2017 <- spTransform(VHF2017, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
                                     +no_defs"))
@@ -31,7 +39,7 @@ VHF2017$UTMZone <- as.integer(22)
 
 
 coordinates(VHF2018) <- c("Easting", "Northing")
-proj4string(VHF2018) <- CRS("+proj=utm +zone=22 ellps=WGS84")
+proj4string(VHF2018) <- CRS("+init=epsg:32622")
 
 VHF2018 <- spTransform(VHF2018, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
                                    +no_defs"))
@@ -196,7 +204,7 @@ vhfData <- vhfData %>%
 
 
 # --------------------------------------- #
-#              Triangulation              #
+#         Individual Collar               #
 # --------------------------------------- #
 # AR helped with this code - github.com/robitalec
 
@@ -206,11 +214,30 @@ grouse <- sim_atd(n_loc = 100, sq_km = 4, n_azimuth = 3, dist_vec = c(200,300),
 
 # For one individual
 oneid <- '149.673'
+onedf <- vhfData[vhfData$indiv=='149.673', ]
 oneatm <- convert_atm(df = vhfData[vhfData$indiv == oneid,])
 visualize_atm(atm_df = oneatm, obs_id = 1, add_prior = T)
 atm_fit <- atm_mcmc(atm_df = oneatm, n_mcmc = 500, n_burn = 100)
+which_pid(oneatm, obs_id=1)
 
+# visualize one with error 
+pdf('graphics/final_triangulation.pdf')
+for(i in 1:length(unique(onedf$obs_id))){
+  id_tmp <- which_pid(atm_df = oneatm, obs_id = unique(onedf$obs_id)[i])
+  plot.new()
+  visualize_atm(atm_df = oneatm, obs_id = unique(onedf$obs_id)[i], add_prior = T)
+  p_isopleth(df = atm_fit$mu_ls[[id_tmp]]$pdraws, prob_lvls = 0.9, range_extend = 0,
+            kde_n=50, col_vec = c(4,4))
+  points(matrix(atm_fit$pmode[id_tmp, 2:3], ncol = 2), pch = 21, bg = 4)
+  legend("topleft", c("Posterior Mode"), pch = 21, pt.bg = 4, bty = "n")
 
+}
+dev.off()
+
+# --------------------------------------- #
+#           Multiple Collars              #
+# --------------------------------------- #
+# AR helped with this code - github.com/robitalec
 # For all individuals 
 # Unique individuals
 uids <- unique(vhfData$indiv)
@@ -232,28 +259,96 @@ lapply(seq_along(lsatms), function(x) {
 dev.off()
 
 ## Model all
-lsfits <- lapply(lsatms, atm_mcmc, n_mcmc = 500, n_burn = 100)
+lsfits <- lapply(lsatms, atm_mcmc, n_mcmc = 10000, n_burn = 1000)
+lsfits <- saveRDS(lsfits, "output/lsfits.rds")
+lsfits <- readRDS("output/lsfits.rds")
 
-saveRDS(lsfits, file = "output/lsfits.rds")
+# Visualize all with error
+pdf('graphics/final_triangulation.pdf')
+lapply(seq_along(lsatms), function(x) {
+  plot.new()
+  mtext(names(lsatms)[[x]])
+  lapply(lsatms[[x]]$pid, function(i) {
+    visualize_atm(lsatms[[x]], obs_id = i, add_prior = TRUE)
+    p_isopleth(df = lsfits[[x]]$mu_ls[[i]]$pdraws, prob_lvls = c(0.95), range_extend = 0,
+               kde_n = 50, col_vec = c(4,4))
+    points(matrix(lsfits[[x]]$pmode[i, 2:3], ncol = 2), pch = 21, bg = 4)
+    legend("topleft", c("Posterior Mode"), pch = 21, pt.bg = 4, bty = "n")
+  })
+})
+dev.off()
 
-## Visualize all with error
-id_tmp <- which_pid(atm_df = grouse_atm, obs_id = 93)
-visualize_atm(atm_df = grouse_atm, obs_id = id_tmp, add_prior = TRUE)
-p_isopleth(df = atm_fit$mu_ls[[id_tmp]]$pdraws, prob_lvls = c(0.5,0.9), range_extend = 0,
-           kde_n = 50, col_vec = c(4,4))
-points(matrix(atm_fit$pmode[id_tmp, 2:3], ncol = 2), pch = 21, bg = 4)
-legend("topleft", c("Posterior Mode"), pch = 21, pt.bg = 4, bty = "n")
+# check convergence ----
+pdf('graphics/traceplot.pdf')
+lapply(seq_along(lsfits), function(x) {
+  plot.new()
+  mtext(names(lsfits)[[x]])
+  plot_kappa(atm_obj = lsfits[[x]]$kappa_ls, item = "traceplot")
+})
+dev.off()
 
-## check convergence ----
-plot_kappa(atm_obj = atm_fit$kappa_ls, item = "traceplot")
-plot_kappa(atm_obj = atm_fit$kappa_ls, item = "run_mean")
+pdf('graphics/runmean.pdf')
+lapply(seq_along(lsfits), function(x) {
+  plot.new()
+  mtext(names(lsfits)[[x]])
+  plot_kappa(atm_obj = lsfits[[x]]$kappa_ls, item = "run_mean")
+})
+dev.off()
 
-## extract error variances from all 
-# this is to use in ctmm
-#extract the posterior draws for the mean location
-xy.out=atm_fit$mu_ls[[id_tmp]]$pdraws
 
-#variances of x and y
-var(xy.out[,1])
-var(xy.out[,2])
-cov(xy.out)
+# --------------------------------------- #
+#              Extract Data               #
+# --------------------------------------- #
+## Extract variances to use in ctmm
+lsvars <- lapply(seq_along(lsfits), function(x) {
+  rbindlist(lapply(lsfits[[x]]$mu_ls, function(y) {
+    xy <- y[['pdraws']]
+    data.table(COV.x.y = var(x=xy[,1], y=xy[,2]), pid = y[['pid']], 
+               COV.x.x = var(xy[, 1]), COV.y.y = var(xy[, 2]))
+  }))[, id := names(lsfits)[[x]]]
+})
+vars <- rbindlist(lsvars)
+# create a dataframe with relocations, IDs, and variances 
+# extract relocation data
+lsreloc <- lapply(seq_along(lsfits), function(x) {
+  rbindlist(lapply(lsfits[[x]]$mu_ls, function(y) {
+    xy <- as.matrix(y[['pmode']])
+    data.table(utm_x = xy[1,], utm_y=xy[2,], pid = y[['pid']])
+  }))[, id := names(lsfits)[[x]]]
+})
+relocs <- rbindlist(lsreloc)
+# join vars and relocs based on date
+# add new column of collar, pid to be joined by 
+vars <- vars %>% tidyr::unite(cpid, c(id,pid), sep=',', remove=F)
+relocs <- relocs %>% tidyr::unite(cpid, c(id,pid), sep=',', remove=F)
+df <- full_join(vars, relocs, by='cpid', keep=FALSE)
+# now need to get date-time stamp for each reloc for MoveBank 
+# get the first date-time for each indiv/obs_id from vhfData
+dates <- vhfData %>% 
+  dplyr::group_by(indiv, obs_id) %>%
+  dplyr::filter(row_number()==1) %>%
+  tidyr::unite(cpid, c(indiv, obs_id), sep=',', remove=F) %>%
+  dplyr::select(c(-utm_x,-utm_y,-azimuth,-prior_r,-obs_id,-indiv))
+df <- left_join(df,dates,by='cpid', keep=FALSE)
+# manually went through and removed problematic points from the dataset using Excel 
+# input/HomeRanges.txt file describing which points are removed
+# remove the two collars that are not in Bloomfield
+df <- subset(df, df$indiv != "149.374" &
+                 df$indiv != "149.474")
+# remove the four individuals that appear in more than one year - keeping the year 
+# with the highest number of relocations
+df <- subset(df, df$indiv != "149.003" &
+                 df$indiv != "149.053" &
+                 df$indiv != "149.274" &
+                 df$indiv != "149.653")
+
+# reproject into lat/long and save - necessary for MoveBank
+coordinates(df) <- c("utm_x", "utm_y")
+proj4string(df) <- CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
+                                    +no_defs")
+df <- spTransform(df, CRS("+init=epsg:4326"))
+df <- as.data.frame(df)
+df <- df %>%
+  rename(lat=utm_y, long=utm_x)
+
+write.csv(df, "output/harestriangulated_razimuth.csv")
