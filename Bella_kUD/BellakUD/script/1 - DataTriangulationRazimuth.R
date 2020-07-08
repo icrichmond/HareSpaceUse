@@ -260,8 +260,8 @@ dev.off()
 
 ## Model all
 lsfits <- lapply(lsatms, atm_mcmc, n_mcmc = 10000, n_burn = 1000)
-lsfits <- saveRDS(lsfits, "output/lsfits.rds")
-lsfits <- readRDS("output/lsfits.rds")
+lsfits <- saveRDS(lsfits, "large/lsfits.rds")
+lsfits <- readRDS("large/lsfits.rds")
 
 # Visualize all with error
 pdf('graphics/final_triangulation.pdf')
