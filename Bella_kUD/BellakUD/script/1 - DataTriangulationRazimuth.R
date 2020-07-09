@@ -8,7 +8,7 @@
 
 
 devtools::install_github("cppeck/razimuth")
-easypackages::packages("razimuth", "stringr", "data.table", "tidyverse", "chron", "sf")
+easypackages::packages("razimuth", "stringr", "data.table", "tidyverse", "chron", "sf", "sp")
 
 # --------------------------------------- #
 #             Data Preparation            #
@@ -202,6 +202,8 @@ vhfData <- vhfData %>%
 vhfData <- vhfData %>%
   add_column(prior_r = 750)
 
+# clean up environment
+rm(Data17, Data18, Data19, liveData, TmpData, VHF2017, VHF2018, VHF2019)
 
 # --------------------------------------- #
 #         Individual Collar               #
@@ -258,7 +260,7 @@ lapply(seq_along(lsatms), function(x) {
 })
 dev.off()
 
-## Model all
+# Model all
 lsfits <- lapply(lsatms, atm_mcmc, n_mcmc = 10000, n_burn = 1000)
 lsfits <- saveRDS(lsfits, "large/lsfits.rds")
 lsfits <- readRDS("large/lsfits.rds")
