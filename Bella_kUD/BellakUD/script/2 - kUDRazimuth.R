@@ -18,9 +18,15 @@ easypackages::packages("chron", "ctmm", "sp", "sf", "maptools", "tmap", "tmaptoo
 
 # load triangulated hare data
 hares.triangd <- read.csv("output/harestriangulated_razimuth.csv")
-coordinates(df) <- c("utm_x", "utm_y")
-proj4string(df) <- CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
-                                    +no_defs")
+# rename indiv to Frequency 
+hares.triangd <- dplyr::rename(hares.triangd, Frequency = indiv)
+# set coordinates so dataframe is a Spatial object
+coordinates(hares.triangd) <- c("long", "lat")
+proj4string(hares.triangd) <- CRS("+init=epsg:4326")
+# transform projection to match stoich layer 
+hares.triangd <- spTransform(hares.triangd, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
+                                    +no_defs"))
+
 # load stoich data that is going to be used - Lowland blueberry (Vaccinium angustifolium) C:N
 vaancn <- raster("input/VAAN_CN.tif")
 image(vaancn)
@@ -33,6 +39,10 @@ vaancnASC <- asc.from.raster(vaancnclip)
 vaanCN <- asc2spixdf(vaancnASC)
 class(vaanCN)
 
+
+plot(vaancnclip)
+plot(hares.triangd, add=TRUE)
+
 # --------------------------------------- #
 #            Calculate kUDS               #
 # --------------------------------------- #
@@ -40,14 +50,9 @@ class(vaanCN)
 # Let's estimate the kernel Utilization Distribution using the ad hoc method and 
 # a grid that is set to the same size as the stoich grid, that can adapt to the general 
 # geographic area used by each animal
-hares.kUD <- kernelUD(hares.triangd[,8], h = 'href', grid = vaanCN, extent = 1 ,same4all = FALSE)
+hares.kUD <- kernelUD(hares.triangd[,10], h = 'href', grid = vaanCN, extent = 1 ,same4all = FALSE)
 # NOTE for future: stoich resolution and predation risk resolution (30mx30m) is used 
 # for kUD calculations so that all layers are the same resolution
-
-# If reverting back to using LSCV to estimate h, double-check that minimization
-# of the cross-validation criteria is successful using:
-#par(mar = c(1,1,1,1), mfrow = c(1,1))
-#plotLSCV(hares.kUD)
 
 # estimate home range in raster form using getvolumeUD
 hares.vUD <- getvolumeUD(hares.kUD)
@@ -61,37 +66,27 @@ kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(20, 95, 5),
                                 unout = "ha")
 kUD.hr.estimates
 plot(kUD.hr.estimates)
+dev.off()
 
 # and extract values to be used in later modelling
 hrArea <- kUD.hr.estimates[1:16, ]
 hrArea <- rownames_to_column(hrArea)
 hrArea <- rename(hrArea, Kernel = rowname)
-write_csv(hrArea, "output/homerangeareas.csv")
+write_csv(hrArea, "output/homerangeareas_Razimuth.csv")
 # calculate range use ratio with 50:95 home range areas 
 rangeuse <- pivot_longer(hrArea, cols = 2:ncol(hrArea), names_to = "CollarFrequency", values_to = "HomeRangeArea")
 rangeuse <- pivot_wider(rangeuse, names_from = "Kernel", values_from = "HomeRangeArea")
 # calculating a 50:95 range use ratio (Webber et al., 2020)
-rangeuse <- add_column(rangeuse, ratio = rangeuse$`50`/rangeuse$`95`)
+rangeuse <- add_column(rangeuse, ratio = rangeuse$'50'/rangeuse$'95')
 # test if the 50% and 95% home range areas are correlated 
-ggplot(data = rangeuse, aes(x = rangeuse$`20`, y = rangeuse$`70`))+geom_point()
-# highly correlated, don't use ratio going forward. Use core area as response variable
-write_csv(rangeuse, "output/rangeuseratio.csv")
+ggplot(data = rangeuse, aes(x = rangeuse$'50', y = rangeuse$'95'))+
+  geom_point()
+# highly correlated, don't use ratio going forward. Calculate kernels using ctmm and retest
 
 
 # --------------------------------------- #
-#         Extract Home Ranges             #
+#        Kernel Area Relationship         #
 # --------------------------------------- #
-
-# now, let's extract the home range
-hares.kUDhr.90 <- getverticeshr(hares.kUD, percent = 90)
-hares.kUDhr.50 <- getverticeshr(hares.kUD, percent = 50)
-writeOGR(hares.kUDhr.90, "output/Shapefiles", "hares.kudhr.90", overwrite = TRUE, driver = "ESRI Shapefile")
-writeOGR(hares.kUDhr.50, "output/Shapefiles", "hares.kudhr.50", overwrite = TRUE, driver = "ESRI Shapefile")
-
-# loop through estUDm data and make each collar a raster layer and combine into a raster brick
-vUDBrick <- brick(lapply(hares.vUD, function(x) try(raster(x))))
-writeRaster(vUDBrick,"output/vUDRaster.grd", format="raster", overwrite = TRUE)
-
 # plot the kernel area percent home range area ~ isopleth volume to see the type of curve
 # as per Vander Wal &  Rodgers (2012), should be exponential
 # melt the hrArea dataset 
@@ -111,18 +106,6 @@ hrAreamean <- hrAreastandard %>%
 ggplot(hrAreamean, aes(x=Kernel, y=AreaMean))+
   geom_point()
 # relationship follows the exponential curve that you would expect as per Vander Wal & Rodgers (2012)
-# curve is not very distinct 
-
-# going to try an AKDE method that is better for small sample sizes
-# output telemetry data so it can be uploaded to MoveBank
-# convert UTM to lat/long for MoveBank
-harestriangulated <- spTransform(hares.triangd, CRS("+proj=longlat +datum=WGS84"))
-harestriangulated.df <- as.data.frame(harestriangulated)
-harestriangulated.df$Time <- str_pad(harestriangulated.df$Time, width=6, side="left", pad=0)
-harestriangulated.df <- add_column(harestriangulated.df, datetime = as.POSIXct(paste(harestriangulated.df$Date, harestriangulated.df$Time), format="%Y-%m-%d %H%M%S", tz = "America/St_Johns", usetz = TRUE)) 
-# some NAs due to how sigloc calculates time - going to go in and manually fix after 
-# saving .csv
-write.csv(harestriangulated.df, "output/harestriangulated.csv", fileEncoding = "UTF-8")
 
 # --------------------------------------- #
 #           Visualize Kernels             #
@@ -147,7 +130,7 @@ gridcoords <- as_tibble(st_coordinates(bl_grid_pts))
 bl_grid_pts <- add_column(bl_grid_pts, X = gridcoords$X, Y = gridcoords$Y)
 
 # plot contours
-ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
+ggplot(data = hares.triangd.df, aes(x = long, y = lat)) +
   stat_density_2d(aes(group = Frequency, fill = stat(nlevel)), geom = "polygon", alpha = 0.15) + 
   scale_fill_viridis_c() +
   geom_point(aes(x = POINT_X_x, y = POINT_Y_y), bl_cs_pts)+
@@ -157,10 +140,9 @@ ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
     panel.border = element_rect(size = 1, fill = NA),
     panel.background = element_rect(fill = "white"),)+
   labs(fill = "Probability")
-ggsave("graphics/heatmapindividualsgrid.png")
+ggsave("graphics/heatmapindividualsgrid_razimuth.png")
 
-png("graphics/heatmapalldata.png", width = 3000, height = 3000, units = "px", res = 600)
-ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
+ggplot(data = hares.triangd.df, aes(x = long, y = lat)) +
   stat_density_2d(aes(fill = stat(nlevel)), geom = "polygon", alpha = 0.25) + 
   scale_fill_viridis_c() +
   geom_point(aes(x = POINT_X_x, y = POINT_Y_y), bl_cs_pts)+
@@ -170,4 +152,4 @@ ggplot(data = hares.triangd.df, aes(x = X, y = Y)) +
         axis.text = element_blank(),
         axis.ticks = element_blank(), 
         axis.title = element_blank())
-dev.off()
+ggsave("graphics/heatmapalldata_razimuth.png")
