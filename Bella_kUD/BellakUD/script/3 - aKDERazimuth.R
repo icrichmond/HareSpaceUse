@@ -2,7 +2,7 @@
 # over three years (2016-2019). Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 25, 2020
+# Last Edited: July 14, 2020
 # using default autocorrelated Gaussian reference bandwidth with debiased area (Fleming & Calabrese, 2017)
 # much of this code was written by Amanda Droghini - cite in paper
 # Droghini, A. 2020. Southwest Alaska moose. Git Repository. Available: https://github.com/accs-uaa/southwest-alaska-moose

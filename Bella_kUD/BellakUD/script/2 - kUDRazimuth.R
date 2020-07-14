@@ -1,8 +1,8 @@
-# This script is for estimating the space use using kernels for snowshoe hares 
+# This script is for estimating the space use using adehabitat kernels for snowshoe hares 
 # over three years (2016-2019) using adehabitatHR. Relocations only taken in summer season.
 
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: June 26, 2020
+# Last Edited: July 14, 2020
 
 easypackages::packages("chron", "ctmm", "sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
                        "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", "ggplot2",
