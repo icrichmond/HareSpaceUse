@@ -8,7 +8,7 @@
 # Droghini, A. 2020. Southwest Alaska moose. Git Repository. Available: https://github.com/accs-uaa/southwest-alaska-moose
 
 devtools::install_github("ctmm-initiative/ctmm")
-easypackages::packages("tidyverse", "adehabitatHR", "ctmm", "tidyverse")
+easypackages::packages("tidyverse", "adehabitatHR", "ctmm", "tidyverse", "raster")
 
 # -------------------------------------#
 #           Data Preparation           #
@@ -324,16 +324,15 @@ remove(list=ls())
 hares.telem.clean <- readRDS("large/harestelemclean_final.rds")
 hares.finalmods.e <- readRDS("large/finalmodelse.rds")
 
-#### Specify extent ----
-# Get extent for each telemetry set
+# get extent for each telemetry set
 ee <- lapply(hares.telem.clean,function(x) extent(x))
 ee <- data.frame(matrix(unlist(ee), 
                         nrow=length(ee), 
                         byrow=T))
 colnames(ee) <- c("min.x","max.x","min.y","max.y")
 
-# Find absolute minimum and maximum
-# Pad it to prevent home ranges from getting cut off
+# find absolute minimum and maximum
+# pad it to prevent home ranges from getting cut off
 eeMatrix <- c(min(ee$min.x)-1000,max(ee$max.x)+1000,min(ee$min.y)-1000,max(ee$min.y)+1000)
 eeMatrix<-matrix(data=eeMatrix,nrow=2,ncol=2,dimnames=list(c("min","max")))
 colnames(eeMatrix)<-c("x","y")
@@ -341,11 +340,7 @@ ee <- as.data.frame(eeMatrix)
 
 rm(eeMatrix)
 
-# Split data into three chunks ----
-# Need to do this to avoid memory limit error
-# Work laptop has 16 GB of RAM, which is not enough even after increasing memory limit and trying to run on "fresh" (rebooted) computer
-
-# Order calibratedData and finalMods alphabetically by IDs
+# order calibratedData and finalMods alphabetically by IDs
 ids <- names(hares.finalmods.e)
 ids <- ids[order(ids)]
 
@@ -355,17 +350,63 @@ hares.finalmods.e <- hares.finalmods.e[ids]
 # calculate home ranges
 # debias = TRUE debiases the distribution for area estimation (AKDEc, Fleming et al., 2019)
 homeRanges <- akde(data=hares.telem.clean, debias=TRUE, CTMM=hares.finalmods.e, grid=ee)
-plot(homeRanges$'149.124')
 
-# Export homeRanges
+# export homeRanges
 saveRDS(homeRanges, "large/akdehomeranges.rds")
+homeRanges <- readRDS("large/akdehomeranges.rds")
 
-# get home range size 
+# get home range size at 95% kernel 
 hr_size <- lapply(1:length(homeRanges),
                   function(i)
                     summary(homeRanges[[i]])$CI)
 names(hr_size) <- names(homeRanges)
 hr_df <- plyr::ldply(hr_size, data.frame)
+hr_df <- dplyr::rename(hr_df, c(frequency = .id, homerange = est))
 hr_df
 
-rm(list=ls())
+# get core area size at 50% kernel 
+core_size <- lapply(1:length(homeRanges),
+                  function(i)
+                    summary(homeRanges[[i]], level.UD=0.50, units=T)$CI)
+names(core_size) <- names(homeRanges)
+core_df <- plyr::ldply(core_size, data.frame)
+core_df <- dplyr::rename(core_df, c(frequency = .id, core = est))
+core_df
+
+lapply(1:length(homeRanges), function(i) summary(homeRanges[[i]], level.UD=50, units=F))
+ 
+# three collars returned core areas in m^2 instead of hectares 
+# divide those rows by 10,000 to convert back to hectare 
+# rows I need to change are 8,9,22
+# don't worry abouts CIs, can deal with those later if I need to 
+r <- c(8L, 9L, 22L)
+core_df <- core_df %>% mutate(core = ifelse(row_number() %in% r, core/10000, core))
+# join home range and core together 
+kernels <- inner_join(hr_df, core_df, by = "frequency")
+# calculate range use ratio with 50:95 home range areas 
+kernels <- add_column(kernels, ratio = kernels$core/kernels$homerange)
+# test if the 50% and 95% home range areas are correlated 
+ggplot(data = kernels, aes(x = core, y = homerange))+
+  geom_point()
+# highly correlated, don't use ratio going forward.
+
+# -------------------------------------#
+#             Export aKDEs             #
+# -------------------------------------#
+# export 95% kernels 
+lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Home", level=0.95))
+
+# export 50% kernels 
+lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Core", level=0.50))
+
+# create and export RasterBrick
+# in the case of coarse grids, the value of PDF in a grid cell corresponds to the average probability density over the entire rectangular cell.
+# PDF: probability density function, which is >=0 and integrates to 1. Its values are continuous probability densities for the point location
+# akde does not re-normalize the density estimate - which is why it does not sum to 1 when calculating PDF
+# error = 0.001 in akde() targets error in probability mass to be less than error argument, so the integration
+# of probability mass within cells should be more accurate
+# use probability density function - higher values correspond to more intense space use (note: NOT normalized to 1)
+r <- lapply(1:length(homeRanges), function(x) ctmm::raster(homeRanges[[x]], filename= names(homeRanges), DF="PDF"))
+b <- raster::stack(r)
+
+writeRaster(b, "output/Rasters/akde_homerange_pdf.tif", format="GTiff", overwrite=TRUE)
