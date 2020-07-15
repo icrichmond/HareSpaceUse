@@ -263,19 +263,7 @@ topModels.e <- distinct(modelSummary.e,.id, .keep_all=TRUE)
 names(modelSummary.e) <- enc2utf8(names(modelSummary.e))
 write_csv(modelSummary.e,"output/haresmodelsummary.e.csv")
 write_csv(topModels.e,"output/harestopmodels.e.csv")
-# DOF is large enough (over 4-5) for all individuals except 150.132
-
-# try bootstrapping 150.132 to see if we can compensate for small sample size 
-h150132 <- hares.fit.e$'150.132'
-# top model for 150.132 was IID anisotropic error model 
-h150132 <- h150132$`IID anisotropic error`
-h150132.telem <- hares.telem.clean$'150.132'
-h150132.boot <- ctmm.boot(h150132.telem,h150132,iterate=TRUE,trace=2)
-saveRDS(h150132.boot, "large/boot150132.rds")
-summary(h150132.boot$MLE)
-# area is still not large enough - remove 150.132 from analysis 
-hares.telem.clean <- purrr::list_modify(hares.telem.clean, "150.132"=NULL)
-hares.fit.e <- purrr::list_modify(hares.fit.e, "150.132" = NULL)
+# DOF is large enough (over 4-5) for all individuals 
 
 # save final telemetry and fit objects
 saveRDS(hares.telem.clean, "large/harestelemclean_final.rds")
@@ -351,6 +339,7 @@ ids <- ids[order(ids)]
 hares.telem.clean <- hares.telem.clean[ids]
 hares.finalmods.e <- hares.finalmods.e[ids]
 
+
 # calculate home ranges
 # debias = TRUE debiases the distribution for area estimation (AKDEc, Fleming et al., 2019)
 homeRanges <- akde(data=hares.telem.clean, debias=TRUE, CTMM=hares.finalmods.e, grid=ee)
@@ -377,13 +366,11 @@ core_df <- plyr::ldply(core_size, data.frame)
 core_df <- dplyr::rename(core_df, c(frequency = .id, core = est))
 core_df
 
-lapply(1:length(homeRanges), function(i) summary(homeRanges[[i]], level.UD=50, units=F))
- 
 # three collars returned core areas in m^2 instead of hectares 
 # divide those rows by 10,000 to convert back to hectare 
 # rows I need to change are 8,9,22
 # don't worry abouts CIs, can deal with those later if I need to 
-r <- c(8L, 9L, 22L)
+r <- c(8L, 9L, 23L, 27L)
 core_df <- core_df %>% mutate(core = ifelse(row_number() %in% r, core/10000, core))
 # join home range and core together 
 kernels <- inner_join(hr_df, core_df, by = "frequency")
@@ -398,10 +385,10 @@ ggplot(data = kernels, aes(x = core, y = homerange))+
 #             Export aKDEs             #
 # -------------------------------------#
 # export 95% kernels 
-lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Home", level=0.95))
+lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Home", level=0.95, overwrite=TRUE))
 
 # export 50% kernels 
-lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Core", level=0.50))
+lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Core", level=0.50, overwrite=TRUE))
 
 # create and export RasterBrick
 # in the case of coarse grids, the value of PDF in a grid cell corresponds to the average probability density over the entire rectangular cell.
