@@ -3,7 +3,7 @@
 
 # This script is for extracting the food quality and predation risk of each individual's
 # core area and home range.
-# KernelEstimation.R shows how the kUD and home range areas were calculated
+# aKDERazimuth.R shows how the kUD and home range areas were calculated
 # RiskOrdination.R shows the ordination of habitat complexity/predation risk values
 
 # load required packages 
@@ -28,22 +28,21 @@ vaancpclip <- crop(vaancp, e)
 # load complexity sampling locations shapefile
 bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
 bl_cs_pts <- st_transform(bl_cs_pts, crs = st_crs(vaancn))
-# load home range areas and polygons 
+# load home range area raster brick (95% home range area in hectares)
 # ratio in rangeuse refers to 50%:95% home range area (ha)
-rangeuse <- read_csv("output/rangeuseratio.csv")
-kernel90 <- read_sf("output/hares.kudhr.90.shp")
-kernel90 <- st_transform(kernel90, crs = st_crs(vaancn))
-kernel50 <- read_sf("output/hares.kudhr.50.shp")
-kernel50 <- st_transform(kernel50, crs = st_crs(vaancn))
+kernel95 <- raster::stack("output/Rasters/akde_homerange_pdf.tif")
+# reproject kernels to match other CRS
+crs(kernel95) <- crs(vaancn)
+
+tmap::tm_shape(kernel95)+
+  tmap::tm_raster(max.value=1)
 
 # --------------------------------------- #
 #               Extract Data              #
 # --------------------------------------- #
 # visualize home ranges 
-ggplot(kernel90) +
-  geom_sf(fill = "dark grey") +
-  geom_sf(data = kernel50, aes(fill = "light grey"))+
-  xlab("Longitude") + ylab("Latitude")
+ggplot(kernel95) +
+  geom_raster()
 
 # convert datasets into tibbles and code dates to make manipulation easier 
 predrisk <- as_tibble(predrisk, .name_repair = "universal") %>%
