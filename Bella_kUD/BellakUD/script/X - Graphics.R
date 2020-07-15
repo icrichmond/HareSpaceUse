@@ -68,3 +68,15 @@ hc <- ggplot(overlapdata, aes(x = meanhc, y = overlap))+geom_point(color=rgb(35,
   labs(x = "Horizontal Complexity", y = "Core Area Overlap")
 (cover/hc/stoich)
 dev.off()
+
+
+
+
+
+# replace with your folder name:
+dir <- "output/Shapefiles/aKDE_Home"
+ff <- list.files(dir, pattern="\\.shp$", full.names=TRUE)
+x <- lapply(ff, shapefile)
+lapply(1:length(x), function(i) crs(x[[i]]) <- crs(vaancn))
+
+crs(x[[1]]) <- crs(vaancn)
