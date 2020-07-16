@@ -4,7 +4,7 @@
 # Author: Isabella Richmond (code and data shared between 
 # Matteo Rizzuto: github.com/matteorizzuto and Alec Robitaille: github.com/robitalec)
 
-# Last Edited: July 8, 2020
+# Last Edited: July 16, 2020
 
 
 devtools::install_github("cppeck/razimuth")
@@ -27,31 +27,23 @@ VHF2018 <- drop_na(VHF2018, Azimuth)
 VHF2017 <- drop_na(VHF2017, Azimuth)
 
 # 2019 uses lat/long and 2017-2018 use UTM
-# convert all of them to meters to match stoich raster CRS
+# convert all of them to match each other
 VHF2017 <- drop_na(VHF2017, Easting)
 coordinates(VHF2017) <- c("Easting", "Northing")
 proj4string(VHF2017) <- CRS("+init=epsg:32622")
-
-VHF2017 <- spTransform(VHF2017, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
-                                    +no_defs"))
 VHF2017 <- as.data.frame(VHF2017)
 VHF2017$UTMZone <- as.integer(22)
 
 
 coordinates(VHF2018) <- c("Easting", "Northing")
 proj4string(VHF2018) <- CRS("+init=epsg:32622")
-
-VHF2018 <- spTransform(VHF2018, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
-                                   +no_defs"))
 VHF2018 <- as.data.frame(VHF2018)
 VHF2018$UTMZone <- as.integer(22)
 
 
 coordinates(VHF2019) <- c("Easting", "Northing")
 proj4string(VHF2019) <- CRS("+proj=longlat +datum=WGS84")
-
-VHF2019 <- spTransform(VHF2019, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
-                                    +no_defs"))
+VHF2019 <- spTransform(VHF2019, CRS("+init=epsg:32622"))
 VHF2019 <- as.data.frame(VHF2019)
 VHF2019$UTMZone <- as.integer(22)
 
