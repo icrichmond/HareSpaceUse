@@ -18,8 +18,7 @@ hares <- read.csv("input/HaresTriangulatedMoveBank_Razimuth.csv")
 head(hares)
 # convert to a list of telemetry objects
 # projection is WGS 84 for UTM zone 22
-hares.telem <- as.telemetry(hares, projection="+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
-                            +no_defs")
+hares.telem <- as.telemetry(hares, projection="+init=epsg:32622")
 
 # -------------------------------------#
 #           Error Calibration          #
@@ -33,11 +32,10 @@ hares <- inner_join(hares,razhares, by=c("location.lat", 'location.long'))
 # remove columns inappropriate for as.telemetry()
 hares <- dplyr::select(hares, -c(date, id.x, id.y, pid.x, pid.y, indiv, obs_id, cpid))
 # recalculate the as.telemetry() object with keep = TRUE so that COV.x.y is included 
-hares.telem <- as.telemetry(hares, keep = TRUE, projection="+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
-                            +no_defs")
+hares.telem <- as.telemetry(hares, keep = TRUE, projection="+init=epsg:32622")
 # can see in the plotting that the ellipses are present
 par(mfrow=c(1,1))
-plot(hares.telem, error = 1, xlim = c(1000,-1000))
+plot(hares.telem, error = 1)
 plot(hares.telem, error = 0)
 
 # -------------------------------------#
@@ -198,8 +196,7 @@ haresClean <- hares %>%
 write.csv(haresClean, "output/haresClean.csv")
 
 # convert to telemetry object to use going forward
-hares.telem.clean <- as.telemetry(haresClean, keep = TRUE, projection="+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
-                            +no_defs")
+hares.telem.clean <- as.telemetry(haresClean, keep = TRUE, projection="+init=epsg:32622")
 
 
 # looking at the variograms to explore space use patterns
@@ -399,5 +396,7 @@ lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder=
 # use probability density function - higher values correspond to more intense space use (note: NOT normalized to 1)
 r <- lapply(1:length(homeRanges), function(x) ctmm::raster(homeRanges[[x]], filename= names(homeRanges), DF="PDF"))
 b <- raster::stack(r)
+
+names(b) <- names(hares.telem.clean)
 
 writeRaster(b, "output/Rasters/akde_homerange_pdf.tif", format="GTiff", overwrite=TRUE)
