@@ -395,8 +395,10 @@ lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder=
 # of probability mass within cells should be more accurate
 # use probability density function - higher values correspond to more intense space use (note: NOT normalized to 1)
 r <- lapply(1:length(homeRanges), function(x) ctmm::raster(homeRanges[[x]], filename= names(homeRanges), DF="PDF"))
+names(r) <- names(hares.telem.clean)
+# save list of rasters - easier to work with in 5-HomeRangeExtraction.R
+saveRDS(r, "large/akderasters.rds")
+
+# make RasterStack and save
 b <- raster::stack(r)
-
-names(b) <- names(hares.telem.clean)
-
 writeRaster(b, "output/Rasters/akde_homerange_pdf.tif", format="GTiff", overwrite=TRUE)
