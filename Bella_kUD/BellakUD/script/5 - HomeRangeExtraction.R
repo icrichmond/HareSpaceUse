@@ -1,8 +1,8 @@
 # Author: Isabella Richmond
-# Last Edited: July 15, 2020
+# Last Edited: July 21, 2020
 
-# This script is for extracting the food quality and predation risk of each individual's
-# core area and home range.
+# This script is for extracting the food quality and kUD values at each habitat complexity
+# sampling point.
 # aKDERazimuth.R shows how the kUD and home range areas were calculated
 # RiskOrdination.R shows the ordination of habitat complexity/predation risk values
 
@@ -33,22 +33,18 @@ vaancpclip <- projectRaster(vaancpclip, crs="+init=epsg:32622")
 image(vaancnclip)
 # load complexity sampling locations shapefile
 bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
-bl_cs_pts <- st_transform(bl_cs_pts, crs ="+init=epsg:32622")
+bl_cs_pts <- st_transform(bl_cs_pts, crs =st_crs("+init=epsg:32622"))
 plot(bl_cs_pts, add=T)
 # load home range area rasters - in a list (95% home range area in hectares)
 kernel95 <- readRDS("large/akderasters.rds")
 # normalize rasters so they are between 0,1
-# also change 0 to No Data so that mapping is easier
-scale01 <- function(r) {
-  rmin <- cellStats(kernel95[[1]], 'min')
-  rmax <- cellStats(kernel95[[1]], 'max')
-  (r - rmin) / (rmax - rmin)
-}
-
-kernel95norm <- lapply(kernel95, scale01)
-
+kernel95norm <- lapply(kernel95, spatialEco::raster.transformation)
+# check that they are the same spatially
 image(kernel95norm[[1]])
 image(kernel95[[1]])
+# create raster stack so extraction is possible
+kernel95stack <- stack(kernel95norm)
+names(kernel95stack) <- names(kernel95)
 
 # --------------------------------------- #
 #               Extract Data              #
@@ -64,7 +60,7 @@ vaancpclip.df <- as.data.frame(vaancpclip, xy=TRUE)
 # plot the stoich layer with the sampling points
 cncs <- tm_shape(vaancnclip)+
   tm_raster(title = "VAAN C:N", style = "cont", 
-            palette = "-RdYlBu")+
+            palette = "RdYlBu")+
   tm_scale_bar()+
   tm_layout(legend.bg.color = "white")+
 tm_grid()+
@@ -84,6 +80,11 @@ stoich <- brick(list(vaancnclip, vaancpclip))
 csstoich <- extract(stoich, predriskspatial)
 csstoich <- as.data.frame(csstoich)
 # extract the kUD values at each complexity sampling point 
-cskud <- extract(kernel95, predriskspatial)
+cskud <- extract(kernel95stack, predriskspatial)
 cskud <- as.data.frame(cskud)
-
+# set zeroes to NA 
+cskud[cskud==0] <- NA
+# combine CS plot name, stoich values, and kUD values 
+stoichkud <- cbind(cskud, csstoich)
+stoichkud <- add_column(stoichkud, Plot = predrisk$Plot)
+write.csv(stoichkud, "output/cs_stoich_kud.csv")
