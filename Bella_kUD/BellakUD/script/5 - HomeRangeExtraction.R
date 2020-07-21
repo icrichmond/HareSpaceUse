@@ -33,7 +33,7 @@ vaancpclip <- projectRaster(vaancpclip, crs="+init=epsg:32622")
 image(vaancnclip)
 # load complexity sampling locations shapefile
 bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
-bl_cs_pts <- st_transform(bl_cs_pts, crs =st_crs("+init=epsg:32622"))
+bl_cs_pts <- sf::st_transform(bl_cs_pts, "+init=epsg:32622")
 plot(bl_cs_pts, add=T)
 # load home range area rasters - in a list (95% home range area in hectares)
 kernel95 <- readRDS("large/akderasters.rds")
