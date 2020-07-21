@@ -71,12 +71,42 @@ dev.off()
 
 
 
-
-
-# replace with your folder name:
-dir <- "output/Shapefiles/aKDE_Home"
-ff <- list.files(dir, pattern="\\.shp$", full.names=TRUE)
-x <- lapply(ff, shapefile)
-lapply(1:length(x), function(i) crs(x[[i]]) <- crs(vaancn))
-
-crs(x[[1]]) <- crs(vaancn)
+# read in raster list
+kernel95 <- readRDS("large/akderasters.rds")
+# transform raster values so they are between 0,1
+kernel95norm <- lapply(kernel95, spatialEco::raster.transformation)
+# use clamp to transform any values under 0.15 to Nas
+kernel95normz <- lapply(kernel95norm, function(i) raster::clamp(i, lower=0.15, useValues=FALSE))
+# save clamped raster
+saveRDS(kernel95normz, "large/rasternormclamp.rds")
+clam <- readRDS("large/rasternormclamp.rds")
+# stack clamped rasters and merge them - can see individuals when plotted 
+clams <- raster::stack(clam)
+kernel95normm <- raster::merge(clams)
+# stack original raster list and overlay, summing values where there 
+# is more than one raster - shows collective when plotted
+kernel95norms <- raster::stack(kernel95norm)
+over <- raster::overlay(kernel95norms, fun=sum)
+# read in complexity sampling points
+bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
+bl_cs_pts <- sf::st_transform(bl_cs_pts, "+init=epsg:32622")
+# set extent to include all home ranges but not be too large
+e <- raster::extent(278000,280000,5359000,5360500)
+# plot merged data - individuals 
+tm_shape(kernel95normm, bbox=e)+
+  tm_raster(title = "kUD", style = "cont", 
+            palette = "-RdYlBu", alpha=0.9)+
+  tm_scale_bar()+
+  tm_layout(legend.bg.color = "white")+
+  tm_grid()+
+tm_shape(bl_cs_pts)+
+  tm_dots(size = 0.15)
+# plot overlay data - populations
+tm_shape(over, bbox=e)+
+  tm_raster(title = "kUD", style = "cont", 
+            palette = "-RdYlBu", alpha=0.9)+
+  tm_scale_bar()+
+  tm_layout(legend.bg.color = "white")+
+  tm_grid()+
+tm_shape(bl_cs_pts)+
+  tm_dots(size = 0.15)
