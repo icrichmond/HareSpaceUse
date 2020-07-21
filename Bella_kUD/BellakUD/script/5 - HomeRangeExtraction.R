@@ -82,8 +82,6 @@ csstoich <- as.data.frame(csstoich)
 # extract the kUD values at each complexity sampling point 
 cskud <- extract(kernel95stack, predriskspatial)
 cskud <- as.data.frame(cskud)
-# set zeroes to NA 
-cskud[cskud==0] <- NA
 # combine CS plot name, stoich values, and kUD values 
 stoichkud <- cbind(cskud, csstoich)
 stoichkud <- add_column(stoichkud, Plot = predrisk$Plot)
