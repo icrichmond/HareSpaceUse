@@ -1,5 +1,5 @@
 # Author: Isabella Richmond
-# Last Edited: July 21, 2020
+# Last Edited: July 22, 2020
 
 # This script is for extracting the food quality and kUD values at each habitat complexity
 # sampling point.
@@ -47,7 +47,7 @@ kernel95stack <- stack(kernel95norm)
 names(kernel95stack) <- names(kernel95)
 
 # --------------------------------------- #
-#               Extract Data              #
+#       Extract Data - Individuals        #
 # --------------------------------------- #
 # convert datasets into tibbles and code dates to make manipulation easier 
 predrisk <- as_tibble(predrisk, .name_repair = "universal") %>%
@@ -60,7 +60,7 @@ vaancpclip.df <- as.data.frame(vaancpclip, xy=TRUE)
 # plot the stoich layer with the sampling points
 cncs <- tm_shape(vaancnclip)+
   tm_raster(title = "VAAN C:N", style = "cont", 
-            palette = "RdYlBu")+
+            palette = "-RdYlBu")+
   tm_scale_bar()+
   tm_layout(legend.bg.color = "white")+
 tm_grid()+
@@ -86,3 +86,17 @@ cskud <- as.data.frame(cskud)
 stoichkud <- cbind(cskud, csstoich)
 stoichkud <- add_column(stoichkud, Plot = predrisk$Plot)
 write.csv(stoichkud, "output/cs_stoich_kud.csv")
+
+# --------------------------------------- #
+#        Extract Data - Population        #
+# --------------------------------------- #
+# overlay all home ranges, summing the probability where there are overlapping home ranges
+# gives a sort of population level raster 
+over <- raster::overlay(kernel95stack, fun=sum)
+# extract the population kUD values at each complexity sampling point 
+cskudpop <- extract(over, predriskspatial)
+cskudpop <- as.data.frame(cskudpop)
+# combine CS plot name, stoich values, and kUD values 
+stoichkudpop <- cbind(cskudpop, csstoich)
+stoichkudpop <- add_column(stoichkudpop, Plot = predrisk$Plot)
+write.csv(stoichkudpop, "output/cs_stoich_kud_pop.csv")
