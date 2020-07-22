@@ -1,5 +1,5 @@
 # Author: Isabella Richmond
-# Last Edited: July 21, 2020
+# Last Edited: July 22, 2020
 
 # This script is for the analysis of...
 
@@ -47,6 +47,7 @@ head(full_stack)
 
 # --------------------------------------- #
 #   Generalized Linear Models with kUD    #
+#             Individuals                 #
 # --------------------------------------- #
 # now we have plots with PCA values for complexity, 
 # kernel utilization values for all 30 hares, 
@@ -77,3 +78,27 @@ qqnorm(residuals(model1))
 qqline(residuals(model1))
 summary(model1)
 # residuals are extremely non-normal
+
+# --------------------------------------- #
+#   Generalized Linear Models with kUD    #
+#              Population                 #
+# --------------------------------------- #
+# import stoich and kUD values at each complexity sampling point for the population 
+stoichkudpop <- fread("output/cs_stoich_kud_pop.csv")
+# combine all variables so there are values for each sampling plot 
+fullpop <- stoichkudpop %>%
+  dplyr::select(-V1) %>%
+  tibble::add_column(overPCA = predrisk$overPCA)%>%
+  tibble::add_column(underPCA = predrisk$underPCA)
+# standardize the variables
+fullpop <- fullpop %>%
+  add_column(kUD_s = scale(fullpop$cskudpop, center = TRUE, scale = TRUE)) %>%
+  add_column(VAAN_CN_s = scale(fullpop$VAAN_CN, center = TRUE, scale = TRUE)) %>%
+  add_column(VAAN_CP_s = scale(fullpop$VAAN_CP, center = TRUE, scale = TRUE)) %>%
+  add_column(overPCA_s = scale(fullpop$overPCA, center = TRUE, scale = TRUE)) %>%
+  add_column(underPCA_s = scale(fullpop$underPCA, center = TRUE, scale = TRUE))
+# first going to test if there is a relationship between median values and 
+# predation risk/food quality
+popmodel <- glm(cskudpop ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s, data = fullpop)
+plot(popmodel)
+summary(popmodel)
