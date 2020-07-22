@@ -342,7 +342,8 @@ df <- subset(df, df$indiv != "149.374" &
 df <- subset(df, df$indiv != "149.003" &
                  df$indiv != "149.053" &
                  df$indiv != "149.274" &
-                 df$indiv != "149.653")
+                 df$indiv != "149.653" &
+                 df$indiv != "149.555")
 
 # reproject into lat/long and save - necessary for MoveBank
 coordinates(df) <- c("utm_x", "utm_y")
