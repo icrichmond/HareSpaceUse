@@ -73,6 +73,8 @@ dev.off()
 
 # read in raster list
 kernel95 <- readRDS("large/akderasters.rds")
+# removing 149.394 because it is too large to be biologically relevant
+kernel95[[7]] <- NULL
 # transform raster values so they are between 0,1
 kernel95norm <- lapply(kernel95, spatialEco::raster.transformation)
 # use clamp to transform any values under 0.15 to Nas
