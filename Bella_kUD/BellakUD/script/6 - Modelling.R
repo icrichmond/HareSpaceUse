@@ -1,7 +1,8 @@
 # Author: Isabella Richmond
-# Last Edited: July 22, 2020
+# Last Edited: July 24, 2020
 
-# This script is for the analysis of...
+# This script is for the analysis of the effects of habitat complexity and food 
+# quality on space use by snowshoe hare 
 
 
 # load required packages 
@@ -20,12 +21,6 @@ full <- stoichkud %>%
   dplyr::select(-V1) %>%
   tibble::add_column(overPCA = predrisk$overPCA)%>%
   tibble::add_column(underPCA = predrisk$underPCA)
-
-# get median value of all collars for each sampling plot 
-full <- full %>%
-  mutate(kUDmean = rowMeans(dplyr::select(., starts_with("X")))) %>%
-  rowwise() %>% 
-  mutate(kUDmedian =  median(c(!!! rlang::syms(grep('X', names(.), value=TRUE)))))
 
 # start by standardizing the explanatory variables
 full <- full %>%
@@ -53,20 +48,6 @@ head(full_stack)
 # kernel utilization values for all 30 hares, 
 # median kUD values for every plot and stoich values for 
 # lowland blueberry C:N and C:P
-
-# first going to test if there is a relationship between median values and 
-# predation risk/food quality
-medianmodel <- glm(kUDmedian_s ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s, data = full)
-plot(medianmodel)
-qqnorm(residuals(medianmodel))
-qqline(residuals(medianmodel))
-# residuals are extremely non-normal due to skew in the data
-
-meanmodel <- glm(kUDmean_s ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s, data = full)
-plot(meanmodel)
-qqnorm(residuals(medianmodel))
-qqline(residuals(medianmodel))
-summary(meanmodel)
 
 
 # in order to make the model work, nAGQ is set to zero. This 
