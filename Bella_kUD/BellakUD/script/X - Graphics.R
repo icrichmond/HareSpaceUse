@@ -1,36 +1,4 @@
 
-# plot relationships
-# make formulas of each relationship 
-cover <- 
-  
-  png("graphics/modelrelationships.png", width = 3000, height = 5000, units = "px", res = 600)
-cover <- ggplot(overlapdata, aes(x = CoverValue, y = overlap))+geom_point(color=rgb(35,77,32, maxColorValue = 255))+
-  geom_smooth(method="lm", color = rgb(201,223,138, maxColorValue=255))+
-  stat_cor(aes(label = paste(..rr.label..)), color = rgb(35,77,32, maxColorValue = 255))+
-  theme(plot.background = element_rect(fill = rgb(119,171,89, maxColorValue = 255)))+
-  theme(panel.background = element_rect(fill = rgb(240,247,218, maxColorValue = 255),colour =  rgb(240,247,218, maxColorValue = 255)))+
-  theme(axis.title = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
-  theme(axis.text = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
-  labs(x = "Canopy Closure", y = "")
-stoich <- ggplot(overlapdata, aes(x = VAAN_CN, y = overlap))+geom_point(color=rgb(35,77,32, maxColorValue = 255))+
-  geom_smooth(method="lm", color = rgb(201,223,138, maxColorValue=255))+
-  stat_cor(aes(label = paste(..rr.label..)), color = rgb(35,77,32, maxColorValue = 255))+
-  theme(plot.background = element_rect(fill = rgb(119,171,89, maxColorValue = 255)))+
-  theme(panel.background = element_rect(fill = rgb(240,247,218, maxColorValue = 255),colour =  rgb(240,247,218, maxColorValue = 255)))+
-  theme(axis.title = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
-  theme(axis.text = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
-  labs(x = "Lowland Blueberry C:N", y = "")
-hc <- ggplot(overlapdata, aes(x = meanhc, y = overlap))+geom_point(color=rgb(35,77,32, maxColorValue = 255))+
-  geom_smooth(method="lm", color = rgb(201,223,138, maxColorValue=255))+
-  stat_cor(aes(label = paste(..rr.label..)), color = rgb(35,77,32, maxColorValue = 255))+
-  theme(plot.background = element_rect(fill = rgb(119,171,89, maxColorValue = 255)))+
-  theme(axis.title = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
-  theme(panel.background = element_rect(fill = rgb(240,247,218, maxColorValue = 255),colour =  rgb(240,247,218, maxColorValue = 255)))+
-  theme(axis.title.y = element_text(size = 13))+
-  theme(axis.text = element_text(colour = rgb(240,247,218, maxColorValue = 255)))+
-  labs(x = "Horizontal Complexity", y = "Core Area Overlap")
-(cover/hc/stoich)
-dev.off()
 
 
 
