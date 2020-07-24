@@ -1,7 +1,12 @@
+# Author: Isabella Richmond
+# Last Edited: July 24, 2020
 
+# This script is for creating figures of the data from scripts #1-6 
 
+# load required packages 
+easypackages::packages("tidyverse", "raster", "tmap", "sf")
 
-
+#### Home Ranges --------
 # read in raster list
 kernel95 <- readRDS("large/akderasters.rds")
 # removing 149.555 because it was sampled across multiple years
