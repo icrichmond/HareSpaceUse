@@ -7,10 +7,8 @@
 # RiskOrdination.R shows the ordination of habitat complexity/predation risk values
 
 # load required packages 
-easypackages::packages("ggpubr", "patchwork", "AICcmodavg", "broom", 
-                       "maptools", "sf", "matrixStats", "tidyverse", "lubridate", 
-                       "dplyr", "ggplot2", "ggcorrplot", "sf", "raster", "lme4", 
-                       "RCurl", "tibble", "rgdal","tmap", "spatialEco")
+easypackages::packages("matrixStats", "tidyverse", "lubridate", "sf", "sp", "raster",
+                       "tmap", "spatialEco")
 
 # --------------------------------------- #
 #             Data Preparation            #
