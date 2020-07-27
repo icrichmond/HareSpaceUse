@@ -6,7 +6,8 @@
 
 
 # load required packages 
-easypackages::packages("tidyverse", "lme4","glmmTMB", "data.table", "AICcmodavg")
+easypackages::packages("tidyverse", "lme4","glmmTMB", "data.table", "AICcmodavg", "ggeffects",
+                       "broom.mixed")
 
 # --------------------------------------- #
 #             Data Preparation            #
@@ -107,9 +108,13 @@ hist(residuals(globalt))
 # --------------------------------------- #
 # linear mixed effect model with individual (CollarID) and plot as random effects
 # global model
-global_log <- lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + (1|CollarID) + (1|Plot), data=full_stack_s)
-pred_log <- lmer(logKUD ~ overPCA_s + underPCA_s + (1|CollarID) + (1|Plot), data=full_stack_s)
-stoich_log <- lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + (1|CollarID) + (1|Plot), data=full_stack_s)
+global_log <- lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
+                     overPCA_s*underPCA_s + VAAN_CN_s*VAAN_CP_s + 
+                     overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + 
+                     underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s + 
+                     (1|CollarID) + (1|Plot), data=full_stack_s)
+pred_log <- lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1|CollarID) + (1|Plot), data=full_stack_s)
+stoich_log <- lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1|CollarID) + (1|Plot), data=full_stack_s)
 null_log <- lmer(logKUD ~ (1|CollarID) + (1|Plot), data=full_stack_s)
 
 # Use AICc to evaluate the competing hypotheses 
@@ -117,21 +122,46 @@ null_log <- lmer(logKUD ~ (1|CollarID) + (1|Plot), data=full_stack_s)
 models <- list(global_log, pred_log, stoich_log, null_log)
 # use imap to loop through list of models using function at start of script and 
 # create diagnostic figures 
-#source("script/function-residPlots.R")
-#models.residplots <- imap(models, resid_plots) 
+source("script/function-residPlots.R")
+models.residplots <- imap(models, resid_plots) 
 # save all diagnostic plots to a pdf 
-#pdf("graphics/StoichModels_2Step/ModelDiagnostics_GzLM/ABBA_Qty_P_gamma.pdf")
-#ABBA.Qty_P.residplots
-#dev.off()
-
-# models do not meet assumptions - really bad fit. Will have to try a different error structure.
-# create an AICc table to show the "best model" to use as a prediction of spatial stoichiometry
+pdf("graphics/lmem_log_diagnostics.pdf")
+models.residplots
+dev.off()
+# models are not perfect but they are good enough (or as good as they will be)
+# create an AICc table to show the "best model"
 modelsnames <- list("Mod 1 = Global" = global_log, "Mod 2 = Habitat Complexity" = pred_log, "Mod 3 = Food Quality" = stoich_log, "Mod 4 = Null" = null_log)
-models.aic <- aictab(cand.set = models)
+models.aic <- aictab(cand.set = modelsnames)
 print(models.aic)
-write.csv(models.aic, "output/AIC_2Step/ABBA_Qty_P_gamma.csv")
+write.csv(models.aic, "output/lmem_log_aic.csv")
+# Mod3 - stoich model, is top ranking model 
 # save the summary tables of the models 
-summary.models <-map_df(models, broom::tidy, .id="model")
-write_csv(summary.models, path = "output/Summary_2Step/summary.ABBA.Qty_P_gamma.csv")
-# calculate pseudo R^2 - just another check of significance determination
-performance::r2_nakagawa(pred)
+summary(stoich_log)
+summary.models <-map_df(models, broom.mixed::tidy, .id="model")
+write_csv(summary.models, path = "output/lmem_log_summary.csv")
+# calculate pseudo R^2 of top model- just another check of significance determination
+performance::r2_nakagawa(stoich_log)
+
+# plot the relationship between kUD and C:N for each individual 
+# stoich was top model and C:N was the only variable where std. error wasn't larger than 
+# the estimate - although it is still insignificant 
+cols <- palette(rainbow(31))
+# extract the prediction dataframe 
+predicts <- ggpredict(stoich_log, terms = c("VAAN_CN_s"))
+ggplot(predicts)+
+  geom_line(aes(x=x, y=predicted))+
+  geom_ribbon(aes(x = x, ymin = predicted - std.error, ymax = predicted + std.error), 
+              fill = "lightgrey", alpha = 0.5) +  # error band
+  geom_point(data = full_stack_s,                      # adding the raw data (scaled values)
+             aes(x = VAAN_CN_s, y = logKUD, colour = CollarID)) + 
+  labs(x = "Lowbush Blueberry C:N (scaled)", y = "Kernel Utilization Distribution (log)", 
+       title = NULL) + 
+  theme_minimal()
+ggsave("graphics/VAANCN_kUD_vis.png")
+
+
+ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re") %>%
+  plot() + 
+  labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
+  scale_fill_manual(values = cols)
+ggsave("graphics/CollarIntercept_vis.png")
