@@ -165,3 +165,12 @@ ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re") %>%
   labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
   scale_fill_manual(values = cols)
 ggsave("graphics/CollarIntercept_vis.png")
+
+# looking at individual collar relationships with C:N and logKUD
+ggplot(data = full_stack_s, aes(x = VAAN_CN_s, y = logKUD, col = CollarID, group = CollarID))+ 
+  geom_point(size     = 1.2, alpha = .8, position = "jitter")+ 
+  theme_minimal()+
+  scale_color_manual(values = cols)+
+  geom_smooth(method = lm, se = FALSE, size = .5, alpha = .8)
+ggsave("graphics/VAANCN_kUD_collar_vis.png")
+# pretty different across individuals - make random slopes and random intercepts?
