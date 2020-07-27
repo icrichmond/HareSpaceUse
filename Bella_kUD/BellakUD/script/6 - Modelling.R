@@ -108,14 +108,14 @@ hist(residuals(globalt))
 # --------------------------------------- #
 # linear mixed effect model with individual (CollarID) and plot as random effects
 # global model
-global_log <- lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
+global_log <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
                      overPCA_s*underPCA_s + VAAN_CN_s*VAAN_CP_s + 
                      overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + 
                      underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s + 
                      (1|CollarID) + (1|Plot), data=full_stack_s)
-pred_log <- lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1|CollarID) + (1|Plot), data=full_stack_s)
-stoich_log <- lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1|CollarID) + (1|Plot), data=full_stack_s)
-null_log <- lmer(logKUD ~ (1|CollarID) + (1|Plot), data=full_stack_s)
+pred_log <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1|CollarID) + (1|Plot), data=full_stack_s)
+stoich_log <- lmerTest::lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1|CollarID) + (1|Plot), data=full_stack_s)
+null_log <- lmerTest::lmer(logKUD ~ 1 + (1|CollarID) + (1|Plot), data=full_stack_s)
 
 # Use AICc to evaluate the competing hypotheses 
 # create list of models 
@@ -159,7 +159,7 @@ ggplot(predicts)+
   theme_minimal()
 ggsave("graphics/VAANCN_kUD_vis.png")
 
-
+# look at the intercepts and slopes of the random effect of CollarID (individual)
 ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re") %>%
   plot() + 
   labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
