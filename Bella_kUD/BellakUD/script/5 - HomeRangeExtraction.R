@@ -152,14 +152,3 @@ tm_shape(over, bbox=e)+
   tm_grid()+
   tm_shape(bl_cs_pts)+
   tm_dots(size = 0.15)
-
-
-ade <- read.csv("output/homerangeareas.csv")
-ade <- filter(ade, Kernel == 95)
-hr_df <- hr_df[-c(12,22),]
-all <- bind_cols(ade, hr_df)
-
-ggplot(all, aes(x=value, y=homerange))+
-  geom_point()+
-  labs(x = "AdeHabitat Area (ha)", y = "ctmm Area (ha)", title = "95% Home Ranges")
-cor(all$value, all$homerange)
