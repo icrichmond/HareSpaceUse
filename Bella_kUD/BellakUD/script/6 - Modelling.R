@@ -1,5 +1,5 @@
 # Author: Isabella Richmond
-# Last Edited: July 24, 2020
+# Last Edited: July 29, 2020
 
 # This script is for the analysis of the effects of habitat complexity and food 
 # quality on space use by snowshoe hare 
@@ -142,12 +142,103 @@ write_csv(summary.models, path = "output/lmem_log_summary.csv")
 # calculate pseudo R^2 of top model- just another check of significance determination
 performance::r2_nakagawa(stoich_log)
 
+# --------------------------------------- #
+#             Random Slopes               #
+# --------------------------------------- #
+# investigating relationships between explanatory variables and logKUD 
+# to see if random variables should be allowed to have random slopes as
+# well as intercepts. Only doing this for CollarID because individuals 
+# should have different reactions due to behavioural differences 
+# but Plot would be expected to have similar slopes/no individuality. 
+# Just want to control for random variation across plots, so stick to 
+# random intercepts.
+
+# looking at individual collar relationships with C:N and logKUD
+ggplot(data = full_stack_s, aes(x = VAAN_CN_s, y = logKUD, col = CollarID, group = CollarID))+ 
+  geom_point(size     = 1.2, alpha = .8, position = "jitter")+ 
+  theme_minimal()+
+  scale_color_manual(values = cols)+
+  geom_smooth(method = lm, se = FALSE, size = .5, alpha = .8)
+ggsave("graphics/VAANCN_kUD_collar_vis.png")
+# pretty different across individuals - will change model so that there are random slopes 
+# for CollarID with VAAN C:N
+
+# now look at individual collar relationships with C:P and logKUD
+ggplot(data = full_stack_s, aes(x = VAAN_CP_s, y = logKUD, col = CollarID, group = CollarID))+ 
+  geom_point(size     = 1.2, alpha = .8, position = "jitter")+ 
+  theme_minimal()+
+  scale_color_manual(values = cols)+
+  geom_smooth(method = lm, se = FALSE, size = .5, alpha = .8)
+# the slopes of these lines look a lot more similar across individuals than with C:N
+# only use random intercepts 
+
+# now look at individual collar relationships with overstory complexity and logKUD
+ggplot(data = full_stack_s, aes(x = overPCA_s, y = logKUD, col = CollarID, group = CollarID))+ 
+  geom_point(size     = 1.2, alpha = .8, position = "jitter")+ 
+  theme_minimal()+
+  scale_color_manual(values = cols)+
+  geom_smooth(method = lm, se = FALSE, size = .5, alpha = .8)
+# the slopes of these lines look a lot more similar across individuals than with C:N
+# only use random intercepts
+
+# now look at individual collar relationships with overstory complexity and logKUD
+ggplot(data = full_stack_s, aes(x = underPCA_s, y = logKUD, col = CollarID, group = CollarID))+ 
+  geom_point(size     = 1.2, alpha = .8, position = "jitter")+ 
+  theme_minimal()+
+  scale_color_manual(values = cols)+
+  geom_smooth(method = lm, se = FALSE, size = .5, alpha = .8)
+# the slopes of these lines look very different. Include random slopes with CollarID
+
+# --------------------------------------- #
+#        LMEM with Random Slopes          #
+# --------------------------------------- #
+# linear mixed effect model with individual (CollarID) and plot as random effects
+# assigning CollarID random intercepts AND slopes based on plots above 
+
+# global model
+global_log_slope <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
+                               overPCA_s*underPCA_s + VAAN_CN_s*VAAN_CP_s + 
+                               overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + 
+                               underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s + 
+                               (1 + VAAN_CN_s | CollarID)  + (1 + underPCA_s|CollarID) + (1|Plot), data=full_stack_s)
+# model is near singular - potentially overfitted 
+pred_log_slope <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1 +  underPCA_s|CollarID) + (1|Plot), data=full_stack_s)
+# model is near singular - potentially overfitted
+# model does not converge if overPCA_s is included in random effect - less variable, leave out
+stoich_log_slope <- lmerTest::lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1 + VAAN_CN_s|CollarID) + (1|Plot), data=full_stack_s)
+# model does not converge if VAAN_CP_s is included in random effect - less variable, leave out
+null_log_slope <- lmerTest::lmer(logKUD ~ 1 + (1|CollarID) + (1|Plot), data=full_stack_s)
+# null model with random intercepts does not significantly differ from null model with 
+# random slopes and intercepts and converges, move forward with this 
+
+models_slope <- list(global_log_slope, pred_log_slope, stoich_log_slope, null_log_slope)
+# create an AICc table to show the "best model"
+modelsnames_slope <- list("Mod 1 = Global" = global_log_slope, "Mod 2 = Habitat Complexity" = pred_log_slope, "Mod 3 = Food Quality" = stoich_log_slope, "Mod 4 = Null" = null_log_slope)
+models.aic_slope <- aictab(cand.set = modelsnames_slope)
+print(models.aic_slope)
+write.csv(models.aic_slope, "output/lmem_log_aic_slope.csv")
+# Mod3 - stoich model, is top ranking model 
+# save the summary tables of the models 
+summary(stoich_log_slope_slope)
+summary.models_slope <-map_df(models_slope, broom.mixed::tidy, .id="model")
+write_csv(summary.models_slope, path = "output/lmem_log_slope_summary.csv")
+# calculate pseudo R^2 of top model- just another check of significance determination
+performance::r2_nakagawa(stoich_log_slope)
+
+# compare models - one with random intercepts and one with random intercepts and slopes
+anova(stoich_log, stoich_log_slope, refit=FALSE)
+# stoich model with random slopes is a significantly better model fit than without
+# present models with random slopes 
+
+# --------------------------------------- #
+#                Plotting                 #
+# --------------------------------------- #
 # plot the relationship between kUD and C:N for each individual 
 # stoich was top model and C:N was the only variable where std. error wasn't larger than 
 # the estimate - although it is still insignificant 
 cols <- palette(rainbow(31))
 # extract the prediction dataframe 
-predicts <- ggpredict(stoich_log, terms = c("VAAN_CN_s"))
+predicts <- ggpredict(stoich_log_slope, terms = c("VAAN_CN_s"))
 ggplot(predicts)+
   geom_line(aes(x=x, y=predicted))+
   geom_ribbon(aes(x = x, ymin = predicted - std.error, ymax = predicted + std.error), 
@@ -160,17 +251,8 @@ ggplot(predicts)+
 ggsave("graphics/VAANCN_kUD_vis.png")
 
 # look at the intercepts and slopes of the random effect of CollarID (individual)
-ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re") %>%
+ggpredict(stoich_log_slope, terms=c("VAAN_CP_s", "CollarID"), type = "re") %>%
   plot() + 
   labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
   scale_fill_manual(values = cols)
-ggsave("graphics/CollarIntercept_vis.png")
-
-# looking at individual collar relationships with C:N and logKUD
-ggplot(data = full_stack_s, aes(x = VAAN_CN_s, y = logKUD, col = CollarID, group = CollarID))+ 
-  geom_point(size     = 1.2, alpha = .8, position = "jitter")+ 
-  theme_minimal()+
-  scale_color_manual(values = cols)+
-  geom_smooth(method = lm, se = FALSE, size = .5, alpha = .8)
-ggsave("graphics/VAANCN_kUD_collar_vis.png")
-# pretty different across individuals - make random slopes and random intercepts?
+ggsave("graphics/CollarSlopes_CP_vis.png")
