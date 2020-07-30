@@ -152,3 +152,24 @@ tm_shape(over, bbox=e)+
   tm_grid()+
   tm_shape(bl_cs_pts)+
   tm_dots(size = 0.15)
+
+# plot stoich and predation risk variation 
+# make predrisk spatial 
+
+cnover <- tm_shape(vaancnclip)+
+  tm_raster(palette = "BrBG", title="Carbon:Nitrogen")+
+  tm_scale_bar()+
+  tm_layout(legend.bg.color = "white", legend.title.size = 1, legend.outside = TRUE)+
+  tm_grid()+
+tm_shape(predriskspatial)+
+  tm_bubbles(size=0.15, col="overPCA", palette="Greys", title.col="Overstory Complexity", midpoint=NA)
+tmap_save(cnover, "graphics/OverstoryComplexity_CN.png")
+
+cpunder <- tm_shape(vaancpclip)+
+  tm_raster(palette = "BrBG", title = "Carbon:Phosphorus")+
+  tm_scale_bar()+
+  tm_layout(legend.bg.color = "white", legend.title.size=1, legend.outside=TRUE)+
+  tm_grid()+
+tm_shape(predriskspatial)+
+  tm_bubbles(size=0.15, col="underPCA", palette="Greys", title.col="Understory Complexity", midpoint=NA)
+tmap_save(cpunder, "graphics/UnderstoryComplexity_CP.png")
