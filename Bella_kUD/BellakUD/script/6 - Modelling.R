@@ -219,11 +219,11 @@ print(models.aic_slope)
 write.csv(models.aic_slope, "output/lmem_log_aic_slope.csv")
 # Mod3 - stoich model, is top ranking model 
 # save the summary tables of the models 
-summary(stoich_log_slope_slope)
+summary(stoich_log_slope)
 summary.models_slope <-map_df(models_slope, broom.mixed::tidy, .id="model")
 write_csv(summary.models_slope, path = "output/lmem_log_slope_summary.csv")
 # calculate pseudo R^2 of top model- just another check of significance determination
-performance::r2_nakagawa(stoich_log_slope)
+performance::r2_nakagawa(pred_log_slope)
 
 # compare models - one with random intercepts and one with random intercepts and slopes
 anova(stoich_log, stoich_log_slope, refit=FALSE)
