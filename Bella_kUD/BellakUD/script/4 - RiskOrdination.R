@@ -72,7 +72,7 @@ ggsave("graphics/overstoreypredriskpca.jpg", height = 200, width = 200, units = 
 
 
 # extract PC1 from understorey PCA and overstorey PCA for modelling 
-predriskpca <- predriskpca %>% add_column(underPCA = underord$x[,1]) %>%
+predriskpca <- predrisk %>% add_column(underPCA = underord$x[,1]) %>%
   add_column(overPCA = newoverord$x[,1])
 write_csv(predriskpca, "output/predationriskpca.csv")
 
