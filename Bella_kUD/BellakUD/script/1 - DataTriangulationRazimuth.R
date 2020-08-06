@@ -268,16 +268,18 @@ lsfits <- readRDS("large/lsfits.rds")
 # Visualize all with error
 pdf('graphics/final_triangulation.pdf')
 lapply(seq_along(lsatms), function(x) {
-  plot.new()
+  print(plot.new())
   mtext(names(lsatms)[[x]])
-  lapply(lsatms[[x]]$pid, function(i) {
+  lapply(lsatms[[x]]$pid, plyr::failwith(NULL, function(i) {
     visualize_atm(lsatms[[x]], obs_id = i, add_prior = TRUE)
     p_isopleth(df = lsfits[[x]]$mu_ls[[i]]$pdraws, prob_lvls = c(0.95), range_extend = 0,
                kde_n = 50, col_vec = c(4,4))
     points(matrix(lsfits[[x]]$pmode[i, 2:3], ncol = 2), pch = 21, bg = 4)
     legend("topleft", c("Posterior Mode"), pch = 21, pt.bg = 4, bty = "n")
-  })
+  }
+  ))
 })
+
 dev.off()
 
 # check convergence ----
