@@ -7,7 +7,7 @@
 
 # load required packages 
 easypackages::packages("tidyverse", "lme4","glmmTMB", "data.table", "AICcmodavg", "ggeffects",
-                       "broom.mixed")
+                       "broom.mixed", "ggpubr", "patchwork")
 
 # --------------------------------------- #
 #             Data Preparation            #
@@ -202,7 +202,7 @@ global_log_slope <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s +
                                underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s + 
                                (1 + VAAN_CN_s | CollarID)  + (1 + underPCA_s|CollarID) + (1|Plot), data=full_stack_s)
 # model is near singular - potentially overfitted 
-pred_log_slope <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1 +  underPCA_s|CollarID) + (1|Plot), data=full_stack_s)
+pred_log_slope <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1 + underPCA_s|CollarID) + (1|Plot), data=full_stack_s)
 # model is near singular - potentially overfitted
 # model does not converge if overPCA_s is included in random effect - less variable, leave out
 stoich_log_slope <- lmerTest::lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1 + VAAN_CN_s|CollarID) + (1|Plot), data=full_stack_s)
@@ -256,3 +256,64 @@ ggpredict(stoich_log_slope, terms=c("VAAN_CP_s", "CollarID"), type = "re") %>%
   labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
   scale_fill_manual(values = cols)
 ggsave("graphics/CollarSlopes_CP_vis.png")
+
+
+# plot the relationship between kUD and explanatory variables with line of best fit 
+cn <- ggplot(full_stack_s)+
+  geom_point(aes(VAAN_CN_s, logKUD))+
+  geom_smooth(aes(VAAN_CN_s, logKUD), color = "grey3",method = lm)+
+  stat_cor(aes(VAAN_CN_s,logKUD,label = paste(..rr.label..)), label.y = 1)+
+  stat_regline_equation(aes(VAAN_CN_s,logKUD), label.y = 1.5)+
+  theme(panel.background = element_blank())+
+  labs(x = "Lowbush Blueberry C:N", y = "KUD (log)")
+
+cp <- ggplot(full_stack_s)+
+  geom_point(aes(VAAN_CP_s, logKUD))+
+  geom_smooth(aes(VAAN_CP_s, logKUD), color = "grey3",method = lm)+
+  stat_cor(aes(VAAN_CP_s,logKUD,label = paste(..rr.label..)), label.y = 1)+
+  stat_regline_equation(aes(VAAN_CP_s,logKUD), label.y = 1.5)+
+  theme(panel.background = element_blank())+
+  labs(x = "Lowbush Blueberry C:P", y = "KUD (log)")
+
+over <- ggplot(full_stack_s)+
+  geom_point(aes(overPCA_s, logKUD))+
+  geom_smooth(aes(overPCA_s, logKUD), color = "grey3",method = lm)+
+  stat_cor(aes(overPCA_s,logKUD,label = paste(..rr.label..)), label.y = 1)+
+  stat_regline_equation(aes(overPCA_s,logKUD), label.y = 1.5)+
+  theme(panel.background = element_blank())+
+  labs(x = "Overstory Habitat Complexity", y = " ")
+
+under <- ggplot(full_stack_s)+
+  geom_point(aes(underPCA_s, logKUD))+
+  geom_smooth(aes(underPCA_s, logKUD), color = "grey3",method = lm)+
+  stat_cor(aes(underPCA_s,logKUD,label = paste(..rr.label..)), label.y = 1)+
+  stat_regline_equation(aes(underPCA_s,logKUD), label.y = 1.5)+
+  theme(panel.background = element_blank())+
+  labs(x = "Understory Habitat Complexity", y = " ")
+
+all <- ((cn | over)/(cp | under))
+ggsave("graphics/KUD_explanatory.png", all)
+
+
+# plot the random slopes against each other 
+# extract the slopes with coef
+underran <- coef(pred_log_slope)
+underrandf <- as_tibble(overran[["CollarID"]][["underPCA_s"]]) %>%
+  rename(understory = value)
+
+cnran <- coef(stoich_log_slope)
+cnrandf <- as_tibble(cnran[["CollarID"]][["VAAN_CN_s"]]) %>%
+  rename(CN = value)
+
+# bind two slope values together 
+slopes <- cbind(cnrandf, underrandf)
+
+# plot 
+ggplot(slopes) +
+  geom_point(aes(CN, understory))+
+  geom_smooth(aes(CN, understory), color = "grey3",method = lm)+
+  stat_cor(aes(CN,understory,label = paste(..rr.label..)), label.y = 0.3)+
+  stat_regline_equation(aes(CN,understory), label.y = 0.32)+
+  theme(panel.background = element_blank())+
+  labs(x = "(1+C:N|Individual) Slopes", y = "(1+Understory Habitat Complexity|Individual) Slopes")
+ggsave("graphics/Understory_CN_SlopeComparison.png")
