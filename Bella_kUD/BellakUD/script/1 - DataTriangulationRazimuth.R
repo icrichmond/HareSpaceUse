@@ -209,6 +209,7 @@ rm(Data17, Data18, Data19, liveData, TmpData, VHF2017, VHF2018, VHF2019)
 #         Individual Collar               #
 # --------------------------------------- #
 # AR helped with this code - github.com/robitalec
+# investigating sample data and functionality of package
 
 # Check example data structure
 grouse <- sim_atd(n_loc = 100, sq_km = 4, n_azimuth = 3, dist_vec = c(200,300),
