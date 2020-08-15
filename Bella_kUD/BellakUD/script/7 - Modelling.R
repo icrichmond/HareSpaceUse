@@ -104,6 +104,20 @@ hist(residuals(globalt))
 # based hurdle model is more controversial.
 
 # --------------------------------------- #
+# General Linear Models (Pseudoreplication) #
+# --------------------------------------- #
+global_small <- glm(logKUD ~ + underPCA_s+ VAAN_CN_s +  
+                      underPCA_s*VAAN_CN_s, data = full_stack_s)
+pred_small <- glm(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s, data = full_stack_s)
+stoich_small <- glm(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s, data = full_stack_s)
+null_small <- glm(logKUD ~ 1, data=full_stack_s)
+
+modelsnames <- list("Mod 1 = Global" = global_small, "Mod 2 = Habitat Complexity" = pred_small, "Mod 3 = Food Quality" = stoich_small, "Mod 4 = Null" = null_small)
+models.aic <- aictab(cand.set = modelsnames)
+print(models.aic)
+performance::r2_nagelkerke(global_small)
+
+# --------------------------------------- #
 # Transformed Linear Mixed Effects Models #
 # --------------------------------------- #
 # linear mixed effect model with individual (CollarID) and plot as random effects
