@@ -88,12 +88,12 @@ full_stack_s <- full_stack_s %>%
   mutate(lnKUD = log(kUD)) %>%
   mutate(logKUD = log10(kUD))
 
-globalt <- glmmTMB(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + (1|CollarID) + (1|Plot), data=full_stack_s)
+globalt <- glmmTMB(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + (1|CollarID), data=full_stack_s)
 qqnorm(residuals(globalt))
 qqline(residuals(globalt))
 hist(residuals(globalt))
 
-globalt <- glmmTMB(lnKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + (1|CollarID) + (1|Plot), data=full_stack_s)
+globalt <- glmmTMB(lnKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + (1|CollarID), data=full_stack_s)
 qqnorm(residuals(globalt))
 qqline(residuals(globalt))
 hist(residuals(globalt))
@@ -104,32 +104,17 @@ hist(residuals(globalt))
 # based hurdle model is more controversial.
 
 # --------------------------------------- #
-# General Linear Models (Pseudoreplication) #
-# --------------------------------------- #
-global_small <- glm(logKUD ~ + underPCA_s+ VAAN_CN_s +  
-                      underPCA_s*VAAN_CN_s, data = full_stack_s)
-pred_small <- glm(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s, data = full_stack_s)
-stoich_small <- glm(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s, data = full_stack_s)
-null_small <- glm(logKUD ~ 1, data=full_stack_s)
-
-modelsnames <- list("Mod 1 = Global" = global_small, "Mod 2 = Habitat Complexity" = pred_small, "Mod 3 = Food Quality" = stoich_small, "Mod 4 = Null" = null_small)
-models.aic <- aictab(cand.set = modelsnames)
-print(models.aic)
-performance::r2_nagelkerke(global_small)
-
-# --------------------------------------- #
 # Transformed Linear Mixed Effects Models #
 # --------------------------------------- #
-# linear mixed effect model with individual (CollarID) and plot as random effects
-# global model
+# linear mixed effect model with individual (CollarID) as random effect with fixed slopes
 global_log <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
                      overPCA_s*underPCA_s + VAAN_CN_s*VAAN_CP_s + 
                      overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + 
                      underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s + 
-                     (1|CollarID) + (1|Plot), data=full_stack_s)
-pred_log <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1|CollarID) + (1|Plot), data=full_stack_s)
-stoich_log <- lmerTest::lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1|CollarID) + (1|Plot), data=full_stack_s)
-null_log <- lmerTest::lmer(logKUD ~ 1 + (1|CollarID) + (1|Plot), data=full_stack_s)
+                     (1|CollarID), data=full_stack_s)
+pred_log <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1|CollarID), data=full_stack_s)
+stoich_log <- lmerTest::lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1|CollarID), data=full_stack_s)
+null_log <- lmerTest::lmer(logKUD ~ 1 + (1|CollarID), data=full_stack_s)
 
 # Use AICc to evaluate the competing hypotheses 
 # create list of models 
@@ -211,17 +196,18 @@ ggplot(data = full_stack_s, aes(x = underPCA_s, y = logKUD, col = CollarID, grou
 
 # global model
 global_log_slope <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
-                               overPCA_s*underPCA_s + VAAN_CN_s*VAAN_CP_s + 
                                overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + 
                                underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s + 
-                               (1 + VAAN_CN_s | CollarID)  + (1 + underPCA_s|CollarID) + (1|Plot), data=full_stack_s)
+                               (1 + VAAN_CN_s | CollarID)  + (1 + underPCA_s|CollarID), data=full_stack_s)
 # model is near singular - potentially overfitted 
-pred_log_slope <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1 + underPCA_s|CollarID) + (1|Plot), data=full_stack_s)
+# model failed to converge, removed interaction terms between C:N*C:P and under*over because we 
+# only really care about interaction between food quality and predation risk - simplifies model
+pred_log_slope <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1 + underPCA_s|CollarID), data=full_stack_s)
 # model is near singular - potentially overfitted
 # model does not converge if overPCA_s is included in random effect - less variable, leave out
-stoich_log_slope <- lmerTest::lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1 + VAAN_CN_s|CollarID) + (1|Plot), data=full_stack_s)
+stoich_log_slope <- lmerTest::lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1 + VAAN_CN_s|CollarID), data=full_stack_s)
 # model does not converge if VAAN_CP_s is included in random effect - less variable, leave out
-null_log_slope <- lmerTest::lmer(logKUD ~ 1 + (1|CollarID) + (1|Plot), data=full_stack_s)
+null_log_slope <- lmerTest::lmer(logKUD ~ 1 + (1|CollarID), data=full_stack_s)
 # null model with random intercepts does not significantly differ from null model with 
 # random slopes and intercepts and converges, move forward with this 
 
@@ -237,7 +223,7 @@ summary(stoich_log_slope)
 summary.models_slope <-map_df(models_slope, broom.mixed::tidy, .id="model")
 write_csv(summary.models_slope, path = "output/lmem_log_slope_summary.csv")
 # calculate pseudo R^2 of top model- just another check of significance determination
-performance::r2_nakagawa(pred_log_slope)
+performance::r2_nakagawa(stoich_log_slope)
 
 # compare models - one with random intercepts and one with random intercepts and slopes
 anova(stoich_log, stoich_log_slope, refit=FALSE)
@@ -247,7 +233,7 @@ anova(stoich_log, stoich_log_slope, refit=FALSE)
 # --------------------------------------- #
 #                Plotting                 #
 # --------------------------------------- #
-# plot the relationship between kUD and C:N for each individual 
+# plot the relationship between kUD and C:N for each individual when slopes vary
 # stoich was top model and C:N was the only variable where std. error wasn't larger than 
 # the estimate - although it is still insignificant 
 cols <- palette(rainbow(31))
@@ -264,13 +250,19 @@ ggplot(predicts)+
   theme_minimal()
 ggsave("graphics/VAANCN_kUD_vis.png")
 
-# look at the intercepts and slopes of the random effect of CollarID (individual)
-ggpredict(stoich_log_slope, terms=c("VAAN_CP_s", "CollarID"), type = "re") %>%
+# look at the intercepts and slopes of the random effect of CollarID (individual) with fixed slopes
+ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re") %>%
   plot() + 
   labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
   scale_fill_manual(values = cols)
-ggsave("graphics/CollarSlopes_CP_vis.png")
+ggsave("graphics/CollarSlopes_CN_fix.png")
 
+# look at the intercepts and slopes of the random effect of CollarID (individual) with varying slopes
+ggpredict(stoich_log_slope, terms=c("VAAN_CN_s", "CollarID"), type = "re") %>%
+  plot() + 
+  labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
+  scale_fill_manual(values = cols)
+ggsave("graphics/CollarSlopes_CN_vary.png")
 
 # plot the relationship between kUD and explanatory variables with line of best fit 
 cn <- ggplot(full_stack_s)+
@@ -307,12 +299,12 @@ under <- ggplot(full_stack_s)+
 
 all <- ((cn | over)/(cp | under))
 ggsave("graphics/KUD_explanatory.png", all)
-
+all
 
 # plot the random slopes against each other 
 # extract the slopes with coef
 underran <- coef(pred_log_slope)
-underrandf <- as_tibble(overran[["CollarID"]][["underPCA_s"]]) %>%
+underrandf <- as_tibble(underran[["CollarID"]][["underPCA_s"]]) %>%
   rename(understory = value)
 
 cnran <- coef(stoich_log_slope)
@@ -325,9 +317,9 @@ slopes <- cbind(cnrandf, underrandf)
 # plot 
 ggplot(slopes) +
   geom_point(aes(CN, understory))+
-  geom_smooth(aes(CN, understory), color = "grey3",method = lm)+
-  stat_cor(aes(CN,understory,label = paste(..rr.label..)), label.y = 0.3)+
-  stat_regline_equation(aes(CN,understory), label.y = 0.32)+
+  geom_smooth(aes(CN, understory), color = "grey3", se = FALSE, method = lm)+
+  #stat_cor(aes(CN,understory,label = paste(..rr.label..)), label.y = 0.3)+
+  #stat_regline_equation(aes(CN,understory), label.y = 0.32)+
   theme(panel.background = element_blank())+
   labs(x = "(1+C:N|Individual) Slopes", y = "(1+Understory Habitat Complexity|Individual) Slopes")
 ggsave("graphics/Understory_CN_SlopeComparison.png")
