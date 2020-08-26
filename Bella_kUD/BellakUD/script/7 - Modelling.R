@@ -310,10 +310,8 @@ underrandf <- as_tibble(underran[["CollarID"]][["underPCA_s"]]) %>%
 cnran <- coef(stoich_log_slope)
 cnrandf <- as_tibble(cnran[["CollarID"]][["VAAN_CN_s"]]) %>%
   rename(CN = value)
-
 # bind two slope values together 
 slopes <- cbind(cnrandf, underrandf)
-
 # plot 
 ggplot(slopes) +
   geom_point(aes(CN, understory))+
@@ -323,3 +321,12 @@ ggplot(slopes) +
   theme(panel.background = element_blank())+
   labs(x = "(1+C:N|Individual) Slopes", y = "(1+Understory Habitat Complexity|Individual) Slopes")
 ggsave("graphics/Understory_CN_SlopeComparison.png")
+
+# check correlation between risk and food quality to make sure that above graph is due to biological reasoning
+ggplot(full_stack_s)+
+  geom_point(aes(underPCA_s,VAAN_CN_s))+
+  geom_smooth(aes(underPCA_s, VAAN_CN_s), method=lm)+
+  stat_cor(aes(underPCA_s,VAAN_CN_s), method = "pearson", label.y = 3)+
+  theme(panel.background = element_blank())+
+  labs(x = "Understory Habitat Complexity", y = "Lowbush Blueberry C:N")
+# not highly correlated
