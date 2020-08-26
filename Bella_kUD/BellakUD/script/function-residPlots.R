@@ -17,7 +17,7 @@ resid_plots <- function(model, modelname){
   p3 <- p3+xlab("Obs. Number")+ylab("Cook's distance")
   p3 <- p3+ggtitle("Cook's distance")+theme_bw()+theme(plot.title = element_text(size=9),axis.title = element_text(size=8))
   # last plot is a check of influential data points, similar to Cook's distance
-  p4 <- ggplot(output, aes(.hat, .resid))+geom_point(aes(size=.cooksd), na.rm=TRUE)
+  p4 <- ggplot(output, aes(.fitted, .resid))+geom_point(aes(size=.cooksd), na.rm=TRUE)
   p4 <- p4+stat_smooth(method="loess", na.rm=TRUE)
   p4 <- p4+xlab("Leverage")+ylab("Stdized Residuals")
   p4 <- p4+ggtitle("Residual vs Leverage Plot")
