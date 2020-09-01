@@ -139,7 +139,7 @@ summary(stoich_log)
 summary.models <-map_df(models, broom.mixed::tidy, .id="model")
 write_csv(summary.models, path = "output/lmem_log_summary.csv")
 # calculate pseudo R^2 of top model- just another check of significance determination
-performance::r2_nakagawa(stoich_log)
+performance::r2_nakagawa(global_log)
 
 # --------------------------------------- #
 #             Random Slopes               #
@@ -223,7 +223,7 @@ summary(stoich_log_slope)
 summary.models_slope <-map_df(models_slope, broom.mixed::tidy, .id="model")
 write_csv(summary.models_slope, path = "output/lmem_log_slope_summary.csv")
 # calculate pseudo R^2 of top model- just another check of significance determination
-performance::r2_nakagawa(stoich_log_slope)
+performance::r2_nakagawa(null_log_slope)
 
 # compare models - one with random intercepts and one with random intercepts and slopes
 anova(stoich_log, stoich_log_slope, refit=FALSE)
@@ -251,50 +251,65 @@ ggplot(predicts)+
 ggsave("graphics/VAANCN_kUD_vis.png")
 
 # look at the intercepts and slopes of the random effect of CollarID (individual) with fixed slopes
-ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re") %>%
-  plot() + 
+fix <- ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re")
+fixp <- ggplot(fix, aes(x=x, y=predicted, colour=group))+
+  stat_smooth(method="lm", se=FALSE,fullrange=TRUE)+
   labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
-  scale_fill_manual(values = cols)
-ggsave("graphics/CollarSlopes_CN_fix.png")
+  scale_fill_manual(values = cols)+
+  theme(legend.position = "none", panel.background = element_blank(), 
+        axis.line = element_line(colour="black"),axis.ticks = element_line(colour="black"),
+        axis.text = element_text(colour="black"))
+#ggsave("graphics/CollarSlopes_CN_fix.png")
 
 # look at the intercepts and slopes of the random effect of CollarID (individual) with varying slopes
-ggpredict(stoich_log_slope, terms=c("VAAN_CN_s", "CollarID"), type = "re") %>%
-  plot() + 
-  labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
-  scale_fill_manual(values = cols)
-ggsave("graphics/CollarSlopes_CN_vary.png")
+vary <- ggpredict(stoich_log_slope, terms=c("VAAN_CN_s", "CollarID"), type = "re")
+varyp <- ggplot(vary, aes(x=x, y=predicted,colour=group))+
+  stat_smooth(method="lm", se=FALSE,fullrange=TRUE)+
+  labs(x = "Lowbush Blueberry C:N", colour="Individual")+
+  scale_fill_manual(name = "Individual", values = cols)+
+  theme(axis.title.y = element_blank(), panel.background = element_blank(), 
+        axis.line = element_line(colour="black"),axis.ticks = element_line(colour="black"),
+        axis.text = element_text(colour="black"))
+#ggsave("graphics/CollarSlopes_CN_vary.png")
+
+both <- (fixp|varyp) + plot_annotation(tag_levels = "a")
+ggsave("graphics/CollarSlopes_CN_both.png", both)
 
 # plot the relationship between kUD and explanatory variables with line of best fit 
 cn <- ggplot(full_stack_s)+
-  geom_point(aes(VAAN_CN_s, logKUD))+
+  geom_point(aes(VAAN_CN_s, logKUD),colour="grey46")+
   geom_smooth(aes(VAAN_CN_s, logKUD), color = "grey3",method = lm)+
-  stat_cor(aes(VAAN_CN_s,logKUD,label = paste(..rr.label..)), label.y = 1)+
+  stat_cor(aes(VAAN_CN_s,logKUD,label = paste(..rr.label..)), label.y = 0.9)+
   stat_regline_equation(aes(VAAN_CN_s,logKUD), label.y = 1.5)+
-  theme(panel.background = element_blank())+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
   labs(x = "Lowbush Blueberry C:N", y = "KUD (log)")
 
 cp <- ggplot(full_stack_s)+
-  geom_point(aes(VAAN_CP_s, logKUD))+
+  geom_point(aes(VAAN_CP_s, logKUD), colour="grey46")+
   geom_smooth(aes(VAAN_CP_s, logKUD), color = "grey3",method = lm)+
-  stat_cor(aes(VAAN_CP_s,logKUD,label = paste(..rr.label..)), label.y = 1)+
+  stat_cor(aes(VAAN_CP_s,logKUD,label = paste(..rr.label..)), label.y = 0.9)+
   stat_regline_equation(aes(VAAN_CP_s,logKUD), label.y = 1.5)+
-  theme(panel.background = element_blank())+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
   labs(x = "Lowbush Blueberry C:P", y = "KUD (log)")
 
 over <- ggplot(full_stack_s)+
-  geom_point(aes(overPCA_s, logKUD))+
+  geom_point(aes(overPCA_s, logKUD), colour="grey46")+
   geom_smooth(aes(overPCA_s, logKUD), color = "grey3",method = lm)+
-  stat_cor(aes(overPCA_s,logKUD,label = paste(..rr.label..)), label.y = 1)+
+  stat_cor(aes(overPCA_s,logKUD,label = paste(..rr.label..)), label.y = 0.9)+
   stat_regline_equation(aes(overPCA_s,logKUD), label.y = 1.5)+
-  theme(panel.background = element_blank())+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
   labs(x = "Overstory Habitat Complexity", y = " ")
 
 under <- ggplot(full_stack_s)+
-  geom_point(aes(underPCA_s, logKUD))+
+  geom_point(aes(underPCA_s, logKUD), colour="grey46")+
   geom_smooth(aes(underPCA_s, logKUD), color = "grey3",method = lm)+
-  stat_cor(aes(underPCA_s,logKUD,label = paste(..rr.label..)), label.y = 1)+
+  stat_cor(aes(underPCA_s,logKUD,label = paste(..rr.label..)), label.y = 0.9)+
   stat_regline_equation(aes(underPCA_s,logKUD), label.y = 1.5)+
-  theme(panel.background = element_blank())+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
   labs(x = "Understory Habitat Complexity", y = " ")
 
 all <- ((cn | over)/(cp | under))
@@ -318,7 +333,8 @@ ggplot(slopes) +
   geom_smooth(aes(CN, understory), color = "grey3", se = FALSE, method = lm)+
   #stat_cor(aes(CN,understory,label = paste(..rr.label..)), label.y = 0.3)+
   #stat_regline_equation(aes(CN,understory), label.y = 0.32)+
-  theme(panel.background = element_blank())+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
   labs(x = "(1+C:N|Individual) Slopes", y = "(1+Understory Habitat Complexity|Individual) Slopes")
 ggsave("graphics/Understory_CN_SlopeComparison.png")
 
