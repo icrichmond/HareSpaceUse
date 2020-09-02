@@ -358,3 +358,15 @@ df <- df %>%
   rename(lat=utm_y, long=utm_x)
 
 write.csv(df, "output/harestriangulated_razimuth.csv")
+
+# calculate mean time it takes to triangulate the hares 
+vhf <- vhfData %>%
+  group_by(indiv, GID) %>%
+  arrange(datetime, .by_group=TRUE) %>%
+  dplyr::summarise(First=first(datetime),
+                   Last=last(datetime),
+                   difference=difftime(last(datetime), first(datetime), unit="hours"),
+                   .groups="keep")
+
+vhf <- drop_na(vhf)
+mean(vhf$difference)
