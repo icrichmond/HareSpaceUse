@@ -8,7 +8,7 @@
 
 # load required packages 
 easypackages::packages("matrixStats", "tidyverse", "lubridate", "sf", "sp", "raster",
-                       "tmap", "spatialEco", "grid")
+                       "tmap", "spatialEco", "grid", "osmdata")
 
 # --------------------------------------- #
 #             Data Preparation            #
@@ -99,93 +99,7 @@ stoichkudpop <- cbind(cskudpop, csstoich)
 stoichkudpop <- add_column(stoichkudpop, Plot = predrisk$Plot)
 write.csv(stoichkudpop, "output/cs_stoich_kud_pop.csv")
 
-# --------------------------------------- #
-#              Visualize Data             #
-# --------------------------------------- #
-#### Home Ranges --------
 # use clamp to transform any values under 0.15 to Nas
 kernel95normz <- lapply(kernel95norm, function(i) raster::clamp(i, lower=0.15, useValues=FALSE))
 # save clamped raster
 saveRDS(kernel95normz, "large/rasternormclamp.rds")
-clam <- readRDS("large/rasternormclamp.rds")
-# stack clamped rasters and merge them - can see individuals when plotted 
-clams <- raster::stack(clam)
-kernel95normm <- raster::merge(clams)
-# stack original raster list and overlay, summing values where there 
-# is more than one raster - shows collective when plotted
-kernel95norms <- raster::stack(kernel95norm)
-over <- raster::overlay(kernel95norms, fun=sum)
-# read in complexity sampling points
-bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
-bl_cs_pts <- sf::st_transform(bl_cs_pts, "+init=epsg:32622")
-# read in trap sampling points
-bl_grid_pts <- read_sf("input/Mapping", layer = "bl_grid_points")
-bl_grid_pts <- sf::st_transform(bl_grid_pts, "+init=epsg:32622")
-# set extent to include all home ranges but not be too large
-e <- raster::extent(278000,280000,5359000,5360500)
-# NL boundary layer
-nl <- read_sf("large", layer = "NL_boundary")
-nl <- sf::st_transform(nl, "+init=epsg:32622")
-xy <- st_bbox(nl)
-
-# plot merged data - individuals 
-t <- tm_shape(kernel95normm, bbox=e)+
-  tm_raster(title = "kUD", style = "cont", 
-            palette = "-RdYlBu", alpha=0.9)+
-  tm_scale_bar()+
-  tm_grid()+
-  tm_xlab("Easting")+
-  tm_ylab("Northing")+
-  tm_shape(bl_cs_pts)+
-  tm_dots(size = 0.15)+
-  tm_shape(bl_grid_pts)+
-  tm_dots(size = 0.15, shape = 4)+
-  tm_legend()+
-  tm_layout(legend.bg.color = "white")
-t
-
-nl_b <- tm_shape(nl)+
-  tm_polygons()
-
-print(nl_b, vp=viewport(x=279400,y=5360400,width=0.2,height=0.3))
-
-tmap_save(nl_b, insets_tm = t, insets_vp = viewport(x=2,y=0.15,width=0.2,height=0.3), filename="graphics/kUD_raster_grids.png")
-
-plot(bl_cs_pts$geometry)
-plot(bl_grid_pts$geometry, add=T)
-
-# plot overlay data - populations
-tm_shape(over, bbox=e)+
-  tm_raster(title = "kUD", style = "cont", 
-            palette = "-RdYlBu", alpha=0.9)+
-  tm_scale_bar()+
-  tm_layout(legend.bg.color = "white")+
-  tm_grid()+
-  tm_shape(bl_cs_pts)+
-  tm_dots(size = 0.15)
-
-# plot stoich and predation risk variation 
-# make predrisk spatial 
-
-cnover <- tm_shape(vaancnclip, bbox=e)+
-  tm_raster(palette = "BrBG", title="C:N")+
-  tm_scale_bar()+
-  tm_layout(legend.bg.color = "white", legend.title.size = 1, legend.outside = FALSE, 
-            legend.position = c("left", "top"), legend.stack = "horizontal")+
-  tm_grid()+
-tm_shape(predriskspatial)+
-  tm_bubbles(size=0.2, col="overPCA", palette="Greys", title.col="Overstory", midpoint=NA)
-#tmap_save(cnover, "graphics/OverstoryComplexity_CN.png")
-
-cpunder <- tm_shape(vaancpclip, bbox=e)+
-  tm_raster(palette = "BrBG", title = "C:P")+
-  tm_scale_bar()+
-  tm_layout(legend.bg.color = "white", legend.title.size=1, legend.outside=FALSE,
-            legend.position = c("left", "top"), legend.stack="horizontal")+
-  tm_grid()+
-tm_shape(predriskspatial)+
-  tm_bubbles(size=0.2, col="underPCA", palette="Greys", title.col="Understory", midpoint=NA)
-#tmap_save(cpunder, "graphics/UnderstoryComplexity_CP.png")
-
-pan <- tmap_arrange(cnover, cpunder)
-tmap_save(pan, "graphics/CNCPoverunder.png")
