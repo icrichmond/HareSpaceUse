@@ -254,7 +254,7 @@ ggsave("graphics/VAANCN_kUD_vis.png")
 fix <- ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re")
 fixp <- ggplot(fix, aes(x=x, y=predicted, colour=group))+
   stat_smooth(method="lm", se=FALSE,fullrange=TRUE)+
-  labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log)", title=NULL)+
+  labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log) - Population", title=NULL)+
   scale_fill_manual(values = cols)+
   theme(legend.position = "none", panel.background = element_blank(), 
         axis.line = element_line(colour="black"),axis.ticks = element_line(colour="black"),
@@ -265,9 +265,9 @@ fixp <- ggplot(fix, aes(x=x, y=predicted, colour=group))+
 vary <- ggpredict(stoich_log_slope, terms=c("VAAN_CN_s", "CollarID"), type = "re")
 varyp <- ggplot(vary, aes(x=x, y=predicted,colour=group))+
   stat_smooth(method="lm", se=FALSE,fullrange=TRUE)+
-  labs(x = "Lowbush Blueberry C:N", colour="Individual")+
+  labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution (log) - Individual", colour="Individual")+
   scale_fill_manual(name = "Individual", values = cols)+
-  theme(axis.title.y = element_blank(), panel.background = element_blank(), 
+  theme(panel.background = element_blank(), 
         axis.line = element_line(colour="black"),axis.ticks = element_line(colour="black"),
         axis.text = element_text(colour="black"))
 #ggsave("graphics/CollarSlopes_CN_vary.png")
