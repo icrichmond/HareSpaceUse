@@ -223,7 +223,7 @@ summary(stoich_log_slope)
 summary.models_slope <-map_df(models_slope, broom.mixed::tidy, .id="model")
 write_csv(summary.models_slope, path = "output/lmem_log_slope_summary.csv")
 # calculate pseudo R^2 of top model- just another check of significance determination
-performance::r2_nakagawa(null_log_slope)
+performance::r2_nakagawa(pred_log_slope)
 
 # compare models - one with random intercepts and one with random intercepts and slopes
 anova(stoich_log, stoich_log_slope, refit=FALSE)
@@ -331,8 +331,8 @@ slopes <- cbind(cnrandf, underrandf)
 ggplot(slopes) +
   geom_point(aes(CN, understory))+
   geom_smooth(aes(CN, understory), color = "grey3", se = FALSE, method = lm)+
-  #stat_cor(aes(CN,understory,label = paste(..rr.label..)), label.y = 0.3)+
-  #stat_regline_equation(aes(CN,understory), label.y = 0.32)+
+  stat_cor(aes(CN,understory,label = paste(..r.label..)), label.y = 0.3)+
+  stat_regline_equation(aes(CN,understory), label.y = 0.32)+
   theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
         axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
   labs(x = "(1+C:N|Individual) Slopes", y = "(1+Understory Habitat Complexity|Individual) Slopes")
