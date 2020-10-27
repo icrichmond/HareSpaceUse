@@ -72,6 +72,7 @@ global <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s +
                    verbose = TRUE,
                    data = full_stack_s2,
                    pr=T, saveX = TRUE,saveZ = TRUE)
+saveRDS(global, "large/globalMCMC.RDS")
 
 # show diagnostic plots for random variables and fixed effects to check autocorrelation
 plot(global$VCV)
@@ -101,6 +102,7 @@ globalchains <- mclapply(1:4, function(i){
 }, mc.cores=1)
 globalchains <- lapply(globalchains, function(m) m$Sol)
 globalchains <- do.call(mcmc.list, globalchains)
+saveRDS(globalchains, "large/globalchainsMCMC.RDS")
 
 gelman.diag(globalchains)
 gelman.plot(globalchains)
@@ -126,6 +128,7 @@ stoich <- MCMCglmm(kUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s,
                    verbose = TRUE,
                    data = full_stack_s2,
                    pr=T, saveX = TRUE,saveZ = TRUE)
+saveRDS(stoich, "large/stoichMCMC.RDS")
 
 ### Risk model
 prior2 <- list(R = list(V = diag(1), nu = 6),
@@ -143,6 +146,7 @@ pred <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s,
                    verbose = TRUE,
                    data = full_stack_s2,
                    pr=T, saveX = TRUE,saveZ = TRUE)
+saveRDS(pred, "large/predMCMC.RDS")
 
 ### Intercept model
 prior3 <- prior2 <- list(R = list(V = diag(1), nu = 6),
@@ -159,6 +163,7 @@ intercept <- MCMCglmm(kUD ~ 1,
                       verbose = TRUE,
                       data = full_stack_s2,
                       pr=T, saveX = TRUE,saveZ = TRUE)
+saveRDS(intercept, "large/interceptMCMC.RDS")
 
 ##################  DEVIANCE INFORMATION CRITERIA (DIC) ##################
 # perform DIC and rank all four models
