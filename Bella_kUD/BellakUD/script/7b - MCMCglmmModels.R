@@ -40,6 +40,8 @@ full_stack_s <- full_stack %>%
 
 # omit the NAs so that MCMCglmm will work
 full_stack_s2 <- na.omit(full_stack_s)
+# save final dataframe 
+saveRDS(full_stack_s2, "large/full_stack_s2.rds")
 
 ##################  MODELS ##################
 # now we have plots with PCA values for complexity, 
