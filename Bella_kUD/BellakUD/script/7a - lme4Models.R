@@ -1,8 +1,8 @@
 # Author: Isabella Richmond
-# Last Edited: July 29, 2020
+# Last Edited: October 28, 2020
 
 # This script is for the analysis of the effects of habitat complexity and food 
-# quality on space use by snowshoe hare 
+# quality on space use by snowshoe hare using Frequentist modelling 
 
 
 # load required packages 
