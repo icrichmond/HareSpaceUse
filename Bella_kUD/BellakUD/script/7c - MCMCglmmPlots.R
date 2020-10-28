@@ -1,13 +1,22 @@
 # Author: Isabella Richmond
 # Last Edited: October 28, 2020
 
-# 
+# this script is to plot the varying slopes and correlations between slopes from the 
+# MCMCglmm models 
+# a lot of the code was adapted from Quinn Webber (https://qwebber.weebly.com/)
 
 
 # load required packages
-easypackages::libraries("data.table", "tidyverse", "patchwork")
+easypackages::libraries("data.table", "tidyverse", "patchwork", "ggpubr")
 
-
+##################  DATA PREPARATION ##################
+# dataset
+full_stack_s2 <- readRDS("large/full_stack_s2.rds")
+# models 
+global <- readRDS("large/globalMCMC.rds")
+stoich <- readRDS("large/stoichMCMC.rds")
+pred <- readRDS("large/predMCMC.rds")
+intercept <- readRDS("large/interceptMCMC.rds")
 
 ##################  SLOPES ##################
 # want to plot the intercepts and slopes of each random effect 
@@ -146,7 +155,7 @@ o <- ggplot(df_fit_over, aes(x = overPCA_s, y = Value, group = factor(CollarID))
 
 # plot all random slopes together using patchwork 
 (n|p)/(u|o) + plot_layout(guides = 'collect')
-ggsave("graphics/varyingslopesMCMC.png")
+ggsave("graphics/varyingslopesMCMC.png", dpi = 400)
 
 ##################  CORRELATIONS ##################
 # extract data from global model
@@ -230,20 +239,140 @@ ac <- merge(aa, ab, by="ID")
 cnunder <- ggplot(ac, aes(VAAN_CN_s, underPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
   geom_smooth(method = "lm", se = F) +
+  stat_cor(aes(VAAN_CN_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.2)+
+  stat_regline_equation(aes(VAAN_CN_s,underPCA_s), label.y = 0.22)+
   ylab("Understory Complexity") +
   xlab("Lowbush Blueberry C:N") +
+  ggtitle("D")+
   theme(legend.position = 'none',
         plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"),
         legend.title = element_blank(),
-        legend.text = element_text(size = 16),
+        legend.text = element_text(size = 12),
         legend.key = element_blank(),
         axis.text=element_text(size=12, color = "black"),
-        plot.title = element_text(size = 20),
-        axis.title=element_text(size=20),
+        plot.title = element_text(size = 12),
+        axis.title=element_text(size=12),
+        axis.title.y = element_blank(),
         strip.text = element_text(size=12,face = "bold"),
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
         axis.line = element_line(colour="black")
   )
 
-cor.test(ac$VAAN_CN_s, ac$underPCA_s)
+cpunder <- ggplot(ac, aes(VAAN_CP_s, underPCA_s)) +
+  geom_point(size = 2, alpha = 0.65) +
+  geom_smooth(method = "lm", se = F) +
+  stat_cor(aes(VAAN_CP_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")),label.x = -0.07, label.y = 0.2)+
+  stat_regline_equation(aes(VAAN_CN_s,underPCA_s), label.x = -0.07, label.y = 0.22)+
+  ylab("Understory Complexity") +
+  xlab("Lowbush Blueberry C:P") +
+  ggtitle("C")+
+  theme(legend.position = 'none',
+        plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 12),
+        legend.key = element_blank(),
+        axis.text=element_text(size=12, color = "black"),
+        plot.title = element_text(size = 12),
+        axis.title=element_text(size=12),
+        strip.text = element_text(size=12,face = "bold"),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour="black")
+  )
+
+cnover <- ggplot(ac, aes(VAAN_CN_s, overPCA_s)) +
+  geom_point(size = 2, alpha = 0.65) +
+  geom_smooth(method = "lm", se = F) +
+  stat_cor(aes(VAAN_CN_s,overPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.1)+
+  stat_regline_equation(aes(VAAN_CN_s,overPCA_s), label.y = 0.12)+
+  ylab("Overstory Complexity") +
+  xlab("Lowbush Blueberry C:N") +
+  ggtitle("B")+
+  theme(legend.position = 'none',
+        plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 12),
+        legend.key = element_blank(),
+        axis.text=element_text(size=12, color = "black"),
+        plot.title = element_text(size = 12),
+        axis.title = element_blank(),
+        #axis.title=element_text(size=12),
+        strip.text = element_text(size=12,face = "bold"),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour="black")
+  )
+
+cpover <- ggplot(ac, aes(VAAN_CP_s, overPCA_s)) +
+  geom_point(size = 2, alpha = 0.65) +
+  geom_smooth(method = "lm", se = F) +
+  stat_cor(aes(VAAN_CP_s,overPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.1)+
+  stat_regline_equation(aes(VAAN_CP_s,overPCA_s), label.y = 0.12)+
+  ylab("Overstory Complexity") +
+  xlab("Lowbush Blueberry C:P") +
+  ggtitle("A")+
+  theme(legend.position = 'none',
+        plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 12),
+        legend.key = element_blank(),
+        axis.text=element_text(size=12, color = "black"),
+        plot.title = element_text(size = 12),
+        axis.title=element_text(size=12),
+        axis.title.x = element_blank(),
+        strip.text = element_text(size=12,face = "bold"),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour="black")
+  )
+
+# combine plots 
+(cpover|cnover)/(cpunder|cnunder)
+ggsave("graphics/slopecorrelationsMCMC.png", dpi=400)
+
+##################  POPULATION RELATIONSHIPS ##################
+# plot the relationship between kUD and explanatory variables with line of best fit 
+# assessing the relationship at the population level
+cn <- ggplot(full_stack_s2)+
+  geom_point(aes(VAAN_CN_s, kUD),colour="grey46")+
+  geom_smooth(aes(VAAN_CN_s, kUD), color = "grey3",method = lm)+
+  stat_cor(aes(VAAN_CN_s,kUD,label = paste(..r.label..)), label.y = 0.93)+
+  stat_regline_equation(aes(VAAN_CN_s,kUD), label.y = 0.99)+
+  ggtitle("A")+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
+  labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution")
+
+cp <- ggplot(full_stack_s2)+
+  geom_point(aes(VAAN_CP_s, kUD), colour="grey46")+
+  geom_smooth(aes(VAAN_CP_s, kUD), color = "grey3",method = lm)+
+  stat_cor(aes(VAAN_CP_s,kUD,label = paste(..r.label..)), label.y = 0.93)+
+  stat_regline_equation(aes(VAAN_CP_s,kUD), label.y = 0.99)+
+  ggtitle("C")+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
+  labs(x = "Lowbush Blueberry C:P", y = "Kernel Utilization Distribution")
+
+over <- ggplot(full_stack_s2)+
+  geom_point(aes(overPCA_s, kUD), colour="grey46")+
+  geom_smooth(aes(overPCA_s, kUD), color = "grey3",method = lm)+
+  stat_cor(aes(overPCA_s,kUD,label = paste(..r.label..)), label.y = 0.93)+
+  stat_regline_equation(aes(overPCA_s, kUD), label.y = 0.99)+
+  ggtitle("B")+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
+  labs(x = "Overstory Habitat Complexity", y = " ")
+
+under <- ggplot(full_stack_s2)+
+  geom_point(aes(underPCA_s, kUD), colour="grey46")+
+  geom_smooth(aes(underPCA_s, kUD), color = "grey3",method = lm)+
+  stat_cor(aes(underPCA_s,kUD,label = paste(..r.label..)), label.y = 0.93)+
+  stat_regline_equation(aes(underPCA_s,kUD), label.y = 0.99)+
+  ggtitle("D")+
+  theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
+        axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
+  labs(x = "Understory Habitat Complexity", y = " ")
+
+(cn | over)/(cp | under)
+ggsave("graphics/KUD_explanatory_MCMC.png", dpi = 400)
