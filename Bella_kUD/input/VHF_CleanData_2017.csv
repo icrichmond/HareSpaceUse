@@ -1,0 +1,719 @@
+Frequency,EarTag,Alive,Point,UTMZone,Easting,Northing,Azimuth,Date,Time_O,Time,AM_PM,Line,Wind,Rain,Temp,Clouds,Notes,SampleTimeCat,SampleTimeGeneral,Observer,Grid
+149.142,A6704,Yes,1,22,279215,5359442,342,2017-07-13,16:40:31,164031,PM,1,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.142,A6704,Yes,2,22,278939,5359617,79,2017-07-13,17:14:17,171417,PM,2,Mild,Clear,Warm,2out9,,EarlyEvening,Evening,TH,BL
+149.142,A6704,Yes,3,22,278674,5359835,108,2017-07-13,17:42:52,174252,PM,3,Mild,Clear,Warm,2out10,,EarlyEvening,Evening,TH,BL
+149.142,A6704,Yes,1,22,279212,5359446,22,2017-07-16,10:18:52,101852,AM,1,Mild,Clear,Warm,1out8,"Strong, prob close",LateMorning,Morning,MR,BL
+149.142,A6704,Yes,2,22,278951,5359709,116,2017-07-16,11:10:13,111013,AM,2,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.142,A6704,Yes,3,22,278647,5359881,,2017-07-16,11:57:09,115709,AM,,Calm,Clear,Warm,1out8,Not heard,LateMorning,Morning,MR,BL
+149.142,A6704,Yes,4,22,278830,5359752,,2017-07-16,12:11:40,121140,AM,,Calm,Clear,Warm,1out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.142,A6704,Yes,5,22,279331,5359461,324,2017-07-16,12:32:07,123207,AM,3,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.142,A6704,Yes,1,22,279214,5359441,37,2017-07-16,16:52:52,165252,PM,1,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.142,A6704,Yes,2,22,278952,5359712,90,2017-07-16,17:22:43,172243,PM,2,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.142,A6704,Yes,4,22,278932,5359538,84,2017-07-16,18:16:31,181631,PM,3,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.142,A6704,Yes,5,22,279326,5359461,352,2017-07-16,18:25:46,182546,PM,4,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.142,A6704,Yes,1,22,279214,5359445,25,2017-07-19,9:12:35,91235,AM,1,Mild,Clear,Mild,8out8,Very strong,EarlyMorning,Morning,MR,BL
+149.142,A6704,Yes,2,22,278951,5359713,98,2017-07-19,9:59:57,95957,AM,2,Calm,Clear,Warm,6out8,Interferences in the signal,EarlyMorning,Morning,MR,BL
+149.142,A6704,Yes,5,22,279325,5359463,358,2017-07-19,11:38:01,113801,AM,3,Calm,Clear,Warm,1out8,Triangulated,LateMorning,Morning,MR,BL
+149.142,A6704,Yes,6,22,279214,5359447,8,2017-07-19,16:35:05,163505,PM,1,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.142,A6704,Yes,7,22,278949,5359713,84,2017-07-19,17:16:33,171633,PM,2,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.142,A6704,Yes,8,22,278860,5359958,118,2017-07-19,17:54:25,175425,PM,3,Calm,Clear,Warm,5out8,Triangulated,EarlyEvening,Evening,MR,BL
+149.142,A6704,No,1,22,279217,5359445,22,2017-07-22,9:51:26,95126,AM,1,Mild,Clear,Mild,8out8,On BloomField Wide view,EarlyMorning,Morning,MR,BL
+149.142,A6704,No,2,22,279327,5359463,346,2017-07-22,10:08:52,100852,AM,1,Calm,Clear,Warm,8out8,Very strong,LateMorning,Morning,MR,BL
+149.142,A6704,No,3,22,278952,5359714,102,2017-07-22,10:40:15,104015,AM,3,Calm,Clear,Warm,8out8,Triangulated,LateMorning,Morning,MR,BL
+149.142,A6704,No,1,22,279214,5359445,11,2017-07-24,9:48:06,94806,AM,1,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.142,A6704,No,2,22,279244,5359799,124,2017-07-24,10:26:29,102629,AM,2,Strong,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.142,A6704,No,3,22,278979,5359907,109,2017-07-24,11:07:05,110705,AM,3,Strong,Clear,Warm,2out8,,LateMorning,Morning,MR,BL
+149.142,A6704,No,1,22,279214,5359444,36,2017-08-16,12:04:34,120434,PM,2,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.142,A6704,No,5,22,278934,5359533,86,2017-08-16,12:39:54,123954,PM,3,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.142,A6704,No,2,22,278949,5359714,104,2017-08-16,12:50:00,125000,PM,4,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.142,A6704,No,6,22,279243,5359794,148,2017-08-16,,0,,1,,,,,,,,MR,BL
+149.142,A6704,No,1,22,279215,5359443,30,2017-08-19,16:10:01,161001,PM,1,Calm,Clear,Warm,7out8,,LateAfternoon,Afternoon,MR,BL
+149.142,A6704,No,6,22,278935,5359538,90,2017-08-19,16:20:27,162027,PM,2,Calm,Clear,Mild,1out8,,LateAfternoon,Afternoon,MR,BL
+149.142,A6704,No,7,22,279146,5359872,149,2017-08-19,17:06:00,170600,PM,3,Calm,Clear,Mild,1out8,,EarlyEvening,Evening,MR,BL
+149.142,A6704,No,1,22,279215,5359445,39,2017-08-20,9:25:11,92511,AM,1,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.142,A6704,No,2,22,279141,5359873,149,2017-08-20,9:37:21,93721,AM,2,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.142,A6704,No,5,22,278733,5359800,116,2017-08-20,11:34:45,113445,AM,3,Mild,Clear,Warm,2out8,"Not great, very faint",LateMorning,Morning,MR,BL
+149.142,A6704,No,6,22,278946,5359710,110,2017-08-20,11:55:53,115553,AM,3,Mild,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.142,A6704,Yes,1,22,279215,5359446,28,2017-08-21,9:53:44,95344,AM,1,Strong,Drizzle,Mild,8out8,Was dead when last heard,EarlyMorning,Morning,MR,BL
+149.142,A6704,Yes,2,22,279142,5359874,134,2017-08-21,10:10:40,101040,AM,2,Mild,Clear,Mild,8out8,Was dead when last heard,LateMorning,Morning,MR,BL
+149.142,A6704,No,5,22,278948,5359706,88,2017-08-21,11:53:22,115322,AM,3,Mild,Clear,Warm,5out8,,LateMorning,Morning,MR,BL
+149.142,A6704,No,6,22,278935,5359529,70,2017-08-21,12:24:31,122431,PM,4,Mild,Clear,Warm,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.142,A6704,No,1,22,279213,5359444,32,2017-08-22,13:57:48,135748,PM,1,Very Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.142,A6704,No,2,22,278950,5359713,99,2017-08-22,14:50:45,145045,PM,2,Very Strong,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.142,A6704,No,6,22,279145,5359872,141,2017-08-22,16:47:31,164731,PM,3,Strong,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.142,A6704,No,7,22,279327,5359466,0,2017-08-22,17:13:32,171332,PM,4,Strong,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.142,A6704,No,1,22,279215,5359442,30,2017-08-23,10:31:10,103110,AM,1,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.142,A6704,No,2,22,278950,5359715,71,2017-08-23,11:12:41,111241,AM,2,Mild,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.142,A6704,No,5,22,278844,5359888,107,2017-08-23,12:48:35,124835,PM,3,Mild,Clear,Warm,2out8,,EarlyAfternoon,Afternoon,MR,BL
+149.142,A6704,No,6,22,279147,5359873,140,2017-08-23,13:22:47,132247,PM,3,Mild,Clear,Warm,2out8,,EarlyAfternoon,Afternoon,MR,BL
+149.193,A3722,No,1,22,279215,5359447,252,2017-06-27,18:35:14,183514,PM,1,Strong,Clear,Mild,1out8,Very strong,LateEvening,Evening,MR,BL
+149.193,A3722,No,2,22,279221,5360024,,2017-06-27,19:13:36,191336,PM,,Mild,Clear,Warm,1out8,Not heard,LateEvening,Evening,MR,BL
+149.193,A3722,No,3,22,279037,5359562,223,2017-06-27,19:58:13,195813,PM,2,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.193,A3722,No,4,22,278833,5359753,152,2017-06-27,20:42:02,204202,PM,3,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.193,A3722,No,1,22,279213,5359444,244,2017-06-28,7:08:17,70817,AM,1,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.193,A3722,No,2,22,279188,5360019,178,2017-06-28,7:45:06,74506,AM,,Calm,Clear,Mild,8out8,Weak,EarlyMorning,Morning,MR,BL
+149.193,A3722,No,3,22,278923,5359524,114,2017-06-28,8:39:05,83905,AM,3,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.193,A3722,No,1,22,279212,5359446,210,2017-07-16,10:14:28,101428,AM,1,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.193,A3722,No,2,22,278951,5359709,157,2017-07-16,11:00:44,110044,AM,2,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.193,A3722,No,3,22,278647,5359881,,2017-07-16,11:52:13,115213,AM,,Calm,Clear,Warm,1out8,Not heard,LateMorning,Morning,MR,BL
+149.193,A3722,No,4,22,278830,5359752,150,2017-07-16,12:11:17,121117,PM,3,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.193,A3722,No,1,22,279214,5359445,274,2017-07-19,9:28:44,92844,AM,1,Mild,Clear,Mild,7out8,Strong. Prob very close,EarlyMorning,Morning,MR,BL
+149.193,A3722,No,2,22,278951,5359713,164,2017-07-19,10:12:38,101238,AM,2,Calm,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.193,A3722,No,4,22,278808,5359569,132,2017-07-19,11:01:40,110140,AM,3,Calm,Clear,Warm,3out8,,LateMorning,Morning,MR,BL
+149.193,A3722,No,1,22,279217,5359445,259,2017-07-22,10:03:53,100353,AM,1,Mild,Clear,Mild,8out8,Very strong,LateMorning,Morning,MR,BL
+149.193,A3722,No,3,22,278952,5359714,157,2017-07-22,10:46:56,104656,AM,2,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.193,A3722,No,4,22,278747,5359797,137,2017-07-22,11:10:54,111054,AM,3,Calm,Drizzle,Mild,8out8,Triangulated ,LateMorning,Morning,MR,BL
+149.193,A3722,No,1,22,279214,5359445,272,2017-07-24,9:54:51,95451,AM,1,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.193,A3722,No,2,22,279244,5359799,222,2017-07-24,10:34:46,103446,AM,2,Strong,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.193,A3722,No,3,22,278979,5359907,173,2017-07-24,11:15:14,111514,AM,3,Strong,Clear,Warm,2out8,,LateMorning,Morning,MR,BL
+149.193,A3722,No,6,22,279243,5359794,,2017-08-16,11:39:30,113930,AM,,,,,,Not heard,LateMorning,Morning,MR,BL
+149.193,A3722,No,1,22,279214,5359444,,2017-08-16,12:22:36,122236,PM,,,,,,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.193,A3722,No,7,22,278558,5359951,,2017-08-16,13:22:53,132253,PM,,,,,,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.193,A3722,,1,22,279215,5359443,,2017-08-19,16:02:47,160247,PM,,Calm,Clear,Warm,7out8,Not heard ,LateAfternoon,Afternoon,MR,BL
+149.193,A3722,,7,22,279146,5359872,,2017-08-19,17:06:21,170621,PM,,Calm,Clear,Mild,1out8,Not heard,EarlyEvening,Evening,MR,BL
+149.193,A3722,No,1,22,279215,5359445,,2017-08-20,9:26:00,92600,AM,,Mild,Clear,Mild,8out8,Not heard,EarlyMorning,Morning,MR,BL
+149.193,A3722,No,3,22,278991,5360036,,2017-08-20,10:31:00,103100,AM,,Mild,Clear,Warm,5out8,Not heard,LateMorning,Morning,MR,BL
+149.193,A3722,,1,22,279213,5359444,,2017-08-22,14:00:41,140041,PM,,Very Strong,Clear,Warm,1out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.313,A3704,No,1,22,279216,5359450,6,2017-06-25,6:43:00,64300,AM,1,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,2,22,279216,5360024,138,2017-06-25,7:19:00,71900,AM,2,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,3,22,279022,5359577,44,2017-06-25,8:01:00,80100,AM,3,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,1,22,279212,5359444,352,2017-06-26,6:48:53,64853,AM,1,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,2,22,279220,5360025,148,2017-06-26,7:26:39,72639,AM,2,Calm,Clear,Warm,1out8,Very strong signal,EarlyMorning,Morning,MR,BL
+149.313,A3704,Yes,4,22,279033,5359568,80,2017-06-26,8:32:32,83232,AM,4,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,4,22,278746,5359793,92,2017-06-26,8:57:37,85737,AM,4,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,1,22,279215,5359447,5,2017-06-27,18:32:44,183244,PM,1,Strong,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.313,A3704,Yes,2,22,279221,5360024,154,2017-06-27,19:12:31,191231,PM,2,Mild,Clear,Warm,1out8,Very strong,LateEvening,Evening,MR,BL
+149.313,A3704,No,3,22,279037,5359562,27,2017-06-27,19:58:04,195804,PM,3,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.313,A3704,No,1,22,279213,5359444,356,2017-06-28,7:05:11,70511,AM,1,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,2,22,279188,5360019,133,2017-06-28,7:41:53,74153,AM,2,Calm,Clear,Mild,8out8,Very strong,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,3,22,278923,5359524,38,2017-06-28,8:36:07,83607,AM,3,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,1,22,279212,5359446,283,2017-07-16,10:10:52,101052,AM,1,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.313,A3704,No,2,22,278951,5359709,175,2017-07-16,10:56:02,105602,AM,2,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.313,A3704,No,3,22,278647,5359881,130,2017-07-16,11:47:18,114718,AM,3,Calm,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.313,A3704,Yes,1,22,279214,5359445,356,2017-07-19,9:25:05,92505,AM,1,Mild,Clear,Mild,7out8,Was dead,EarlyMorning,Morning,MR,BL
+149.313,A3704,Yes,2,22,278951,5359713,84,2017-07-19,10:09:09,100909,AM,2,Calm,Clear,Warm,6out8,Was dead,LateMorning,Morning,MR,BL
+149.313,A3704,Yes,4,22,278808,5359569,48,2017-07-19,10:58:12,105812,AM,3,Calm,Clear,Warm,3out8,Was dead,LateMorning,Morning,MR,BL
+149.313,A3704,No,6,22,279214,5359447,19,2017-07-19,16:45:56,164556,PM,1,Mild,Clear,Warm,7out8,Was alive in the morning,EarlyEvening,Evening,MR,BL
+149.313,A3704,No,8,22,278860,5359958,103,2017-07-19,18:04:17,180417,PM,3,Calm,Clear,Warm,5out8,Triangulated,LateEvening,Evening,MR,BL
+149.313,A3704,No,7,22,278949,5359713,71,2017-07-19,18:06:57,180657,PM,2,Mild,Clear,Warm,7out8,Forgot to record,LateEvening,Evening,MR,BL
+149.313,A3704,Yes,1,22,279217,5359445,347,2017-07-22,10:01:04,100104,AM,1,Mild,Clear,Mild,8out8,Was dead,LateMorning,Morning,MR,BL
+149.313,A3704,No,3,22,278952,5359714,78,2017-07-22,10:46:43,104643,AM,2,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.313,A3704,No,4,22,278747,5359797,99,2017-07-22,11:10:25,111025,AM,3,Calm,Drizzle,Mild,8out8,Triangulated ,LateMorning,Morning,MR,BL
+149.313,A3704,No,1,22,279214,5359445,359,2017-07-24,9:52:18,95218,AM,1,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,2,22,279244,5359799,186,2017-07-24,10:32:28,103228,AM,2,Strong,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.313,A3704,No,3,22,278979,5359907,95,2017-07-24,11:11:05,111105,AM,3,Strong,Clear,Warm,2out8,,LateMorning,Morning,MR,BL
+149.313,A3704,No,6,22,279243,5359794,190,2017-08-16,11:38:17,113817,AM,1,,,,,Very strong ,LateMorning,Morning,MR,BL
+149.313,A3704,No,1,22,279214,5359444,321,2017-08-16,12:05:49,120549,PM,2,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.313,A3704,No,5,22,278934,5359533,76,2017-08-16,12:31:31,123131,PM,3,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.313,A3704,No,2,22,278949,5359714,126,2017-08-16,12:50:13,125013,PM,4,Calm,Clear,Warm,5out8,,EarlyAfternoon,Afternoon,MR,BL
+149.313,A3704,No,1,22,279215,5359443,5,2017-08-19,16:00:16,160016,PM,1,Calm,Clear,Warm,7out8,,LateAfternoon,Afternoon,MR,BL
+149.313,A3704,No,6,22,278935,5359538,68,2017-08-19,16:29:07,162907,PM,2,Calm,Clear,Mild,1out8,,LateAfternoon,Afternoon,MR,BL
+149.313,A3704,No,7,22,279146,5359872,150,2017-08-19,16:56:00,165600,PM,3,Calm,Clear,Mild,1out8,,EarlyEvening,Evening,MR,BL
+149.313,A3704,No,1,22,279215,5359445,16,2017-08-20,9:23:17,92317,AM,1,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,2,22,279141,5359873,142,2017-08-20,9:38:12,93812,AM,2,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.313,A3704,No,5,22,278733,5359800,106,2017-08-20,11:27:50,112750,AM,3,Mild,Clear,Warm,2out8,Faint,LateMorning,Morning,MR,BL
+149.313,A3704,No,7,22,279024,5359485,60,2017-08-20,12:35:44,123544,PM,4,Mild,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.313,A3704,No,1,22,279213,5359444,4,2017-08-22,13:54:04,135404,PM,1,Very Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.313,A3704,No,2,22,278950,5359713,95,2017-08-22,14:42:20,144220,PM,2,Very Strong,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.313,A3704,No,6,22,279145,5359872,143,2017-08-22,16:47:00,164700,PM,3,Strong,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.313,A3704,No,7,22,279327,5359466,340,2017-08-22,17:17:25,171725,PM,4,Strong,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.313,A3704,No,1,22,279215,5359442,357,2017-08-23,10:35:29,103529,AM,1,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.313,A3704,No,2,22,278950,5359715,80,2017-08-23,11:15:41,111541,AM,2,Mild,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.313,A3704,No,5,22,278844,5359888,111,2017-08-23,12:53:19,125319,PM,3,Mild,Clear,Warm,2out8,,EarlyAfternoon,Afternoon,MR,BL
+149.333,A3721,No,1,22,279216,5359450,,2017-06-25,6:43:00,64300,AM,1,Mild,Clear,Mild,4out8,"Silent, Taken on notebook as fieldform was not working",EarlyMorning,Morning,MR,BL
+149.333,A3721,No,2,22,279216,5360024,303,2017-06-25,7:19:00,71900,AM,2,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.333,A3721,No,3,22,279022,5359577,,2017-06-25,8:01:00,80100,AM,3,Mild,Clear,Mild,4out8,"Silent, Taken on notebook as fieldform was not working",EarlyMorning,Morning,MR,BL
+149.333,A3721,No,2,22,279220,5360025,286,2017-06-26,7:18:50,71850,AM,2,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.333,A3721,No,2,22,278746,5359793,6,2017-06-26,9:00:11,90011,AM,2,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.333,A3721,No,3,22,278608,5359911,38,2017-06-26,10:18:58,101858,AM,3,Calm,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.333,A3721,No,1,22,279215,5359447,324,2017-06-27,18:39:55,183955,PM,1,Strong,Clear,Mild,1out8,Very strong,LateEvening,Evening,MR,BL
+149.333,A3721,No,2,22,279221,5360024,254,2017-06-27,19:13:49,191349,PM,2,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.333,A3721,No,3,22,279037,5359562,16,2017-06-27,19:58:22,195822,PM,,Calm,Clear,Mild,1out8,"Very weak, not on map",LateEvening,Evening,MR,BL
+149.333,A3721,No,4,22,278833,5359753,0,2017-06-27,20:28:21,202821,PM,3,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.333,A3721,No,1,22,279213,5359444,313,2017-06-28,7:10:11,71011,AM,1,Calm,Clear,Mild,8out8,Very weak,EarlyMorning,Morning,MR,BL
+149.333,A3721,No,2,22,279188,5360019,284,2017-06-28,7:48:04,74804,AM,2,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.333,A3721,No,3,22,278923,5359524,356,2017-06-28,8:41:46,84146,AM,3,Calm,Clear,Mild,8out8,Very weak,EarlyMorning,Morning,MR,BL
+149.333,A3721,Yes,4,22,278832,5359748,41,2017-06-28,9:22:42,92242,AM,4,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.333,A3721,No,1,22,279212,5359446,320,2017-07-16,10:16:11,101611,AM,1,Mild,Clear,Warm,1out8,Very faint,LateMorning,Morning,MR,BL
+149.333,A3721,No,2,22,278951,5359709,324,2017-07-16,11:03:54,110354,AM,2,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.333,A3721,No,3,22,278647,5359881,41,2017-07-16,11:54:57,115457,AM,3,Calm,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.333,A3721,No,1,22,279214,5359445,320,2017-07-19,9:31:51,93151,AM,1,Mild,Clear,Mild,7out8,Faint,EarlyMorning,Morning,MR,BL
+149.333,A3721,No,2,22,278951,5359713,300,2017-07-19,10:12:43,101243,AM,2,Calm,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.333,A3721,No,4,22,278808,5359569,25,2017-07-19,11:04:16,110416,AM,3,Calm,Clear,Warm,3out8,Triangulated,LateMorning,Morning,MR,BL
+149.333,A3721,No,1,22,279217,5359445,312,2017-07-22,10:03:35,100335,AM,1,Mild,Clear,Mild,8out8,,LateMorning,Morning,MR,BL
+149.333,A3721,No,4,22,278747,5359797,9,2017-07-22,11:18:29,111829,AM,2,Calm,Drizzle,Mild,8out8,,LateMorning,Morning,MR,BL
+149.333,A3721,No,1,22,279214,5359445,344,2017-07-24,9:52:05,95205,AM,1,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.333,A3721,No,2,22,279244,5359799,,2017-07-24,10:28:27,102827,AM,2,Strong,Clear,Mild,1out8,Not heard,LateMorning,Morning,MR,BL
+149.333,A3721,No,3,22,278979,5359907,330,2017-07-24,11:13:12,111312,AM,3,Strong,Clear,Warm,2out8,,LateMorning,Morning,MR,BL
+149.333,A3721,No,6,22,279243,5359794,322,2017-08-16,11:44:34,114434,AM,1,,,,,,LateMorning,Morning,MR,BL
+149.333,A3721,No,1,22,279214,5359444,338,2017-08-16,12:10:12,121012,PM,2,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.333,A3721,No,2,22,278949,5359714,2,2017-08-16,12:56:59,125659,PM,3,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.333,A3721,No,7,22,278558,5359951,61,2017-08-16,13:19:44,131944,PM,4,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.333,A3721,Yes,1,22,279215,5359443,326,2017-08-19,16:03:00,160300,PM,1,Calm,Clear,Warm,7out8,Was dead when last geard,LateAfternoon,Afternoon,MR,BL
+149.333,A3721,Yes,6,22,278935,5359538,5,2017-08-19,16:22:55,162255,PM,2,Calm,Clear,Mild,1out8,Was dead when last heard,LateAfternoon,Afternoon,MR,BL
+149.333,A3721,Yes,7,22,279146,5359872,274,2017-08-19,17:05:38,170538,PM,3,Calm,Clear,Mild,1out8,Was dead when last heard,EarlyEvening,Evening,MR,BL
+149.333,A3721,Yes,8,22,279246,5359797,290,2017-08-19,17:17:00,171700,PM,4,Calm,Clear,Mild,1out8,Was dead when last heard,EarlyEvening,Evening,MR,BL
+149.333,A3721,Yes,1,22,279215,5359445,330,2017-08-20,9:16:02,91602,AM,1,Mild,Clear,Mild,8out8,Was dead,EarlyMorning,Morning,MR,BL
+149.333,A3721,Yes,2,22,279141,5359873,294,2017-08-20,10:03:07,100307,AM,2,Mild,Clear,Mild,7out8,Was dead,LateMorning,Morning,MR,BL
+149.333,A3721,Yes,3,22,278991,5360036,186,2017-08-20,10:21:37,102137,AM,3,Mild,Clear,Warm,5out8,Was dead,LateMorning,Morning,MR,BL
+149.333,A3721,Yes,4,22,278841,5359887,52,2017-08-20,11:01:18,110118,AM,4,Calm,Clear,Mild,7out8,Was dead,LateMorning,Morning,MR,BL
+149.333,A3721,Yes,1,22,279215,5359446,327,2017-08-21,9:44:36,94436,AM,1,Strong,Drizzle,Mild,8out8,Was dead,EarlyMorning,Morning,MR,BL
+149.333,A3721,Yes,2,22,279142,5359874,310,2017-08-21,10:34:12,103412,AM,2,Strong,Clear,Mild,8out8,Was dead,LateMorning,Morning,MR,BL
+149.333,A3721,Yes,3,22,278649,5359881,38,2017-08-21,11:02:01,110201,AM,3,Mild,Clear,Warm,6out8,Was dead,LateMorning,Morning,MR,BL
+149.333,A3721,Yes,4,22,278773,5359776,22,2017-08-21,11:34:04,113404,AM,4,Strong,Clear,Warm,3out8,Was dead,LateMorning,Morning,MR,BL
+149.333,A3721,Yes,1,22,279213,5359444,322,2017-08-22,13:50:48,135048,PM,1,Very Strong,Clear,Warm,1out8,Was dead ,EarlyAfternoon,Afternoon,MR,BL
+149.333,A3721,Yes,4,22,278650,5359884,62,2017-08-22,15:27:43,152743,PM,2,Very Strong,Clear,Warm,2out8,Was dead,LateAfternoon,Afternoon,MR,BL
+149.333,A3721,Yes,5,22,278832,5359755,355,2017-08-22,16:03:40,160340,PM,3,Strong,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,2,22,279221,5360024,274,2017-06-27,19:06:25,190625,PM,1,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.394,A3707,Yes,3,22,279037,5359562,324,2017-06-27,19:54:17,195417,PM,2,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.394,A3707,Yes,4,22,278833,5359753,340,2017-06-27,20:30:47,203047,PM,3,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.394,A3707,Yes,1,22,279213,5359444,310,2017-06-28,7:00:56,70056,AM,1,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,279188,5360019,232,2017-06-28,7:38:10,73810,AM,2,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278923,5359524,346,2017-06-28,8:30:38,83038,AM,3,Calm,Clear,Mild,8out8,Very strong,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,278952,5359712,237,2017-07-16,17:19:57,171957,PM,1,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,3,22,278746,5359795,210,2017-07-16,17:43:49,174349,PM,2,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,4,22,278932,5359538,266,2017-07-16,18:00:10,180010,PM,3,Calm,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,1,22,279214,5359445,229,2017-07-19,9:08:39,90839,AM,1,Mild,Clear,Mild,8out8,Faint,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,278951,5359713,211,2017-07-19,9:55:10,95510,AM,2,Calm,Clear,Warm,6out8,Had to invert polarity of antenna,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,4,22,278808,5359569,124,2017-07-19,10:49:56,104956,AM,3,Calm,Clear,Warm,3out8,,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,5,22,279325,5359463,271,2017-07-19,11:44:42,114442,AM,4,Calm,Clear,Warm,1out8,"Triangulated, not super confident",LateMorning,Morning,MR,BL
+149.394,A3707,Yes,6,22,279214,5359447,279,2017-07-19,16:33:57,163357,PM,1,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,7,22,278949,5359713,220,2017-07-19,17:12:03,171203,PM,2,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,8,22,278860,5359958,,2017-07-19,17:50:23,175023,PM,,Calm,Clear,Warm,5out8,Not heard,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,9,22,278828,5359751,172,2017-07-19,18:15:51,181551,PM,3,Calm,Clear,Warm,8out8,,LateEvening,Evening,MR,BL
+149.394,A3707,,,22,279217,5359445,,2017-07-22,9:49:37,94937,AM,,Mild,Clear,Mild,8out8,Not heard,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278952,5359714,223,2017-07-22,10:26:31,102631,AM,1,Calm,Clear,Warm,8out8,"Faint, lots of interference",LateMorning,Morning,MR,BL
+149.394,A3707,Yes,4,22,278747,5359797,210,2017-07-22,10:59:49,105949,AM,2,Calm,Drizzle,Mild,8out8,"Faint, out of map",LateMorning,Morning,MR,BL
+149.394,A3707,Yes,5,22,278927,5359552,,2017-07-22,11:30:03,113003,AM,,Calm,Drizzle,Mild,8out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,6,22,279027,5359566,276,2017-07-22,11:43:59,114359,AM,3,Calm,Clear,Mild,8out8,,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,279244,5359799,,2017-07-24,10:22:27,102227,AM,,Strong,Clear,Mild,1out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278979,5359907,,2017-07-24,11:04:12,110412,AM,,Strong,Clear,Warm,2out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,4,,,,,2017-07-24,11:29:40,112940,AM,,Strong,Clear,Warm,5out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,5,22,278918,5359532,259,2017-07-24,11:56:21,115621,AM,2,Mild,Clear,Warm,4out8,,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,6,22,278946,5359710,234,2017-07-24,12:06:56,120656,AM,3,Strong,Clear,Warm,6out8,,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,7,22,278746,5359800,174,2017-07-24,12:27:04,122704,AM,4,Strong,Clear,Mild,5out8,,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,7,22,278830,5359752,253,2017-07-27,16:01:26,160126,PM,1,Mild,Clear,Warm,1out8,Inverted polarity,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,8,22,278737,5359798,210,2017-07-27,16:22:31,162231,PM,2,Calm,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,12,22,278710,5359816,185,2017-07-27,17:34:47,173447,PM,3,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,3,22,278950,5359710,,2017-07-29,13:28:38,132838,PM,,Calm,Clear,Warm,1out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,4,22,278743,5359804,201,2017-07-29,14:00:01,140001,PM,4,Mild,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,5,22,278831,5359756,219,2017-07-29,14:09:17,140917,PM,5,Calm,Clear,Warm,1out8,"Not great, very faint and choppy",EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,6,22,278813,5359581,,2017-07-29,14:30:59,143059,PM,,Calm,Clear,Warm,1out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,7,22,279025,5359488,266,2017-07-29,14:52:46,145246,PM,5,Calm,Clear,Warm,1out8,Triangulated ,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,1,22,279217,5359449,244,2017-08-03,16:47:39,164739,PM,1,Mild,Clear,Warm,8out8,Inverted polarity,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,2,22,278949,5359713,192,2017-08-03,17:17:39,171739,PM,2,Mild,Clear,Warm,8out8,Extremely faint and disturbed,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,3,22,278761,5359793,144,2017-08-03,17:45:04,174504,PM,3,Mild,Clear,Warm,7out8,"Inverted polarity, faint",EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,5,22,278951,5359632,210,2017-08-03,18:24:27,182427,PM,4,Calm,Clear,Warm,6out8,Faint,LateEvening,Evening,MR,BL
+149.394,A3707,Yes,1,22,279214,5359448,249,2017-08-11,6:23:58,62358,AM,1,Mild,Drizzle,Mild,8out8,Faint,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,278950,5359710,192,2017-08-11,7:01:00,70100,AM,2,Calm,Clear,Mild,3out8,Very faint,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278650,5359876,,2017-08-11,7:23:43,72343,AM,,Calm,Clear,Warm,3out8,Not heard,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,7,22,279077,5359464,230,2017-08-11,9:20:17,92017,AM,5,Mild,Clear,Warm,1out8,Faint,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,1,22,279216,5359444,247,2017-08-13,11:32:46,113246,PM,1,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,279239,5359796,,2017-08-13,12:09:49,120949,PM,,Calm,Clear,Warm,8out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,3,22,279083,5359942,,2017-08-13,12:52:30,125230,PM,,Calm,Clear,Warm,8out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,4,22,278860,5360031,,2017-08-13,13:21:40,132140,PM,,Calm,Clear,Warm,8out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,5,22,278647,5359880,,2017-08-13,13:56:16,135616,PM,,Calm,Clear,Warm,8out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,6,22,278652,5359846,189,2017-08-13,14:12:21,141221,PM,2,Calm,Clear,Warm,8out8,Very faint and choppy. GPS point 292 on garmin,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,7,22,278457,5359915,180,2017-08-13,14:30:36,143036,PM,3,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,8,22,278948,5359707,,2017-08-13,14:44:22,144422,PM,,Calm,Clear,Warm,8out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,1,22,279214,5359442,254,2017-08-15,8:56:17,85617,AM,1,,,,,Very faint,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,279144,5359870,208,2017-08-15,9:31:42,93142,AM,2,,,,,Inverted polarity (antenna at 90deg),EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278996,5360030,,2017-08-15,10:11:15,101115,AM,,,,,,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,4,22,278649,5359880,,2017-08-15,10:56:03,105603,AM,,,,,,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,5,22,278442,5359909,,2017-08-15,11:32:41,113241,AM,,,,,,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,6,22,278798,5359562,118,2017-08-15,12:10:07,121007,AM,3,Strong,Clear,Warm,1out8,Very faint,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,7,22,278953,5359637,,2017-08-15,12:35:18,123518,AM,,,,,,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,8,22,279023,5359484,,2017-08-15,13:09:12,130912,AM,,,,,,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,9,22,279099,5359298,,2017-08-15,13:31:45,133145,AM,,Mild,Clear,Warm,1out8,Not heard,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,1,22,279214,5359444,248,2017-08-16,8:42:11,84211,AM,1,Calm,Clear,Cool,1out8,,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,278949,5359714,214,2017-08-16,9:16:42,91642,AM,2,,,,,,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278738,5359800,186,2017-08-16,9:47:53,94753,AM,3,,,,,,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,4,22,278441,5359908,168,2017-08-16,10:02:01,100201,AM,4,Mild,Clear,Mild,5out8,"Faint, or 182",LateMorning,Morning,MR,BL
+149.394,A3707,Yes,5,22,278934,5359533,,2017-08-16,10:45:06,104506,AM,,,,,,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,278949,5359712,192,2017-08-18,16:09:24,160924,PM,2,Strong,Medium,Cool,8out8,,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,3,22,278645,5359878,164,2017-08-18,16:44:04,164404,PM,3,Strong,Medium,Cool,8out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,5,22,279026,5359487,212,2017-08-18,17:35:11,173511,PM,4,Strong,Medium,Cool,8out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,1,22,279215,5359443,248,2017-08-19,13:32:53,133253,PM,1,Mild,Clear,Mild,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,2,22,279024,5359482,230,2017-08-19,14:03:03,140303,PM,2,Calm,Clear,Warm,6out8,Faint and choppy,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,3,22,278948,5359708,208,2017-08-19,14:18:34,141834,PM,3,Calm,Clear,Warm,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,4,22,278733,5359799,,2017-08-19,14:59:19,145919,PM,4,Calm,Clear,Mild,7out8,,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,1,22,279215,5359445,250,2017-08-20,8:59:36,85936,AM,1,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,279141,5359873,,2017-08-20,9:41:39,94139,AM,,Mild,Clear,Mild,8out8,Not heard,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,5,22,278733,5359800,,2017-08-20,11:20:33,112033,AM,,Mild,Clear,Warm,2out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,6,22,278946,5359710,212,2017-08-20,11:51:29,115129,AM,2,Mild,Clear,Warm,6out8,Inverted polarity,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,7,22,279024,5359485,236,2017-08-20,12:30:16,123016,AM,3,Mild,Clear,Warm,8out8,Inverted polarity,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,1,22,279213,5359444,252,2017-08-22,13:22:25,132225,PM,1,Very Strong,Clear,Warm,1out8,"Also has an azimuth from earlier in the day, see iPad's notes",EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,2,22,278950,5359713,188,2017-08-22,14:18:48,141848,PM,2,Very Strong,Clear,Warm,1out8,Very faint and choppy ,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,3,22,278712,5359818,,2017-08-22,15:05:57,150557,PM,,Very Strong,Clear,Warm,2out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,5,22,278832,5359755,174,2017-08-22,15:55:55,155555,PM,3,Strong,Clear,Warm,1out8,Choppy and faint,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,1,22,279215,5359442,246,2017-08-23,10:15:47,101547,AM,1,Calm,Clear,Warm,8out8,Faint ,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,278950,5359715,210,2017-08-23,10:52:47,105247,AM,2,Mild,Clear,Warm,8out8,Very faint and choppy,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278648,5359877,,2017-08-23,11:28:50,112850,AM,,Calm,Clear,Warm,6out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,4,22,278570,5359725,178,2017-08-23,11:55:07,115507,AM,3,Mild,Clear,Warm,6out8,Inverted,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,1,22,279215,5359445,244,2017-08-24,9:19:46,91946,AM,1,Very Strong,Clear,Warm,5out8,"Faint, wind v strong but intermittent",EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,25,278948,5359712,212,2017-08-24,10:14:53,101453,AM,2,Very Strong,Clear,Warm,6out8,Or 224. Very weak and choppy,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278647,5359879,,2017-08-24,10:29:59,102959,AM,,Very Strong,Clear,Warm,4out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,4,22,278556,5359684,180,2017-08-24,11:08:03,110803,AM,3,Very Strong,Clear,Warm,7out8,"Faint, choppy. ",LateMorning,Morning,MR,BL
+149.394,A3707,Yes,1,22,279216,5359442,262,2017-08-29,14:08:24,140824,PM,1,Calm,Clear,Warm,3out8,Inverted polarity,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,2,22,279145,5359873,,2017-08-29,14:53:13,145313,PM,,Calm,Clear,Warm,1out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,3,22,278996,5360033,,2017-08-29,15:19:28,151928,PM,,Mild,Clear,Warm,1out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,4,22,278648,5359876,,2017-08-29,15:52:49,155249,PM,,Calm,Clear,Warm,1out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,5,22,278552,5359701,190,2017-08-29,16:09:28,160928,PM,2,Calm,Clear,Warm,2out8,,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,6,22,278836,5359752,218,2017-08-29,17:00:25,170025,PM,3,Calm,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.394,A3707,Yes,2,22,278948,5359711,230,2017-08-30,10:10:48,101048,AM,2,Calm,Clear,Mild,3out8,Inverted polarity,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,278846,5359885,,2017-08-30,11:09:28,110928,AM,,Calm,Clear,Mild,1out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,4,22,278646,5359876,,2017-08-30,11:21:40,112140,AM,,Calm,Clear,Warm,2out8,Not heard,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,5,22,278587,5359752,204,2017-08-30,11:37:08,113708,AM,3,Calm,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,6,22,278473,5359737,179,2017-08-30,11:53:41,115341,AM,4,Calm,Clear,Warm,2out8,,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,1,22,279214,5359443,256,2017-08-31,13:44:42,134442,PM,1,Mild,Clear,Mild,8out8,Strong and clear,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,2,22,279145,5359876,212,2017-08-31,14:18:10,141810,PM,2,Mild,Clear,Mild,8out8,Faint,EarlyAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,3,22,278997,5360031,,2017-08-31,14:48:04,144804,PM,,Calm,Clear,Mild,8out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,4,22,278842,5359886,192,2017-08-31,15:03:24,150324,PM,3,Mild,Clear,Mild,8out8,Faint and choppy,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,5,22,278591,5359754,172,2017-08-31,15:48:02,154802,PM,4,Calm,Clear,Mild,8out8,,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,6,22,279026,5359480,,2017-08-31,16:26:32,162632,PM,,Mild,Clear,Mild,8out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.394,A3707,Yes,1,22,279216,5359443,254,2017-09-01,9:07:22,90722,AM,1,Calm,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,2,22,279141,5359871,,2017-09-01,9:42:38,94238,AM,,Calm,Drizzle,Mild,8out8,Not heard ,EarlyMorning,Morning,MR,BL
+149.394,A3707,Yes,3,22,279244,5359797,,2017-09-01,10:12:48,101248,AM,,Calm,Drizzle,Mild,8out8,Not heard ,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,5,22,278829,5359755,210,2017-09-01,10:57:33,105733,AM,2,Calm,Clear,Mild,8out8,Very faint,LateMorning,Morning,MR,BL
+149.394,A3707,Yes,6,22,278646,5359878,184,2017-09-01,11:11:08,111108,AM,3,Calm,Clear,Mild,8out8,Faint,LateMorning,Morning,MR,BL
+149.432,A3701,No,1,22,279216,5359450,330,2017-06-25,6:43:00,64300,AM,1,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.432,A3701,No,2,22,279216,5360024,226,2017-06-25,7:19:00,71900,AM,2,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.432,A3701,No,3,22,279022,5359577,302,2017-06-25,8:01:00,80100,AM,3,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.432,A3701,No,1,22,279212,5359444,292,2017-06-26,6:53:41,65341,AM,1,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.432,A3701,No,2,22,279220,5360025,238,2017-06-26,7:29:35,72935,AM,2,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.432,A3701,No,3,22,278746,5359793,171,2017-06-26,9:03:11,90311,AM,3,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.432,A3701,No,1,22,279215,5359447,300,2017-06-27,18:30:17,183017,PM,1,Strong,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.432,A3701,No,2,22,279221,5360024,222,2017-06-27,19:10:04,191004,PM,2,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.432,A3701,No,3,22,279037,5359562,276,2017-06-27,19:58:01,195801,PM,3,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.432,A3701,Yes,1,22,279213,5359444,302,2017-06-28,7:04:47,70447,AM,1,Calm,Clear,Mild,8out8,Was dead all previous times,EarlyMorning,Morning,MR,BL
+149.432,A3701,Yes,2,22,279188,5360019,219,2017-06-28,7:40:32,74032,AM,2,Calm,Clear,Mild,8out8,Was dead all previous times,EarlyMorning,Morning,MR,BL
+149.432,A3701,Yes,3,22,278923,5359524,326,2017-06-28,8:33:03,83303,AM,3,Calm,Clear,Mild,8out8,Was dead all previous times,EarlyMorning,Morning,MR,BL
+149.432,A3701,No,1,22,279215,5359442,278,2017-07-13,16:49:50,164950,PM,,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.432,A3701,Yes,1,22,279212,5359446,293,2017-07-16,10:06:18,100618,AM,1,Mild,Clear,Warm,1out8,Previously dead,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,2,22,278951,5359709,248,2017-07-16,10:51:20,105120,AM,2,Mild,Clear,Warm,1out8,Previously alive,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,3,22,278647,5359881,156,2017-07-16,11:43:42,114342,AM,3,Calm,Clear,Warm,1out8,Previously dead,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,1,22,279214,5359445,307,2017-07-19,9:22:41,92241,AM,1,Mild,Clear,Mild,7out8,Was dead,EarlyMorning,Morning,MR,BL
+149.432,A3701,Yes,2,22,278951,5359713,270,2017-07-19,10:08:44,100844,AM,2,Calm,Clear,Warm,6out8,Was dead,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,4,22,278808,5359569,332,2017-07-19,10:53:18,105318,AM,3,Calm,Clear,Warm,3out8,,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,4,22,278808,5359569,12,2017-07-19,11:10:26,111026,AM,4,Calm,Clear,Warm,3out8,Was dead,LateMorning,Morning,MR,BL
+149.432,A3701,No,6,22,279214,5359447,310,2017-07-19,16:42:41,164241,PM,1,Mild,Clear,Warm,7out8,Was alive in the morning,EarlyEvening,Evening,MR,BL
+149.432,A3701,No,7,22,278949,5359713,280,2017-07-19,17:22:51,172251,PM,2,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.432,A3701,No,8,22,278860,5359958,189,2017-07-19,18:02:10,180210,PM,3,Calm,Clear,Warm,5out8,Triangulated ,LateEvening,Evening,MR,BL
+149.432,A3701,Yes,1,22,279217,5359445,304,2017-07-22,9:57:27,95727,AM,1,Mild,Clear,Mild,8out8,Was dead,EarlyMorning,Morning,MR,BL
+149.432,A3701,Yes,3,22,278952,5359714,275,2017-07-22,10:42:35,104235,AM,2,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,4,22,278747,5359797,189,2017-07-22,11:13:42,111342,AM,3,Calm,Drizzle,Mild,8out8,Triangulated ,LateMorning,Morning,MR,BL
+149.432,A3701,No,1,22,279214,5359445,321,2017-07-24,9:50:21,95021,AM,1,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.432,A3701,No,2,22,279244,5359799,262,2017-07-24,10:30:27,103027,AM,2,Strong,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.432,A3701,No,3,22,278979,5359907,218,2017-07-24,11:09:08,110908,AM,3,Strong,Clear,Warm,2out8,,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,6,22,279243,5359794,275,2017-08-16,11:34:17,113417,AM,1,,,,,Was dead when last heard,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,1,22,279214,5359444,300,2017-08-16,12:19:48,121948,AM,2,,,,,Was dead when last geard,EarlyAfternoon,Afternoon,MR,BL
+149.432,A3701,No,2,22,278949,5359714,292,2017-08-16,13:00:09,130009,AM,3,,,,,,EarlyAfternoon,Afternoon,MR,BL
+149.432,A3701,Yes,7,22,278558,5359951,169,2017-08-16,13:15:53,131553,AM,4,Mild,Clear,Warm,7out8,Was dead when last heard,EarlyAfternoon,Afternoon,MR,BL
+149.432,A3701,Yes,1,22,279215,5359443,308,2017-08-19,15:57:05,155705,PM,1,Calm,Clear,Warm,7out8,Was dead,LateAfternoon,Afternoon,MR,BL
+149.432,A3701,Yes,6,22,278935,5359538,336,2017-08-19,16:32:21,163221,PM,2,Calm,Clear,Mild,1out8,Was dead,EarlyEvening,Evening,MR,BL
+149.432,A3701,Yes,7,22,279146,5359872,243,2017-08-19,16:52:36,165236,PM,3,Calm,Clear,Mild,1out8,Was dead,EarlyEvening,Evening,MR,BL
+149.432,A3701,Yes,8,22,279246,5359797,260,2017-08-19,17:19:45,171945,PM,4,Calm,Clear,Mild,1out8,Was dead,EarlyEvening,Evening,MR,BL
+149.432,A3701,Yes,1,22,279215,5359445,304,2017-08-20,9:10:14,91014,AM,1,Mild,Clear,Mild,8out8,Was dead,EarlyMorning,Morning,MR,BL
+149.432,A3701,Yes,2,22,279141,5359873,242,2017-08-20,10:02:14,100214,AM,2,Mild,Clear,Mild,7out8,Was dead,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,4,22,278841,5359887,186,2017-08-20,10:56:07,105607,AM,3,Calm,Clear,Mild,7out8,Was dead,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,1,22,279215,5359446,294,2017-08-21,9:41:50,94150,AM,1,Strong,Drizzle,Mild,8out8,Was dead,EarlyMorning,Morning,MR,BL
+149.432,A3701,Yes,2,22,279142,5359874,242,2017-08-21,10:30:50,103050,AM,2,Strong,Clear,Mild,8out8,Was dead,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,3,22,278649,5359881,165,2017-08-21,11:06:23,110623,AM,3,Mild,Clear,Warm,6out8,Was dead,LateMorning,Morning,MR,BL
+149.432,A3701,Yes,4,22,278773,5359776,218,2017-08-21,11:38:38,113838,AM,4,Strong,Clear,Warm,3out8,Was dead,LateMorning,Morning,MR,BL
+149.432,A3701,No,1,22,279213,5359444,314,2017-08-22,13:46:57,134657,PM,1,Very Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.432,A3701,No,4,22,278650,5359884,114,2017-08-22,15:23:06,152306,PM,2,Very Strong,Clear,Warm,2out8,,LateAfternoon,Afternoon,MR,BL
+149.432,A3701,No,6,22,279145,5359872,248,2017-08-22,16:58:58,165858,PM,3,Strong,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279215,5359442,282,2017-07-13,16:45:33,164533,PM,1,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.452,A3708,Yes,2,22,278939,5359617,268,2017-07-13,17:23:15,172315,PM,2,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.452,A3708,Yes,3,22,278674,5359835,138,2017-07-13,17:47:03,174703,PM,3,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.452,A3708,Yes,6,22,278887,5359739,186,2017-07-13,18:26:35,182635,PM,4,Mild,Clear,Warm,2out8,,LateEvening,Evening,TH,BL
+149.452,A3708,Yes,1,22,279212,5359446,270,2017-07-16,10:22:58,102258,AM,1,Mild,Clear,Warm,1out8,Faint,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,278951,5359709,204,2017-07-16,11:10:37,111037,AM,2,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,278647,5359881,154,2017-07-16,12:00:02,120002,AM,3,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,2,22,278952,5359712,229,2017-07-16,17:32:27,173227,PM,2,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,3,22,278746,5359795,162,2017-07-16,17:47:07,174707,PM,3,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,4,22,278932,5359538,298,2017-07-16,18:05:15,180515,PM,4,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279214,5359445,302,2017-07-19,9:17:12,91712,AM,1,Mild,Clear,Mild,7out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,278951,5359713,202,2017-07-19,10:03:41,100341,AM,2,Calm,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,278808,5359569,53,2017-07-19,10:46:00,104600,AM,3,Calm,Clear,Warm,3out8,Triangulated,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,6,22,279214,5359447,302,2017-07-19,16:38:51,163851,PM,1,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,7,22,278949,5359713,230,2017-07-19,17:19:03,171903,PM,2,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,8,22,278860,5359958,178,2017-07-19,17:56:57,175657,PM,3,Calm,Clear,Warm,5out8,Triangulated,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,3,22,278952,5359714,200,2017-07-22,10:34:49,103449,AM,2,Calm,Clear,Warm,8out8,Strong,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,278747,5359797,140,2017-07-22,10:54:24,105424,AM,3,Calm,Drizzle,Mild,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,6,22,279027,5359566,298,2017-07-22,11:41:44,114144,AM,3,Calm,Clear,Mild,8out8,Triangulated ,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,1,22,279214,5359445,321,2017-07-24,9:44:36,94436,AM,1,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,279244,5359799,243,2017-07-24,10:24:02,102402,AM,2,Strong,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,278979,5359907,162,2017-07-24,11:04:21,110421,AM,3,Strong,Clear,Warm,2out8,Triangulated,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,7,22,278830,5359752,147,2017-07-27,16:05:47,160547,PM,1,Mild,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,9,22,278950,5359714,201,2017-07-27,16:38:24,163824,PM,3,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,10,22,278918,5359535,355,2017-07-27,17:00:39,170039,PM,3,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279216,5359443,304,2017-07-29,12:39:15,123915,PM,1,Calm,Clear,Warm,2out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,2,22,278916,5359528,344,2017-07-29,13:14:45,131445,PM,2,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,3,22,278950,5359710,225,2017-07-29,13:34:30,133430,PM,3,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,4,22,278743,5359804,144,2017-07-29,13:54:06,135406,PM,4,Mild,Clear,Warm,1out8,Triangulated ,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279217,5359449,298,2017-08-03,16:54:44,165444,PM,1,Strong,Clear,Warm,8out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,2,22,278949,5359713,238,2017-08-03,17:25:37,172537,PM,2,Mild,Clear,Warm,8out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,3,22,278761,5359793,172,2017-08-03,17:49:09,174909,PM,3,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,5,22,278951,5359632,272,2017-08-03,18:11:00,181100,PM,5,Calm,Clear,Warm,6out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279213,5359443,298,2017-08-05,9:59:33,95933,AM,1,Mild,Clear,Mild,6out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,279238,5359809,228,2017-08-05,10:51:30,105130,AM,2,Calm,Clear,Mild,3out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,279072,5359963,204,2017-08-05,11:40:22,114022,AM,3,Calm,Clear,Warm,4out8,Faint,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,278840,5359888,162,2017-08-05,12:01:10,120110,AM,4,Mild,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,6,22,279215,5359443,300,2017-08-08,14:13:04,141304,PM,1,Strong,Clear,Warm,6out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,7,22,279146,5359871,238,2017-08-08,14:45:19,144519,PM,2,Mild,Clear,Warm,6out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,8,22,278867,5360026,,2017-08-08,15:12:44,151244,PM,,Mild,Clear,Warm,6out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,9,22,278840,5359887,182,2017-08-08,15:25:12,152512,PM,3,Mild,Clear,Warm,5out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279215,5359447,317,2017-08-10,18:26:52,182652,PM,1,Very Strong,Clear,Warm,1out8,Inconsistent,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,5,22,278937,5359532,24,2017-08-10,19:53:52,195352,PM,3,Strong,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,6,22,279058,5359474,341,2017-08-10,20:07:23,200723,PM,4,Mild,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279214,5359448,274,2017-08-11,6:29:07,62907,AM,1,Mild,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,278950,5359710,210,2017-08-11,7:05:32,70532,AM,2,Calm,Clear,Mild,3out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,278732,5359800,156,2017-08-11,7:49:35,74935,AM,4,Calm,Clear,Mild,2out8,Parallel to BL3,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,9,22,279214,5359445,308,2017-08-11,18:07:43,180743,PM,1,Mild,Clear,Warm,2out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,10,22,278951,5359712,216,2017-08-11,18:41:56,184156,PM,2,Calm,Clear,Warm,2out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,11,22,278844,5359888,165,2017-08-11,19:13:34,191334,PM,3,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,12,22,278988,5360040,190,2017-08-11,19:38:56,193856,PM,4,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,14,22,279076,5359461,316,2017-08-11,20:19:22,201922,PM,5,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279215,5359446,306,2017-08-12,6:32:07,63207,AM,1,Calm,Clear,Cool,1out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,278949,5359711,285,2017-08-12,7:03:38,70338,AM,2,Calm,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,278842,5359883,177,2017-08-12,7:31:15,73115,AM,3,Calm,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,279164,5359872,248,2017-08-12,8:04:44,80444,AM,4,Calm,Clear,Warm,3out8,Faint,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,6,22,279214,5359443,309,2017-08-12,18:00:48,180048,PM,1,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,10,22,278932,5359533,0,2017-08-12,19:37:50,193750,PM,3,Calm,Clear,Warm,8out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,11,22,279243,5359794,250,2017-08-12,20:04:12,200412,PM,4,Calm,Clear,Warm,8out8,,LateEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279216,5359444,265,2017-08-13,11:33:05,113305,PM,1,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,279239,5359796,230,2017-08-13,12:15:23,121523,PM,2,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,3,22,279083,5359942,206,2017-08-13,12:52:42,125242,PM,3,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,4,22,278860,5360031,180,2017-08-13,13:23:31,132331,PM,4,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,5,22,278647,5359880,156,2017-08-13,13:56:28,135628,PM,5,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279214,5359442,330,2017-08-15,8:51:03,85103,AM,1,Strong,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,279144,5359870,230,2017-08-15,9:37:43,93743,AM,2,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,278996,5360030,186,2017-08-15,10:16:25,101625,AM,3,Strong,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,278649,5359880,116,2017-08-15,11:01:21,110121,AM,4,Strong,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,8,22,279023,5359484,347,2017-08-15,13:05:30,130530,AM,5,Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279214,5359444,309,2017-08-16,8:56:57,85657,AM,1,Calm,Clear,Cool,1out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,5,22,278934,5359533,342,2017-08-16,10:37:18,103718,AM,3,Mild,Clear,Warm,7out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,6,22,279243,5359794,250,2017-08-16,11:22:41,112241,AM,4,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,278949,5359712,220,2017-08-17,10:01:25,100125,AM,2,Calm,Drizzle,Mild,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,278762,5359791,122,2017-08-17,10:38:59,103859,AM,3,Calm,Drizzle,Mild,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,278935,5359533,345,2017-08-17,11:10:47,111047,AM,4,Calm,Drizzle,Mild,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,1,22,279217,5359447,292,2017-08-18,15:51:59,155159,PM,1,Strong,Light,Cool,8out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,2,22,278949,5359712,216,2017-08-18,16:06:11,160611,PM,2,Strong,Medium,Cool,8out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,3,22,278645,5359878,142,2017-08-18,16:50:55,165055,PM,3,Strong,Medium,Cool,8out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279215,5359443,306,2017-08-19,13:38:54,133854,PM,1,Mild,Clear,Mild,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,3,22,278948,5359708,218,2017-08-19,14:22:12,142212,PM,2,Calm,Clear,Warm,7out8,Or 214deg,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,6,22,278935,5359538,344,2017-08-19,15:28:15,152815,PM,3,Calm,Clear,Mild,3out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,2,22,279024,5359482,328,2017-08-19,15:48:49,154849,PM,4,Calm,Clear,Mild,3out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279215,5359445,320,2017-08-20,9:03:56,90356,AM,1,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,279141,5359873,232,2017-08-20,9:58:09,95809,AM,2,Mild,Clear,Mild,7out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,278991,5360036,180,2017-08-20,10:24:56,102456,AM,3,Mild,Clear,Warm,5out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,5,22,278733,5359800,114,2017-08-20,11:24:12,112412,AM,4,Mild,Clear,Warm,2out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,1,22,279215,5359446,309,2017-08-21,9:33:21,93321,AM,1,Strong,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,279142,5359874,217,2017-08-21,10:23:44,102344,AM,2,Strong,Clear,Mild,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,6,22,278935,5359529,340,2017-08-21,12:21:24,122124,AM,3,Mild,Clear,Warm,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,5,22,278948,5359706,202,2017-08-21,12:50:04,125004,AM,4,Mild,Clear,Warm,5out8,Came back after LP6,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279213,5359444,300,2017-08-22,13:42:47,134247,PM,1,Very Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,2,22,278950,5359713,200,2017-08-22,14:34:45,143445,PM,2,Very Strong,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,4,22,278650,5359884,137,2017-08-22,15:42:18,154218,PM,3,Very Strong,Clear,Warm,2out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,6,22,279145,5359872,220,2017-08-22,16:36:23,163623,PM,6,Strong,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.452,A3708,Yes,1,22,279215,5359442,304,2017-08-23,10:28:32,102832,AM,1,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,278950,5359715,243,2017-08-23,11:00:21,110021,AM,2,Mild,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,278570,5359725,84,2017-08-23,12:00:44,120044,AM,4,Mild,Clear,Warm,2out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,5,22,278844,5359888,162,2017-08-23,12:42:23,124223,AM,4,Mild,Clear,Warm,2out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279215,5359445,306,2017-08-24,9:23:27,92327,AM,1,Very Strong,Clear,Warm,5out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,25,278948,5359712,241,2017-08-24,9:54:03,95403,AM,2,Very Strong,Clear,Warm,6out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,5,22,278846,5359881,156,2017-08-24,11:33:16,113316,AM,3,Very Strong,Clear,Warm,3out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,1,22,279216,5359442,315,2017-08-29,13:42:37,134237,PM,1,Calm,Clear,Warm,3out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,2,22,279145,5359873,220,2017-08-29,14:31:01,143101,PM,2,Calm,Clear,Warm,1out8,Faint,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,3,22,278996,5360033,194,2017-08-29,15:06:34,150634,PM,3,Mild,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,4,22,278648,5359876,146,2017-08-29,15:35:15,153515,PM,4,Calm,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,5,22,278552,5359701,108,2017-08-29,16:16:41,161641,PM,5,Calm,Clear,Warm,2out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279213,5359444,302,2017-08-30,9:37:32,93732,AM,1,Calm,Clear,Mild,5out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,278948,5359711,265,2017-08-30,10:35:55,103555,AM,2,Calm,Clear,Mild,3out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,278846,5359885,154,2017-08-30,11:01:53,110153,AM,3,Calm,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,9,22,278996,5360032,202,2017-08-30,13:01:10,130110,AM,4,Mild,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279214,5359443,318,2017-08-31,13:40:19,134019,PM,1,Mild,Clear,Mild,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,2,22,279145,5359876,228,2017-08-31,14:14:17,141417,PM,2,Mild,Clear,Mild,8out8,Faint and choppy,EarlyAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,3,22,278997,5360031,188,2017-08-31,14:46:05,144605,PM,3,Calm,Clear,Mild,8out8,Faint,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,5,22,278591,5359754,92,2017-08-31,15:59:27,155927,PM,4,Calm,Clear,Mild,8out8,,LateAfternoon,Afternoon,MR,BL
+149.452,A3708,Yes,1,22,279216,5359443,307,2017-09-01,9:04:07,90407,AM,1,Calm,Drizzle,Mild,8out8,Wet forest,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,2,22,279141,5359871,226,2017-09-01,9:40:26,94026,AM,2,Calm,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.452,A3708,Yes,3,22,279244,5359797,234,2017-09-01,10:03:37,100337,AM,3,Calm,Clear,Mild,8out8,,LateMorning,Morning,MR,BL
+149.452,A3708,Yes,4,22,278993,5360035,188,2017-09-01,10:29:27,102927,AM,4,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279216,5359450,332,2017-06-25,6:43:00,64300,AM,1,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279216,5360024,196,2017-06-25,7:19:00,71900,AM,2,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,279022,5359577,54,2017-06-25,8:01:00,80100,AM,3,Mild,Clear,Mild,4out8,Taken on notebook as fieldform was not working,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279215,5359466,352,2017-06-25,18:51:00,185100,PM,1,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,2,22,279220,5360025,198,2017-06-25,19:23:28,192328,PM,2,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,3,22,278950,5359714,72,2017-06-25,19:56:11,195611,PM,3,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279212,5359444,311,2017-06-26,6:46:41,64641,AM,1,Calm,Clear,Cool,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279220,5360025,218,2017-06-26,7:22:58,72258,AM,2,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,5,22,278746,5359793,107,2017-06-26,8:50:46,85046,AM,4,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279215,5359447,342,2017-06-27,18:25:54,182554,PM,1,Strong,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,2,22,279221,5360024,218,2017-06-27,18:59:20,185920,PM,2,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,3,22,279037,5359562,12,2017-06-27,19:50:44,195044,PM,3,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279213,5359444,300,2017-06-28,6:55:18,65518,AM,1,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279188,5360019,250,2017-06-28,7:31:59,73159,AM,2,Calm,Clear,Mild,8out8,Weak,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,278923,5359524,318,2017-06-28,8:19:33,81933,AM,3,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279215,5359442,7,2017-07-13,16:30:24,163024,PM,1,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.535,A3719,Yes,2,22,278939,5359617,77,2017-07-13,17:02:53,170253,PM,2,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.535,A3719,Yes,3,22,278674,5359835,107,2017-07-13,17:31:44,173144,PM,3,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.535,A3719,Yes,1,22,279212,5359446,342,2017-07-16,9:59:02,95902,AM,1,Mild,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,278951,5359709,82,2017-07-16,10:37:06,103706,AM,2,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,278647,5359881,108,2017-07-16,11:26:24,112624,AM,3,Calm,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279214,5359441,2,2017-07-16,16:45:20,164520,PM,1,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,2,22,278952,5359712,84,2017-07-16,17:13:01,171301,PM,2,Mild,Clear,Warm,1out8,"Before this is listening point number 7, check screenshots",EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,4,22,278932,5359538,50,2017-07-16,18:11:17,181117,PM,3,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,5,22,279326,5359461,328,2017-07-16,18:30:12,183012,PM,4,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279214,5359445,308,2017-07-19,8:51:35,85135,AM,1,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,278951,5359713,176,2017-07-19,9:46:13,94613,AM,2,Calm,Clear,Warm,6out8,Very strong,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,4,22,278808,5359569,78,2017-07-19,10:42:01,104201,AM,3,Calm,Clear,Warm,3out8,Triangulated,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,6,22,279214,5359447,308,2017-07-19,16:25:01,162501,PM,1,Mild,Clear,Warm,7out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,7,22,278949,5359713,170,2017-07-19,17:07:56,170756,PM,2,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,8,22,278860,5359958,161,2017-07-19,17:59:33,175933,PM,3,Calm,Clear,Warm,5out8,Triangulated,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,10,22,278928,5359546,10,2017-07-19,18:30:49,183049,PM,4,Calm,Light,Warm,8out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279217,5359445,314,2017-07-22,9:43:23,94323,AM,1,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,278952,5359714,117,2017-07-22,10:26:53,102653,AM,2,Calm,Clear,Warm,8out8,Strong,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,5,22,278945,5359700,42,2017-07-22,11:27:30,112730,AM,3,Calm,Drizzle,Mild,8out8,Triangulated,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279214,5359445,313,2017-07-24,9:34:03,93403,AM,1,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279244,5359799,250,2017-07-24,10:14:26,101426,AM,2,Strong,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,278979,5359907,183,2017-07-24,10:54:09,105409,AM,3,Strong,Clear,Warm,2out8,Triangulated ,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,10,22,278918,5359535,58,2017-07-27,16:58:01,165801,PM,2,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,13,22,279065,5359474,10,2017-07-27,17:47:15,174715,PM,3,Calm,Clear,Mild,1out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,14,22,279216,5359445,318,2017-07-27,17:57:01,175701,PM,5,Strong,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,15,22,279327,5359495,306,2017-07-27,18:03:47,180347,PM,6,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279216,5359443,314,2017-07-29,12:20:54,122054,PM,1,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,2,22,278916,5359528,50,2017-07-29,12:52:57,125257,PM,2,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,4,22,278743,5359804,110,2017-07-29,13:52:51,135251,PM,3,Mild,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,6,22,278813,5359581,70,2017-07-29,14:28:05,142805,PM,4,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,7,22,279025,5359488,30,2017-07-29,14:40:14,144014,PM,5,Calm,Clear,Warm,1out8,Triangulated ,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279217,5359449,322,2017-08-03,16:33:03,163303,PM,1,Mild,Clear,Warm,8out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,2,22,278949,5359713,98,2017-08-03,17:06:38,170638,PM,2,Mild,Clear,Warm,8out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,5,22,278951,5359632,62,2017-08-03,18:25:33,182533,PM,4,Calm,Clear,Warm,6out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,6,22,278984,5359496,13,2017-08-03,18:33:00,183300,PM,5,Mild,Clear,Mild,2out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279213,5359443,321,2017-08-05,9:38:34,93834,AM,1,Mild,Clear,Mild,6out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279238,5359809,238,2017-08-05,10:26:04,102604,AM,2,Calm,Clear,Mild,3out8,"Or 202 (changed Sept 19, 2017)",LateMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,279072,5359963,186,2017-08-05,11:18:32,111832,AM,3,Calm,Clear,Warm,4out8,238 seems correct azimuth at LP 2,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,5,22,278756,5359789,116,2017-08-05,12:28:37,122837,AM,4,Mild,Clear,Warm,1out8,"Or 104 (changed Sept 19, 2017)",EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,6,22,279215,5359443,308,2017-08-08,14:04:19,140419,PM,1,Strong,Clear,Warm,6out8,Faint,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,7,22,279146,5359871,200,2017-08-08,14:33:42,143342,PM,2,Mild,Clear,Warm,6out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,8,22,278867,5360026,156,2017-08-08,15:02:28,150228,PM,3,Mild,Clear,Warm,6out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279215,5359447,341,2017-08-10,18:09:59,180959,PM,1,Very Strong,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,2,22,278829,5359754,97,2017-08-10,18:49:07,184907,PM,2,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,5,22,278937,5359532,68,2017-08-10,19:41:30,194130,PM,3,Strong,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,6,22,279058,5359474,30,2017-08-10,20:07:05,200705,PM,4,Mild,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,7,22,279327,5359462,316,2017-08-10,20:19:27,201927,PM,5,Strong,Clear,Cool,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279214,5359448,329,2017-08-11,6:14:16,61416,AM,1,Calm,Clear,Warm,8out8,"Foggy, rain overnight ",EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,278950,5359710,102,2017-08-11,6:50:22,65022,AM,2,Calm,Clear,Mild,6out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,5,22,278938,5359532,55,2017-08-11,8:14:20,81420,AM,3,Mild,Clear,Mild,3out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,7,22,279077,5359464,14,2017-08-11,9:20:41,92041,AM,4,Mild,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,8,22,279326,5359466,317,2017-08-11,9:53:14,95314,AM,5,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,9,22,279214,5359445,344,2017-08-11,17:50:41,175041,PM,1,Mild,Clear,Warm,2out8,1st evening LP,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,10,22,278951,5359712,70,2017-08-11,18:31:45,183145,PM,2,Calm,Clear,Warm,2out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,11,22,278844,5359888,114,2017-08-11,19:00:11,190011,PM,3,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,12,22,278988,5360040,150,2017-08-11,19:34:18,193418,PM,4,Calm,Clear,Mild,1out8,Faint,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,13,22,278735,5359804,94,2017-08-11,20:05:34,200534,PM,5,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279215,5359446,339,2017-08-12,6:15:42,61542,AM,1,Calm,Clear,Cool,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,278949,5359711,95,2017-08-12,6:50:11,65011,AM,2,Calm,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,278842,5359883,130,2017-08-12,7:15:29,71529,AM,3,Calm,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,4,22,279164,5359872,179,2017-08-12,7:48:56,74856,AM,4,Calm,Clear,Warm,3out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,6,22,279214,5359443,354,2017-08-12,17:44:45,174445,PM,1,Mild,Clear,Warm,1out8,Faint,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,7,22,278943,5359716,78,2017-08-12,18:16:09,181609,PM,2,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,8,22,278652,5359880,99,2017-08-12,18:55:45,185545,PM,3,Calm,Clear,Warm,6out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,10,22,278932,5359533,47,2017-08-12,19:34:53,193453,PM,4,Calm,Clear,Warm,8out8,,LateEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279216,5359444,314,2017-08-13,11:21:16,112116,PM,1,Calm,Clear,Warm,8out8,Strong showers early am,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279239,5359796,236,2017-08-13,12:01:02,120102,PM,2,Calm,Clear,Warm,8out8,"Wet forest, heavy showers early this am",EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,3,22,279083,5359942,194,2017-08-13,12:38:12,123812,PM,3,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,4,22,278860,5360031,158,2017-08-13,13:17:07,131707,PM,4,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279214,5359442,314,2017-08-15,8:35:55,83555,AM,1,Mild,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279144,5359870,232,2017-08-15,9:19:04,91904,AM,2,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,278996,5360030,194,2017-08-15,10:00:02,100002,AM,3,Strong,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,4,22,278649,5359880,120,2017-08-15,10:46:07,104607,AM,4,Strong,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,8,22,279023,5359484,344,2017-08-15,12:59:13,125913,AM,5,Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279214,5359444,344,2017-08-16,8:47:49,84749,AM,1,,,,,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,278949,5359714,104,2017-08-16,9:22:21,92221,AM,2,,,,,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,5,22,278934,5359533,68,2017-08-16,10:31:33,103133,AM,3,Mild,Clear,Warm,7out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,6,22,279243,5359794,203,2017-08-16,11:16:02,111602,AM,4,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279216,5359445,341,2017-08-17,9:36:24,93624,AM,1,,,,,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,278949,5359712,110,2017-08-17,10:11:45,101145,AM,2,,,,,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,4,22,278935,5359533,70,2017-08-17,11:16:12,111612,AM,3,,,,,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279217,5359447,338,2017-08-18,15:41:46,154146,PM,1,Strong,Light,Cool,8out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,2,22,278949,5359712,119,2017-08-18,16:17:25,161725,PM,2,Strong,Medium,Cool,8out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,3,22,278645,5359878,110,2017-08-18,16:54:40,165440,PM,3,Strong,Medium,Cool,8out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,4,22,278936,5359531,52,2017-08-18,17:16:33,171633,PM,4,Strong,Light,Cool,8out8,,EarlyEvening,Evening,MR,BL
+149.535,A3719,Yes,1,22,279215,5359443,331,2017-08-19,13:49:34,134934,PM,1,Mild,Clear,Mild,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,3,22,278948,5359708,92,2017-08-19,14:32:31,143231,PM,2,Calm,Clear,Warm,7out8,"Or 106deg (changed Sept 19, 2017)",LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,6,22,278935,5359538,52,2017-08-19,15:34:53,153453,PM,3,Calm,Clear,Mild,3out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,2,22,279024,5359482,28,2017-08-19,15:42:08,154208,PM,4,Calm,Clear,Mild,3out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279215,5359445,310,2017-08-20,8:46:47,84647,AM,1,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279141,5359873,204,2017-08-20,9:50:49,95049,AM,2,Mild,Clear,Mild,5out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,3,22,278991,5360036,170,2017-08-20,10:30:11,103011,AM,3,Mild,Clear,Warm,5out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,4,22,278841,5359887,134,2017-08-20,11:07:36,110736,AM,4,Calm,Clear,Mild,7out8,Parallel to LP1,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279215,5359446,316,2017-08-21,9:24:19,92419,AM,1,Strong,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279142,5359874,188,2017-08-21,10:15:07,101507,AM,2,Strong,Clear,Mild,8out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,6,22,278935,5359529,68,2017-08-21,12:16:37,121637,AM,3,Mild,Clear,Warm,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279213,5359444,329,2017-08-22,13:30:11,133011,PM,1,Very Strong,Clear,Warm,1out8,Faint,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,2,22,278950,5359713,101,2017-08-22,14:23:41,142341,PM,2,Very Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,6,22,279145,5359872,219,2017-08-22,16:28:35,162835,PM,3,Strong,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279215,5359442,328,2017-08-23,10:18:39,101839,AM,1,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,278950,5359715,95,2017-08-23,11:09:52,110952,AM,2,Mild,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,6,22,279147,5359873,199,2017-08-23,13:16:41,131641,AM,3,Mild,Clear,Warm,2out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279215,5359445,324,2017-08-24,9:29:53,92953,AM,1,Very Strong,Clear,Warm,5out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,25,278948,5359712,104,2017-08-24,10:06:00,100600,AM,2,Very Strong,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,6,22,279143,5359872,204,2017-08-24,11:53:15,115315,AM,3,Strong,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,1,22,279216,5359442,316,2017-08-29,14:04:06,140406,PM,1,Calm,Clear,Warm,3out8,Very faint,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,2,22,279145,5359873,240,2017-08-29,14:36:44,143644,PM,2,Calm,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,3,22,278996,5360033,184,2017-08-29,15:11:07,151107,PM,3,Mild,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,4,22,278648,5359876,105,2017-08-29,15:49:23,154923,PM,4,Calm,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,5,22,278552,5359701,,2017-08-29,16:18:36,161836,PM,,Calm,Clear,Warm,2out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279213,5359444,320,2017-08-30,9:51:55,95155,AM,1,Calm,Clear,Mild,5out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,278948,5359711,100,2017-08-30,10:43:25,104325,AM,2,Calm,Clear,Mild,3out8,,LateMorning,Morning,MR,BL
+149.535,A3719,Yes,8,22,279146,5359873,186,2017-08-30,12:50:26,125026,AM,3,Mild,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,9,22,278996,5360032,164,2017-08-30,13:03:22,130322,AM,4,Mild,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,10,22,279246,5359796,220,2017-08-30,13:13:41,131341,AM,5,Mild,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279214,5359443,332,2017-08-31,13:48:13,134813,PM,1,Mild,Clear,Cool,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,2,22,279145,5359876,242,2017-08-31,14:27:43,142743,PM,2,Mild,Clear,Mild,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,4,22,278842,5359886,133,2017-08-31,15:12:41,151241,PM,3,Mild,Clear,Mild,8out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,5,22,278591,5359754,84,2017-08-31,15:43:48,154348,PM,4,Calm,Clear,Mild,8out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,6,22,279026,5359480,352,2017-08-31,16:26:13,162613,PM,5,Mild,Clear,Mild,8out8,,LateAfternoon,Afternoon,MR,BL
+149.535,A3719,Yes,1,22,279216,5359443,314,2017-09-01,9:19:14,91914,AM,1,Calm,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,2,22,279141,5359871,223,2017-09-01,9:46:35,94635,AM,2,Calm,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.535,A3719,Yes,4,22,278993,5360035,175,2017-09-01,10:30:30,103030,AM,4,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279215,5359466,264,2017-06-25,18:53:08,185308,PM,1,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,2,22,279220,5360025,208,2017-06-25,19:21:00,192100,PM,2,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,3,22,278950,5359714,184,2017-06-25,20:01:45,200145,PM,3,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,2,22,279220,5360025,232,2017-06-26,7:26:00,72600,AM,2,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,279033,5359568,258,2017-06-26,8:24:49,82449,AM,4,Calm,Clear,Warm,1out8,Seems to be crossing 2nd line out of the grid. ,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,5,22,278746,5359793,208,2017-06-26,8:54:46,85446,AM,4,Calm,Clear,Warm,1out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,NA,1,22,279215,5359442,,2017-07-13,16:33:55,163355,PM,,Mild,Clear,Warm,2out8,Not heard,EarlyEvening,Evening,TH,BL
+149.673,A3705,NA,2,22,278939,5359617,,2017-07-13,17:10:22,171022,PM,,Mild,Clear,Warm,2out8,Not heard,EarlyEvening,Evening,TH,BL
+149.673,A3705,Yes,3,22,278674,5359835,256,2017-07-13,17:39:01,173901,PM,1,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,TH,BL
+149.673,A3705,Yes,4,22,278582,5359926,186,2017-07-13,18:02:14,180214,PM,2,Mild,Clear,Warm,2out8,,LateEvening,Evening,TH,BL
+149.673,A3705,Yes,5,22,278681,5359727,263,2017-07-13,18:16:07,181607,PM,3,Mild,Clear,Warm,2out8,,LateEvening,Evening,TH,BL
+149.673,A3705,Yes,1,22,279212,5359446,304,2017-07-16,10:03:02,100302,AM,1,Mild,Clear,Warm,1out8,Faint,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,278951,5359709,256,2017-07-16,10:41:55,104155,AM,2,Mild,Clear,Warm,1out8,Very faint,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278647,5359881,166,2017-07-16,11:35:59,113559,AM,3,Calm,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279214,5359441,288,2017-07-16,16:49:14,164914,PM,1,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,2,22,278952,5359712,253,2017-07-16,17:16:42,171642,PM,2,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,3,22,278746,5359795,192,2017-07-16,17:39:26,173926,PM,3,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,1,22,279214,5359445,278,2017-07-19,8:56:10,85610,AM,1,Calm,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,278951,5359713,238,2017-07-19,9:51:14,95114,AM,2,Calm,Clear,Warm,6out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278831,5359752,208,2017-07-19,10:25:56,102556,AM,3,Mild,Clear,Warm,3out8,Triangulated. 2 lines on map as iPad's gps was way off actual position,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,6,22,279214,5359447,293,2017-07-19,16:29:22,162922,PM,1,Mild,Clear,Warm,7out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,7,22,278949,5359713,238,2017-07-19,17:08:32,170832,PM,2,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,8,22,278860,5359958,199,2017-07-19,17:50:00,175000,PM,3,Calm,Clear,Warm,5out8,Triangulated,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,1,22,279217,5359445,292,2017-07-22,9:46:09,94609,AM,1,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278952,5359714,268,2017-07-22,10:34:27,103427,AM,2,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278747,5359797,221,2017-07-22,11:04:53,110453,AM,3,Calm,Drizzle,Mild,8out8,Triangulated,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279214,5359445,291,2017-07-24,9:36:50,93650,AM,1,Strong,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,279244,5359799,232,2017-07-24,10:17:50,101750,AM,2,Strong,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278979,5359907,198,2017-07-24,10:58:58,105858,AM,3,Strong,Clear,Warm,2out8,Triangulated,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278827,5359750,182,2017-07-24,11:29:23,112923,AM,4,Strong,Clear,Warm,5out8,Triangulated,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,7,22,278830,5359752,184,2017-07-27,15:58:17,155817,PM,1,Mild,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,8,22,278737,5359798,163,2017-07-27,16:26:06,162606,PM,2,Calm,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,9,22,278950,5359714,239,2017-07-27,16:34:29,163429,PM,3,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,11,22,278943,5359638,261,2017-07-27,17:16:28,171628,PM,5,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,1,22,279216,5359443,290,2017-07-29,12:27:03,122703,PM,1,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,2,22,278916,5359528,282,2017-07-29,12:58:22,125822,PM,2,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,3,22,278950,5359710,240,2017-07-29,13:23:07,132307,PM,3,Calm,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,4,22,278743,5359804,179,2017-07-29,13:43:46,134346,PM,4,Mild,Clear,Warm,1out8,Triangulated,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,2,22,278949,5359713,206,2017-08-03,17:11:40,171140,PM,2,Mild,Clear,Warm,8out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,3,22,278761,5359793,159,2017-08-03,17:41:22,174122,PM,3,Mild,Clear,Warm,7out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,5,22,278951,5359632,228,2017-08-03,18:16:00,181600,PM,4,Calm,Clear,Warm,6out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,6,22,278984,5359496,288,2017-08-03,18:37:39,183739,PM,5,Mild,Clear,Mild,2out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,3,22,279072,5359963,212,2017-08-05,11:20:29,112029,AM,3,Calm,Clear,Warm,4out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278840,5359888,182,2017-08-05,11:54:51,115451,AM,4,Mild,Clear,Warm,1out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,6,22,278945,5359632,238,2017-08-05,12:41:48,124148,AM,6,Mild,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,6,22,279215,5359443,282,2017-08-08,14:05:18,140518,PM,1,Strong,Clear,Warm,6out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,7,22,279146,5359871,214,2017-08-08,14:39:16,143916,PM,2,Mild,Clear,Warm,6out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,8,22,278867,5360026,,2017-08-08,15:10:56,151056,PM,,Mild,Clear,Warm,6out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,9,22,278840,5359887,176,2017-08-08,15:19:12,151912,PM,3,Mild,Clear,Warm,5out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,1,22,279215,5359447,259,2017-08-10,18:10:35,181035,PM,1,Very Strong,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,2,22,278829,5359754,210,2017-08-10,18:53:25,185325,PM,2,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,3,22,278648,5359882,184,2017-08-10,19:15:19,191519,PM,3,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,5,22,278937,5359532,244,2017-08-10,19:45:06,194506,PM,5,Strong,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,1,22,279214,5359448,296,2017-08-11,6:19:22,61922,AM,1,Calm,Clear,Warm,8out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,278950,5359710,230,2017-08-11,6:55:51,65551,AM,2,Calm,Clear,Mild,3out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278732,5359800,147,2017-08-11,7:43:13,74313,AM,4,Calm,Clear,Mild,2out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,6,22,278835,5359749,168,2017-08-11,8:39:34,83934,AM,6,Mild,Clear,Warm,3out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,9,22,279214,5359445,290,2017-08-11,17:55:43,175543,PM,1,Mild,Clear,Warm,2out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,10,22,278951,5359712,229,2017-08-11,18:40:55,184055,PM,2,Calm,Clear,Warm,2out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,11,22,278844,5359888,188,2017-08-11,19:08:49,190849,PM,3,Calm,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,12,22,278988,5360040,204,2017-08-11,19:36:45,193645,PM,4,Calm,Clear,Mild,1out8,Faint,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,13,22,278735,5359804,172,2017-08-11,20:05:54,200554,PM,5,Calm,Clear,Mild,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,1,22,279215,5359446,282,2017-08-12,6:22:23,62223,AM,1,Calm,Clear,Cool,1out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,278949,5359711,220,2017-08-12,6:54:51,65451,AM,2,Calm,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278842,5359883,182,2017-08-12,7:21:51,72151,AM,3,Calm,Clear,Mild,1out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,279164,5359872,238,2017-08-12,7:54:43,75443,AM,4,Calm,Clear,Warm,3out8,"Very faint, same direction as LP2",EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,6,22,279214,5359443,252,2017-08-12,17:51:02,175102,PM,1,Mild,Clear,Warm,1out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,7,22,278943,5359716,216,2017-08-12,18:20:53,182053,PM,2,Mild,Clear,Warm,1out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,8,22,278652,5359880,176,2017-08-12,18:42:08,184208,PM,3,Calm,Clear,Warm,6out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,9,22,278759,5359791,190,2017-08-12,19:11:54,191154,PM,4,Calm,Clear,Warm,8out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,10,22,278932,5359533,241,2017-08-12,19:39:57,193957,PM,5,Calm,Clear,Warm,8out8,,LateEvening,Evening,MR,BL
+149.673,A3705,Yes,1,22,279216,5359444,290,2017-08-13,11:29:50,112950,PM,1,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,279239,5359796,263,2017-08-13,12:05:48,120548,PM,2,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,3,22,279083,5359942,236,2017-08-13,12:38:35,123835,PM,3,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,4,22,278860,5360031,204,2017-08-13,13:21:24,132124,PM,4,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,5,22,278647,5359880,175,2017-08-13,13:53:06,135306,PM,5,Calm,Clear,Warm,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,1,22,279214,5359442,283,2017-08-15,8:40:30,84030,AM,1,Strong,,,,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,279144,5359870,252,2017-08-15,9:24:18,92418,AM,2,,,,,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278996,5360030,239,2017-08-15,10:05:25,100525,AM,3,,,,,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278649,5359880,198,2017-08-15,10:53:33,105333,AM,4,,,,,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,5,22,278442,5359909,160,2017-08-15,11:26:59,112659,AM,5,Very Strong,Clear,Warm,1out8,LP is in a forested bog,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,7,22,278953,5359637,270,2017-08-15,12:29:34,122934,AM,6,Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,1,22,279214,5359444,274,2017-08-16,8:51:36,85136,AM,1,,,,,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,278949,5359714,246,2017-08-16,9:23:33,92333,AM,2,,,,,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278738,5359800,212,2017-08-16,9:42:09,94209,AM,3,Calm,Clear,Mild,6out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278441,5359908,156,2017-08-16,10:11:17,101117,AM,4,,,,,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279216,5359445,293,2017-08-17,9:40:02,94002,AM,1,,,,,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,278949,5359712,232,2017-08-17,10:17:49,101749,AM,2,,,,,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278762,5359791,190,2017-08-17,10:45:18,104518,AM,3,,,,,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278935,5359533,300,2017-08-17,11:21:07,112107,AM,4,,,,,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,5,22,278841,5359754,196,2017-08-17,11:43:41,114341,AM,5,Calm,Medium,Mild,8out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279217,5359447,266,2017-08-18,15:46:54,154654,PM,1,Strong,Light,Cool,8out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,2,22,278949,5359712,222,2017-08-18,16:27:22,162722,PM,2,Strong,Medium,Cool,8out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,3,22,278645,5359878,179,2017-08-18,16:40:06,164006,PM,3,Strong,Medium,Cool,8out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,4,22,278936,5359531,242,2017-08-18,17:19:07,171907,PM,4,Strong,Light,Cool,8out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,1,22,279215,5359443,289,2017-08-19,13:45:25,134525,PM,1,Mild,Clear,Mild,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,3,22,278948,5359708,250,2017-08-19,14:28:05,142805,PM,2,Calm,Clear,Warm,7out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,4,22,278733,5359799,206,2017-08-19,15:03:06,150306,PM,3,Calm,Clear,Mild,7out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,5,22,278648,5359881,176,2017-08-19,15:12:46,151246,PM,4,Calm,Clear,Mild,6out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,1,22,279215,5359445,278,2017-08-20,8:51:38,85138,AM,1,Mild,Clear,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,279141,5359873,221,2017-08-20,9:53:41,95341,AM,2,Mild,Clear,Mild,5out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278841,5359887,183,2017-08-20,10:48:31,104831,AM,3,Calm,Clear,Mild,7out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279215,5359446,274,2017-08-21,9:28:34,92834,AM,1,Strong,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,279142,5359874,225,2017-08-21,10:18:48,101848,AM,2,Strong,Clear,Mild,8out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278649,5359881,156,2017-08-21,11:12:27,111227,AM,3,Mild,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278773,5359776,184,2017-08-21,11:31:08,113108,AM,4,Strong,Clear,Warm,3out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279213,5359444,288,2017-08-22,13:36:34,133634,PM,1,Very Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,2,22,278950,5359713,246,2017-08-22,14:28:42,142842,PM,2,Very Strong,Clear,Warm,1out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,3,22,278712,5359818,198,2017-08-22,15:06:12,150612,PM,3,Very Strong,Clear,Warm,2out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,4,22,278650,5359884,176,2017-08-22,15:35:06,153506,PM,4,Very Strong,Clear,Warm,2out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,5,22,278832,5359755,223,2017-08-22,16:03:59,160359,PM,5,Strong,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,1,22,279215,5359442,272,2017-08-23,10:23:26,102326,AM,1,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,278950,5359715,238,2017-08-23,11:04:53,110453,AM,2,Mild,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278648,5359877,182,2017-08-23,11:32:48,113248,AM,3,Calm,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279215,5359445,283,2017-08-24,9:26:51,92651,AM,1,Very Strong,Clear,Warm,5out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,25,278948,5359712,251,2017-08-24,10:02:18,100218,AM,2,Very Strong,Clear,Warm,6out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278647,5359879,178,2017-08-24,10:30:20,103020,AM,2,Very Strong,Clear,Warm,4out8,Triangulated ,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279216,5359442,274,2017-08-29,13:55:13,135513,PM,1,Calm,Clear,Warm,3out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,2,22,279145,5359873,248,2017-08-29,14:44:53,144453,PM,2,Calm,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,3,22,278996,5360033,216,2017-08-29,15:15:48,151548,PM,3,Mild,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,4,22,278648,5359876,189,2017-08-29,15:43:33,154333,PM,4,Calm,Clear,Warm,1out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,5,22,278552,5359701,138,2017-08-29,16:13:36,161336,PM,5,Calm,Clear,Warm,2out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,1,22,279213,5359444,280,2017-08-30,9:49:12,94912,AM,1,Calm,Clear,Mild,5out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,278948,5359711,225,2017-08-30,10:39:20,103920,AM,2,Calm,Clear,Mild,3out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,278846,5359885,203,2017-08-30,11:04:56,110456,AM,3,Calm,Clear,Mild,1out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278646,5359876,178,2017-08-30,11:21:17,112117,AM,4,Calm,Clear,Warm,2out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,1,22,279214,5359443,304,2017-08-31,13:47:59,134759,PM,1,Mild,Clear,Cool,8out8,,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,2,22,279145,5359876,221,2017-08-31,14:24:14,142414,PM,2,Mild,Clear,Mild,8out8,Faint,EarlyAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,3,22,278997,5360031,,2017-08-31,14:50:07,145007,PM,,Calm,Clear,Mild,8out8,Not heard,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,4,22,278842,5359886,172,2017-08-31,15:07:38,150738,PM,3,Mild,Clear,Mild,8out8,,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,5,22,278591,5359754,118,2017-08-31,15:55:53,155553,PM,4,Calm,Clear,Mild,8out8,Parallel to BL1,LateAfternoon,Afternoon,MR,BL
+149.673,A3705,Yes,6,22,279026,5359480,303,2017-08-31,16:30:28,163028,PM,5,Mild,Clear,Mild,8out8,"Reflection from BL5, parallel to BL1",EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,7,22,279261,5359663,254,2017-08-31,16:47:33,164733,PM,5,Calm,Medium,Mild,8out8,,EarlyEvening,Evening,MR,BL
+149.673,A3705,Yes,1,22,279216,5359443,296,2017-09-01,9:07:37,90737,AM,1,Calm,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,2,22,279141,5359871,247,2017-09-01,9:52:24,95224,AM,,Calm,Drizzle,Mild,8out8,,EarlyMorning,Morning,MR,BL
+149.673,A3705,Yes,3,22,279244,5359797,277,2017-09-01,10:12:37,101237,AM,3,Calm,Drizzle,Mild,8out8,,LateMorning,Morning,MR,BL
+149.673,A3705,Yes,4,22,278993,5360035,222,2017-09-01,10:37:53,103753,AM,3,Calm,Clear,Warm,8out8,,LateMorning,Morning,MR,BL
