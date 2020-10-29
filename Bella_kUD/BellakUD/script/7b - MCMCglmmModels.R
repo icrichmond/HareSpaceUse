@@ -1,12 +1,12 @@
 # Author: Isabella Richmond
-# Last Edited: October 28, 2020
+# Last Edited: October 29, 2020
 
 # This script is for the analysis of the effects of habitat complexity and food 
 # quality on space use by snowshoe hare using Bayesian statistics
 
 
 # load required packages
-easypackages::libraries("MCMCglmm", "data.table", "tidyverse", "coda", "parallel")
+easypackages::libraries("MCMCglmm", "data.table", "tidyverse", "coda", "parallel", "MuMIn")
 
 ##################  DATA PREPARATION ##################
 
@@ -76,13 +76,17 @@ global <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s +
 saveRDS(global, "large/globalMCMC.RDS")
 
 # show diagnostic plots for random variables and fixed effects to check autocorrelation
+pdf("graphics/traceplots_global.png")
 plot(global$VCV)
 plot(global$Sol)
+dev.off()
 # look at Geweke plots to check convergence 
 # want Z score to be within the confidence intervals (dashed lines on plots)
 # if most points are within dashed lines, no evidence against convergence
 geweke.diag(global$Sol)
+pdf("graphics/gewekeplots_global.png")
 geweke.plot(global$Sol)
+dev.off()
 # look at Gelman plots
 # compares two parallel chains to test convergence. If both quantiles are appox 1.0, 
 # effective convergence can be diagnosed
@@ -104,9 +108,10 @@ globalchains <- mclapply(1:4, function(i){
 globalchains <- lapply(globalchains, function(m) m$Sol)
 globalchains <- do.call(mcmc.list, globalchains)
 saveRDS(globalchains, "large/globalchainsMCMC.RDS")
-
 gelman.diag(globalchains)
+pdf("graphics/gelmanplots_global.png")
 gelman.plot(globalchains)
+dev.off()
 # all diagnostics are good
 
 # summary of model
@@ -130,6 +135,11 @@ stoich <- MCMCglmm(kUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s,
                    data = full_stack_s2,
                    pr=T, saveX = TRUE,saveZ = TRUE)
 saveRDS(stoich, "large/stoichMCMC.RDS")
+# show diagnostic plots for random variables and fixed effects to check autocorrelation
+pdf("graphics/traceplots_stoich.png")
+plot(stoich$VCV)
+plot(stoich$Sol)
+dev.off()
 
 ### Risk model
 prior2 <- list(R = list(V = diag(1), nu = 6),
@@ -148,6 +158,11 @@ pred <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s,
                    data = full_stack_s2,
                    pr=T, saveX = TRUE,saveZ = TRUE)
 saveRDS(pred, "large/predMCMC.RDS")
+# show diagnostic plots for random variables and fixed effects to check autocorrelation
+pdf("graphics/traceplots_pred.png")
+plot(pred$VCV)
+plot(pred$Sol)
+dev.off()
 
 ### Intercept model
 prior3  <- list(R = list(V = diag(1), nu = 6),
@@ -174,6 +189,6 @@ saveRDS(intercept, "large/interceptMCMC.RDS")
 DIC <- data.table(DIC = c(global$DIC, stoich$DIC, pred$DIC, intercept$DIC))
 DIC$deltaDIC <- DIC$DIC - min(DIC$DIC)
 DIC
+# get full DIC table from MuMIn 
+DICtable <- model.sel(global,stoich,pred,intercept,rank="DIC")
 # intercept model is top ranked model
-
-
