@@ -85,20 +85,6 @@ stoichkud <- cbind(cskud, csstoich)
 stoichkud <- add_column(stoichkud, Plot = predrisk$Plot)
 write.csv(stoichkud, "output/cs_stoich_kud.csv")
 
-# --------------------------------------- #
-#        Extract Data - Population        #
-# --------------------------------------- #
-# overlay all home ranges, summing the probability where there are overlapping home ranges
-# gives a sort of population level raster 
-over <- raster::overlay(kernel95stack, fun=sum)
-# extract the population kUD values at each complexity sampling point 
-cskudpop <- extract(over, predriskspatial)
-cskudpop <- as.data.frame(cskudpop)
-# combine CS plot name, stoich values, and kUD values 
-stoichkudpop <- cbind(cskudpop, csstoich)
-stoichkudpop <- add_column(stoichkudpop, Plot = predrisk$Plot)
-write.csv(stoichkudpop, "output/cs_stoich_kud_pop.csv")
-
 # use clamp to transform any values under 0.15 to Nas
 kernel95normz <- lapply(kernel95norm, function(i) raster::clamp(i, lower=0.15, useValues=FALSE))
 # save clamped raster
