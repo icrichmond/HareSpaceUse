@@ -23,10 +23,10 @@ intercept <- readRDS("large/interceptMCMC.rds")
 
 ## CN:CollarID
 df_cn <- cbind(full_stack_s2,fit = predict(stoich, marginal = NULL)) %>%
-  group_by(CollarID, VAAN_CN_s) %>%
-  summarise(fit = mean(fit),
+  dplyr::group_by(CollarID, VAAN_CN_s) %>%
+  dplyr::summarise(fit = mean(fit),
             kUD = mean(kUD)) %>%
-  gather(Type, Value,
+  tidyr::gather(Type, Value,
          fit:kUD)
 
 df_fit_cn = setDT(df_cn)[Type == "fit"]
@@ -56,10 +56,10 @@ n <- ggplot(df_fit_cn, aes(x = VAAN_CN_s, y = Value, group = factor(CollarID))) 
 
 #CP:CollarID
 df_cp <- cbind(full_stack_s2,fit = predict(stoich, marginal = NULL)) %>%
-  group_by(CollarID, VAAN_CP_s) %>%
-  summarise(fit = mean(fit),
+  dplyr::group_by(CollarID, VAAN_CP_s) %>%
+  dplyr::summarise(fit = mean(fit),
             kUD = mean(kUD)) %>%
-  gather(Type, Value,
+  tidyr::gather(Type, Value,
          fit:kUD)
 
 df_fit_cp = setDT(df_cp)[Type == "fit"]
@@ -89,10 +89,10 @@ p <- ggplot(df_fit_cp, aes(x = VAAN_CP_s, y = Value, group = factor(CollarID))) 
 
 # understory:CollarID
 df_under <- cbind(full_stack_s2,fit = predict(pred, marginal = NULL)) %>%
-  group_by(CollarID, underPCA_s) %>%
-  summarise(fit = mean(fit),
+  dplyr::group_by(CollarID, underPCA_s) %>%
+  dplyr::summarise(fit = mean(fit),
             kUD = mean(kUD)) %>%
-  gather(Type, Value,
+  tidyr::gather(Type, Value,
          fit:kUD)
 
 df_fit_under = setDT(df_under)[Type == "fit"]
@@ -100,7 +100,6 @@ df_fit_under = setDT(df_under)[Type == "fit"]
 intunder = lm(Value ~ underPCA_s, data = df_fit_under)$coefficients[1]
 slopeunder = lm(Value ~ underPCA_s, data = df_fit_under)$coefficients[2]
 # plot
-cols <- palette(rainbow(31))
 u <- ggplot(df_fit_under, aes(x = underPCA_s, y = Value, group = factor(CollarID))) +
   geom_smooth(
     aes(underPCA_s, Value, colour=CollarID),
@@ -122,10 +121,10 @@ u <- ggplot(df_fit_under, aes(x = underPCA_s, y = Value, group = factor(CollarID
 
 #Overstory:CollarID
 df_over <- cbind(full_stack_s2,fit = predict(pred, marginal = NULL)) %>%
-  group_by(CollarID, overPCA_s) %>%
-  summarise(fit = mean(fit),
+  dplyr::group_by(CollarID, overPCA_s) %>%
+  dplyr::summarise(fit = mean(fit),
             kUD = mean(kUD)) %>%
-  gather(Type, Value,
+  tidyr::gather(Type, Value,
          fit:kUD)
 
 df_fit_over = setDT(df_over)[Type == "fit"]
