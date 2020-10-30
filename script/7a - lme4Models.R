@@ -1,6 +1,12 @@
 # Author: Isabella Richmond
 # Last Edited: October 28, 2020
 
+#######################################
+# NOTE: this modelling method was NOT used for subsequent analyses, refer to 
+# 7b - MCMCglmmModels.R for the analysis of Bayesian models used in the manuscript
+#######################################
+
+
 # This script is for the analysis of the effects of habitat complexity and food 
 # quality on space use by snowshoe hare using Frequentist modelling 
 

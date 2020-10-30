@@ -1,10 +1,10 @@
 # Author: Isabella Richmond
-# Last Edited: July 27, 2020
+# Last Edited: October 30, 2020
 
 # This script is for extracting the food quality and kUD values at each habitat complexity
 # sampling point.
-# aKDERazimuth.R shows how the kUD and home range areas were calculated
-# RiskOrdination.R shows the ordination of habitat complexity/predation risk values
+# 3 - aKDERazimuth.R shows how the kUD and home range areas were calculated
+# 5 - RiskOrdination.R shows the ordination of habitat complexity/predation risk values
 
 # load required packages 
 easypackages::packages("matrixStats", "tidyverse", "lubridate", "sf", "sp", "raster",
