@@ -1,10 +1,14 @@
+# Author: Isabella Richmond 
+# Alec Robitaille helped with code for this script - github.com/robitalec
+# Last Edited: October 30, 2020
+
 # This script is for estimating the space use using autocorrelated kernels for snowshoe hares 
 # over three years (2016-2019). Relocations only taken in summer season.
+# These kernels are used in subsequent analyses (see scripts 6 - 8 for more detail)
 
-# Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: July 14, 2020
+
 # using default autocorrelated Gaussian reference bandwidth with debiased area (Fleming & Calabrese, 2017)
-# much of this code was written by Amanda Droghini - cite in paper
+# much of this code was written by Amanda Droghini
 # Droghini, A. 2020. Southwest Alaska moose. Git Repository. Available: https://github.com/accs-uaa/southwest-alaska-moose
 
 devtools::install_github("ctmm-initiative/ctmm")
@@ -13,9 +17,14 @@ easypackages::packages("tidyverse", "adehabitatHR", "ctmm", "tidyverse", "raster
 # -------------------------------------#
 #           Data Preparation           #
 # -------------------------------------#
-# upload the data from MoveBank
-hares <- read.csv("input/HaresTriangulatedMoveBank_Razimuth.csv")
-head(hares)
+# upload the triangulated data from razimuth and reformat to follow the ctmm 
+# formatting rules 
+hares <- read.csv("output/harestriangulated_razimuth.csv")
+hares <- hares %>%
+  dplyr::rename(timestamp = date, 
+                location.long = long,
+                location.lat = lat, 
+                tag.local.identifier = indiv)
 # convert to a list of telemetry objects
 # projection is WGS 84 for UTM zone 22
 hares.telem <- as.telemetry(hares, projection="+init=epsg:32622")
@@ -23,14 +32,8 @@ hares.telem <- as.telemetry(hares, projection="+init=epsg:32622")
 # -------------------------------------#
 #           Error Calibration          #
 # -------------------------------------#
-# upload the razimuth dataset with error ellipses
-razhares <- read.csv("output/harestriangulated_razimuth.csv")
-razhares <- razhares %>% rename(location.lat = lat) %>%
-  rename(location.long = long)
-# join based on coordinates 
-hares <- inner_join(hares,razhares, by=c("location.lat", 'location.long'))
 # remove columns inappropriate for as.telemetry()
-hares <- dplyr::select(hares, -c(date, id.x, id.y, pid.x, pid.y, indiv, obs_id, cpid))
+hares <- dplyr::select(hares, -c(id.x, id.y, pid.x, pid.y, obs_id, cpid))
 # recalculate the as.telemetry() object with keep = TRUE so that COV.x.y is included 
 hares.telem <- as.telemetry(hares, keep = TRUE, projection="+init=epsg:32622")
 # can see in the plotting that the ellipses are present
@@ -49,7 +52,7 @@ ids <- names(hares.telem)
 for (i in 1:length(ids)){
   ctmm::outlie(hares.telem[[i]], plot=TRUE, main=ids[i])
   plotName <- paste("outliers",ids[i],sep="")
-  filePath <- paste("output/Outliers/",plotName,sep="")
+  filePath <- paste("output/outliers/",plotName,sep="")
   finalName <- paste(filePath,"png",sep=".")
   dev.copy(png,finalName)
   dev.off()
@@ -203,7 +206,7 @@ hares.telem.clean <- as.telemetry(haresClean, keep = TRUE, projection="+init=eps
 # load varioPlot function from function-plotVariograms.R 
 # zoom is false because there is only one measurement taken per day (max)
 source("script/function-plotVariograms.R")
-varioPlot(hares.telem.clean,filePath="output/Variograms/",zoom = FALSE)
+varioPlot(hares.telem.clean,filePath="output/variograms/initial/",zoom = FALSE)
 # variograms look ok - could be better
 
 # ----------------------------------- #
@@ -233,8 +236,8 @@ hares.fit.e <- lapply(1:length(hares.telem.clean),
                                               verbose=TRUE,trace=TRUE, cores=0,
                                               method = "pHREML") )
 # save large output
-saveRDS(hares.fit.e, "large/haresfitraz.rds")
-hares.fit.e <- readRDS("large/haresfitraz.rds")
+saveRDS(hares.fit.e, "large/haresfit.rds")
+hares.fit.e <- readRDS("large/haresfit.rds")
 
 # Add seasonal animal ID names to fitModels list
 names(hares.fit.e) <- names(hares.telem)
@@ -258,20 +261,20 @@ modelSummary.e <- modelSummary.e[,-4]
 # Subset only the highest ranked models
 topModels.e <- distinct(modelSummary.e,.id, .keep_all=TRUE) 
 names(modelSummary.e) <- enc2utf8(names(modelSummary.e))
-write_csv(modelSummary.e,"output/haresmodelsummary.e.csv")
-write_csv(topModels.e,"output/harestopmodels.e.csv")
+write_csv(modelSummary.e,"output/haresmodelsummary.csv")
+write_csv(topModels.e,"output/harestopmodels.csv")
 # DOF is large enough (over 4-5) for all individuals 
 
 # save final telemetry and fit objects
 saveRDS(hares.telem.clean, "large/harestelemclean_final.rds")
-saveRDS(hares.fit.e, "large/haresfite_final.rds")
+saveRDS(hares.fit.e, "large/haresfit_final.rds")
 
 
 # ---------------------------------- #
 #        Reassess Variograms         #
 # ---------------------------------- #
 # plot variograms with model fit 
-filePath <- paste("output/Variograms/Models/")
+filePath <- paste("output/Variograms/models/")
 
 lapply(1:length(hares.telem.clean), 
        function (a) {
@@ -302,7 +305,7 @@ finalMods <- lapply(1:length(hares.fit.e),
                     function(i) hares.fit.e[[i]][1][[1]]) 
 names(finalMods) <- finalNames
 # save final models 
-saveRDS(finalMods, "large/finalmodelse.rds")
+saveRDS(finalMods, "large/finalmodels.rds")
 # clean entire environment, need space for aKDE
 remove(list=ls())
 
@@ -311,7 +314,7 @@ remove(list=ls())
 # ---------------------------------- #
 # need clean telemetry data and final models to generate home ranges using aKDE
 hares.telem.clean <- readRDS("large/harestelemclean_final.rds")
-hares.finalmods.e <- readRDS("large/finalmodelse.rds")
+hares.finalmods.e <- readRDS("large/finalmodels.rds")
 
 # get extent for each telemetry set
 ee <- lapply(hares.telem.clean,function(x) extent(x))
@@ -367,7 +370,7 @@ core_df
 # divide those rows by 10,000 to convert back to hectare 
 # rows I need to change are 8,9,22
 # don't worry abouts CIs, can deal with those later if I need to 
-r <- c(8L, 9L, 23L, 27L)
+r <- c(9L, 22L, 26L)
 core_df <- core_df %>% mutate(core = ifelse(row_number() %in% r, core/10000, core))
 # join home range and core together 
 kernels <- inner_join(hr_df, core_df, by = "frequency")
@@ -381,11 +384,10 @@ ggplot(data = kernels, aes(x = core, y = homerange))+
 # -------------------------------------#
 #             Export aKDEs             #
 # -------------------------------------#
-# export 95% kernels 
-lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Home", level=0.95, overwrite=TRUE))
-
+# export 95% kernels as shapefiles 
+#lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Home", level=0.95, overwrite=TRUE))
 # export 50% kernels 
-lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Core", level=0.50, overwrite=TRUE))
+#lapply(1:length(homeRanges), function(x) writeShapefile(homeRanges[[x]], folder="output/Shapefiles/aKDE_Core", level=0.50, overwrite=TRUE))
 
 # create and export RasterBrick
 # in the case of coarse grids, the value of PDF in a grid cell corresponds to the average probability density over the entire rectangular cell.
@@ -401,4 +403,4 @@ saveRDS(r, "large/akderasters.rds")
 
 # make RasterStack and save
 b <- raster::stack(r)
-writeRaster(b, "output/Rasters/akde_homerange_pdf.tif", format="GTiff", overwrite=TRUE)
+writeRaster(b, "output/akde_homerange_pdf.tif", format="GTiff", overwrite=TRUE)

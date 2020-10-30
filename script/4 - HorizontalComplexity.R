@@ -1,9 +1,9 @@
+# Author: Isabella Richmond
+# Last Edited: October 30, 2020
+
 # This script is used to calculate the mean horizontal complexity at each sampling point 
 # as per Nudds, 1977. Mean horizontal complexity will then be used to assess the structural 
 # complexity of different habitats, in conjunction with other measured variables
-
-# Author: Isabella Richmond
-# Last Edited: August 15, 2020
 
 # load required packages 
 library(easypackages)
@@ -44,5 +44,9 @@ hcmean <- hc %>%
   dplyr::summarise(meanhc = mean(score))
 
 write_csv(hcmean, "output/meanhorizontalcomplexity.csv")
-# this data was then taken and used to populate horizontal complexity .csv spreadsheet
-# import fully cleaned spreadsheet from input folder as HC_CleanData_2019.csv
+# now populate HC_CleanData_2019.csv with horizontal complexity data 
+complexity <- read_csv("input/HC_CleanData_2019.csv")
+full <- inner_join(hcmean, complexity, by = "Plot")
+full <- dplyr::rename(full, HorizComplex = meanhc)
+# save full dataset 
+write.csv(full, "output/habitatcomplexity.csv")

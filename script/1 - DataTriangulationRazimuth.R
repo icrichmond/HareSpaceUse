@@ -4,8 +4,7 @@
 # Author: Isabella Richmond (code and data shared between 
 # Matteo Rizzuto: github.com/matteorizzuto and Alec Robitaille: github.com/robitalec)
 
-# Last Edited: July 8, 2020
-
+# Last Edited: October 30, 2020
 
 devtools::install_github("cppeck/razimuth")
 easypackages::packages("razimuth", "stringr", "data.table", "tidyverse", "chron", "sf", "sp")
@@ -15,7 +14,7 @@ easypackages::packages("razimuth", "stringr", "data.table", "tidyverse", "chron"
 # --------------------------------------- #
 
 # import telemetry datasets
-VHF2019 <- read.csv("input/TelemetryPoints_VHF_2019.csv")
+VHF2019 <- read.csv("input/VHF_CleanData_2019.csv")
 head(VHF2019)
 VHF2018 <- read.csv("input/VHF_CleanData_2018.csv")
 head(VHF2018)
@@ -31,7 +30,6 @@ VHF2017 <- drop_na(VHF2017, Azimuth)
 VHF2017 <- drop_na(VHF2017, Easting)
 coordinates(VHF2017) <- c("Easting", "Northing")
 proj4string(VHF2017) <- CRS("+init=epsg:32622")
-
 VHF2017 <- spTransform(VHF2017, CRS("+proj=tmerc +lat_0=0 +lon_0=-61.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +units=m
                                     +no_defs"))
 VHF2017 <- as.data.frame(VHF2017)
@@ -252,7 +250,7 @@ lsatms <- lapply(uids, function(id) convert_atm(df = vhfData[vhfData$indiv == id
 # Name the list for downstream
 names(lsatms) <- uids
 
-## Visualize all
+# Visualize all
 pdf('graphics/init_triangulation.pdf')
 lapply(seq_along(lsatms), function(x) {
   plot.new()
@@ -284,7 +282,7 @@ lapply(seq_along(lsatms), function(x) {
 dev.off()
 
 # check convergence ----
-pdf('graphics/traceplot.pdf')
+pdf('graphics/traceplot_razimuth.pdf')
 lapply(seq_along(lsfits), function(x) {
   plot.new()
   mtext(names(lsfits)[[x]])
@@ -292,7 +290,7 @@ lapply(seq_along(lsfits), function(x) {
 })
 dev.off()
 
-pdf('graphics/runmean.pdf')
+pdf('graphics/runmean_razimuth.pdf')
 lapply(seq_along(lsfits), function(x) {
   plot.new()
   mtext(names(lsfits)[[x]])
@@ -335,8 +333,6 @@ dates <- vhfData %>%
   tidyr::unite(cpid, c(indiv, obs_id), sep=',', remove=F) %>%
   dplyr::select(c(-utm_x,-utm_y,-azimuth,-prior_r,-obs_id,-indiv))
 df <- left_join(df,dates,by='cpid', keep=FALSE)
-# manually went through and removed problematic points from the dataset using Excel 
-# input/HomeRanges.txt file describing which points are removed
 # remove the two collars that are not in Bloomfield
 df <- subset(df, df$indiv != "149.374" &
                  df$indiv != "149.474")
@@ -361,11 +357,11 @@ write.csv(df, "output/harestriangulated_razimuth.csv")
 
 # calculate mean time it takes to triangulate the hares 
 vhf <- vhfData %>%
-  group_by(indiv, GID) %>%
-  arrange(datetime, .by_group=TRUE) %>%
-  dplyr::summarise(First=first(datetime),
-                   Last=last(datetime),
-                   difference=difftime(last(datetime), first(datetime), unit="hours"),
+  group_by(indiv, obs_id) %>%
+  arrange(date, .by_group=TRUE) %>%
+  dplyr::summarise(First=first(date),
+                   Last=last(date),
+                   difference=difftime(last(date), first(date), unit="hours"),
                    .groups="keep")
 
 vhf <- drop_na(vhf)

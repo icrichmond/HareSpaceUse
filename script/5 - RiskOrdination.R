@@ -1,24 +1,26 @@
+# Author: Isabella Richmond
+# Last Edited: October 30, 2020
+
 # This script is for creating an index of habitat complexity/predation risk for snowshoe hares
 # in Newfoundland, Canada. All habitat data was collected in July 2019 (after green-up)
-# Refer to KernelEstimation.R script for the calculation of kUD and home range areas 
+# Refer to 3 - aKDERazimuth.R script for the calculation of kUD and home range areas 
 # that are used in this script
 
-# Author: Isabella Richmond
-# Last Edited: June 16, 2020
 
 #------------------------------#
 #        Data Preparation      #
 #------------------------------#
 
 # load required packages 
-library(easypackages)
 devtools::install_github("vqv/ggbiplot")
 easypackages::packages("tidyverse", "vegan", "sf", "ggbiplot", "data.table")
 
 # load required data
 # habitat complexity/predation risk data
-predrisk <- read_csv("input/HC_CleanData_2019.csv")
+predrisk <- read_csv("output/habitatcomplexity.csv")
 head(predrisk)
+# rearrange dataframe so that horizontal complexity is with other variables 
+predrisk <- predrisk[,c(1,2,4,5,3,6:21)]
 # drop na's from dataset so that subsets are same number of rows and there are no 
 # na's present for PCA
 predrisk <- drop_na(predrisk)
@@ -34,12 +36,12 @@ over <- subset(predrisk, select = c(Plot, Date, Observers, CanopyIntOver, Canopy
 #          Ordination          #
 #------------------------------#
 # perform ordination on all variables to see how informative the axes are 
-predord <- prcomp(predrisk[,c(4:20)], scale=TRUE, center=TRUE)
+predord <- prcomp(predrisk[,c(5:21)], scale=TRUE, center=TRUE)
 summary(predord)
 ggbiplot(predord, choices=c(1,2))
 # remove highly correlated variables, CanopyIntOver, AvgOverDBH, AvgUnderDBH, AvgOverDist
-newpredrisk <- select(predrisk, c(-AvgOverDBH, -CanopyIntOver, -AvgUnderDBH, -AvgOverDist,-FallenLogsTotal))
-newpredord <- prcomp(newpredrisk[,c(4:15)],scale=TRUE,center=TRUE)
+newpredrisk <- dplyr::select(predrisk, c(-AvgOverDBH, -CanopyIntOver, -AvgUnderDBH, -AvgOverDist,-FallenLogsTotal))
+newpredord <- prcomp(newpredrisk[,c(5:16)],scale=TRUE,center=TRUE)
 summary(newpredord)
 ggbiplot(newpredord)
 # removing the highly correlated variable does not improve performance, split variables
@@ -53,7 +55,7 @@ underord = prcomp(under[,c(4:11)], scale = TRUE, center = TRUE)
 summary(underord)
 # visualize understorey PCA
 ggbiplot(underord, choices=c(1,2))
-ggsave("graphics/understoreypredriskpca.jpg", height = 200, width = 200, units = "mm")
+ggsave("graphics/understoreypca.jpg", height = 200, width = 200, units = "mm")
 
 # perform ordination on overstorey predation data to see which variables are most 
 # important 
@@ -64,11 +66,11 @@ summary(overord)
 ggbiplot(overord, choices=c(1,2))
 # remove highly correlated variables (same magnitude and direction of vectors)
 # Remove AvgOverDBH, CanopyIntUnder, CanopyIntOVer
-newover <- select(over, c(-AvgOverDBH, -CanopyIntUnder, -CanopyIntOver))
+newover <- dplyr::select(over, c(-AvgOverDBH, -CanopyIntUnder, -CanopyIntOver))
 newoverord = prcomp(newover[,c(4:9)], scale = TRUE, center = TRUE)
 summary(newoverord)
 ggbiplot(newoverord, choices=c(1,2))
-ggsave("graphics/overstoreypredriskpca.jpg", height = 200, width = 200, units = "mm")
+ggsave("graphics/overstoreypca.jpg", height = 200, width = 200, units = "mm")
 
 
 # extract PC1 from understorey PCA and overstorey PCA for modelling 

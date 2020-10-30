@@ -1,12 +1,15 @@
 # Author: Isabella Richmond (code and data shared between Matteo Rizzuto: github.com/matteorizzuto)
-# Last Edited: July 21, 2020
+# Last Edited: October 30, 2020
+
+#######################################
+# NOTE: this kernel estimation method was NOT used for subsequent analyses, refer to 
+# 3 - aKDERazimuth.R for the production of the kernels that were used. aKDE is a better
+# method for small sample sizes and incorporates error ellipses
+#######################################
 
 # This script is for estimating the space use using adehabitat kernels for snowshoe hares 
 # over three years (2016-2019) using adehabitatHR. Relocations only taken in summer season.
 
-# Note: this kernel estimation method was NOT used for susbsequent anaylses, refer to 
-# 3 - aKDERazimuth.R for the production of the kernels that were used. aKDE is a better
-# method for small sample sizes and incorporates error ellipses
 
 easypackages::packages("chron", "ctmm", "sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
                        "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", "ggplot2",
@@ -71,12 +74,11 @@ kUD.hr.estimates <- kernel.area(hares.kUD, percent = seq(20, 95, 5),
 kUD.hr.estimates
 plot(kUD.hr.estimates)
 dev.off()
-
-# and extract values to be used in later modelling
+# and extract values
 hrArea <- kUD.hr.estimates[1:16, ]
 hrArea <- rownames_to_column(hrArea)
 hrArea <- rename(hrArea, Kernel = rowname)
-write_csv(hrArea, "output/homerangeareas_Razimuth.csv")
+
 # calculate range use ratio with 50:95 home range areas 
 rangeuse <- pivot_longer(hrArea, cols = 2:ncol(hrArea), names_to = "CollarFrequency", values_to = "HomeRangeArea")
 rangeuse <- pivot_wider(rangeuse, names_from = "Kernel", values_from = "HomeRangeArea")
@@ -144,7 +146,6 @@ ggplot(data = hares.triangd.df, aes(x = long, y = lat)) +
     panel.border = element_rect(size = 1, fill = NA),
     panel.background = element_rect(fill = "white"),)+
   labs(fill = "Probability")
-ggsave("graphics/heatmapindividualsgrid_razimuth.png")
 
 ggplot(data = hares.triangd.df, aes(x = long, y = lat)) +
   stat_density_2d(aes(fill = stat(nlevel)), geom = "polygon", alpha = 0.25) + 
@@ -156,4 +157,3 @@ ggplot(data = hares.triangd.df, aes(x = long, y = lat)) +
         axis.text = element_blank(),
         axis.ticks = element_blank(), 
         axis.title = element_blank())
-ggsave("graphics/heatmapalldata_razimuth.png")
