@@ -1,5 +1,5 @@
 # Author: Isabella Richmond
-# Last Edited: October 28, 2020
+# Last Edited: October 30, 2020
 
 #######################################
 # NOTE: this modelling method was NOT used for subsequent analyses, refer to 
@@ -109,47 +109,9 @@ hist(residuals(globalt))
 # robust to imperfect residuals. Could do hurdle model but a threshold 
 # based hurdle model is more controversial.
 
-# --------------------------------------- #
-# Transformed Linear Mixed Effects Models #
-# --------------------------------------- #
-# linear mixed effect model with individual (CollarID) as random effect with fixed slopes
-global_log <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
-                     overPCA_s*underPCA_s + VAAN_CN_s*VAAN_CP_s + 
-                     overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + 
-                     underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s + 
-                     (1|CollarID), data=full_stack_s)
-pred_log <- lmerTest::lmer(logKUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + (1|CollarID), data=full_stack_s)
-stoich_log <- lmerTest::lmer(logKUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + (1|CollarID), data=full_stack_s)
-null_log <- lmerTest::lmer(logKUD ~ 1 + (1|CollarID), data=full_stack_s)
-
-# Use AICc to evaluate the competing hypotheses 
-# create list of models 
-models <- list(global_log, pred_log, stoich_log, null_log)
-# use imap to loop through list of models using function at start of script and 
-# create diagnostic figures 
-source("script/function-residPlots.R")
-models.residplots <- imap(models, resid_plots) 
-# save all diagnostic plots to a pdf 
-pdf("graphics/lmem_log_diagnostics.pdf")
-models.residplots
-dev.off()
-# models are not perfect but they are good enough (or as good as they will be)
-# create an AICc table to show the "best model"
-modelsnames <- list("Mod 1 = Global" = global_log, "Mod 2 = Habitat Complexity" = pred_log, "Mod 3 = Food Quality" = stoich_log, "Mod 4 = Null" = null_log)
-models.aic <- aictab(cand.set = modelsnames)
-print(models.aic)
-write.csv(models.aic, "output/lmem_log_aic.csv")
-# Mod3 - stoich model, is top ranking model 
-# save the summary tables of the models 
-summary(stoich_log)
-summary.models <-map_df(models, broom.mixed::tidy, .id="model")
-write_csv(summary.models, path = "output/lmem_log_summary.csv")
-# calculate pseudo R^2 of top model- just another check of significance determination
-performance::r2_nakagawa(global_log)
-
-# --------------------------------------- #
-#             Random Slopes               #
-# --------------------------------------- #
+# ------------------------------------------ #
+# Transformed LMEM Models with Random Slopes #
+# ------------------------------------------ #
 # investigating relationships between explanatory variables and logKUD 
 # to see if random variables should be allowed to have random slopes as
 # well as intercepts. Only doing this for CollarID because individuals 
@@ -217,19 +179,30 @@ null_log_slope <- lmerTest::lmer(logKUD ~ 1 + (1|CollarID), data=full_stack_s)
 # null model with random intercepts does not significantly differ from null model with 
 # random slopes and intercepts and converges, move forward with this 
 
+# create list of models 
 models_slope <- list(global_log_slope, pred_log_slope, stoich_log_slope, null_log_slope)
+# use imap to loop through list of models using function at start of script and 
+# create diagnostic figures 
+source("script/function-residPlots.R")
+models.residplots <- imap(models_slope, resid_plots) 
+# save all diagnostic plots to a pdf 
+pdf("graphics/lmem_log_diagnostics.pdf")
+models.residplots
+dev.off()
+# model diagnostics are not great
+
 # create an AICc table to show the "best model"
 modelsnames_slope <- list("Mod 1 = Global" = global_log_slope, "Mod 2 = Habitat Complexity" = pred_log_slope, "Mod 3 = Food Quality" = stoich_log_slope, "Mod 4 = Null" = null_log_slope)
 models.aic_slope <- aictab(cand.set = modelsnames_slope)
 print(models.aic_slope)
-write.csv(models.aic_slope, "output/lmem_log_aic_slope.csv")
+write.csv(models.aic_slope, "output/lmem_log_aic.csv")
 # Mod3 - stoich model, is top ranking model 
 # save the summary tables of the models 
 summary(stoich_log_slope)
 summary.models_slope <-map_df(models_slope, broom.mixed::tidy, .id="model")
-write_csv(summary.models_slope, path = "output/lmem_log_slope_summary.csv")
+write_csv(summary.models_slope, path = "output/lmem_log_summary.csv")
 # calculate pseudo R^2 of top model- just another check of significance determination
-performance::r2_nakagawa(pred_log_slope)
+performance::r2_nakagawa(stoich_log_slope)
 
 # compare models - one with random intercepts and one with random intercepts and slopes
 anova(stoich_log, stoich_log_slope, refit=FALSE)
@@ -254,7 +227,7 @@ ggplot(predicts)+
   labs(x = "Lowbush Blueberry C:N (scaled)", y = "Kernel Utilization Distribution (log)", 
        title = NULL) + 
   theme_minimal()
-ggsave("graphics/VAANCN_kUD_vis.png")
+#ggsave("graphics/VAANCN_kUD_vis.png")
 
 # look at the intercepts and slopes of the random effect of CollarID (individual) with fixed slopes
 fix <- ggpredict(stoich_log, terms=c("VAAN_CN_s", "CollarID"), type = "re")
@@ -279,7 +252,7 @@ varyp <- ggplot(vary, aes(x=x, y=predicted,colour=group))+
 #ggsave("graphics/CollarSlopes_CN_vary.png")
 
 both <- (fixp|varyp) + plot_annotation(tag_levels = "a")
-ggsave("graphics/CollarSlopes_CN_both.png", both)
+#ggsave("graphics/CollarSlopes_CN_both.png", both)
 
 # plot the relationship between kUD and explanatory variables with line of best fit 
 cn <- ggplot(full_stack_s)+
@@ -319,7 +292,7 @@ under <- ggplot(full_stack_s)+
   labs(x = "Understory Habitat Complexity", y = " ")
 
 all <- ((cn | over)/(cp | under))
-ggsave("graphics/KUD_explanatory.png", all)
+#ggsave("graphics/KUD_explanatory.png", all)
 all
 
 # plot the random slopes against each other 
@@ -342,7 +315,7 @@ ggplot(slopes) +
   theme(panel.background = element_blank(), axis.line = element_line(colour="black"),
         axis.ticks = element_line(colour="black"), axis.text = element_text(colour="black"))+
   labs(x = "(1+C:N|Individual) Slopes", y = "(1+Understory Habitat Complexity|Individual) Slopes")
-ggsave("graphics/Understory_CN_SlopeComparison.png")
+#ggsave("graphics/Understory_CN_SlopeComparison.png")
 
 # check correlation between risk and food quality to make sure that above graph is due to biological reasoning
 ggplot(full_stack_s)+
