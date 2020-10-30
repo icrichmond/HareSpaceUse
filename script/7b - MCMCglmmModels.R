@@ -4,6 +4,7 @@
 # This script is for the analysis of the effects of habitat complexity and food 
 # quality on space use by snowshoe hare using Bayesian statistics
 
+# Quinn Webber helped with most of this code - https://qwebber.weebly.com/
 
 # load required packages
 easypackages::libraries("MCMCglmm", "data.table", "tidyverse", "coda", "parallel", "MuMIn")
@@ -73,10 +74,10 @@ global <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s +
                    verbose = TRUE,
                    data = full_stack_s2,
                    pr=T, saveX = TRUE,saveZ = TRUE)
-saveRDS(global, "large/globalMCMC.RDS")
+saveRDS(global, "large/globalMCMC.rds")
 
 # show diagnostic plots for random variables and fixed effects to check autocorrelation
-pdf("graphics/traceplots_global.png")
+pdf("graphics/traceplots_global.pdf")
 plot(global$VCV)
 plot(global$Sol)
 dev.off()
@@ -84,7 +85,7 @@ dev.off()
 # want Z score to be within the confidence intervals (dashed lines on plots)
 # if most points are within dashed lines, no evidence against convergence
 geweke.diag(global$Sol)
-pdf("graphics/gewekeplots_global.png")
+pdf("graphics/gewekeplots_global.pdf")
 geweke.plot(global$Sol)
 dev.off()
 # look at Gelman plots
@@ -109,7 +110,7 @@ globalchains <- lapply(globalchains, function(m) m$Sol)
 globalchains <- do.call(mcmc.list, globalchains)
 saveRDS(globalchains, "large/globalchainsMCMC.RDS")
 gelman.diag(globalchains)
-pdf("graphics/gelmanplots_global.png")
+pdf("graphics/gelmanplots_global.pdf")
 gelman.plot(globalchains)
 dev.off()
 # all diagnostics are good
@@ -136,9 +137,16 @@ stoich <- MCMCglmm(kUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s,
                    pr=T, saveX = TRUE,saveZ = TRUE)
 saveRDS(stoich, "large/stoichMCMC.RDS")
 # show diagnostic plots for random variables and fixed effects to check autocorrelation
-pdf("graphics/traceplots_stoich.png")
+pdf("graphics/traceplots_stoich.pdf")
 plot(stoich$VCV)
 plot(stoich$Sol)
+dev.off()
+# look at Geweke plots to check convergence 
+# want Z score to be within the confidence intervals (dashed lines on plots)
+# if most points are within dashed lines, no evidence against convergence
+geweke.diag(stoich$Sol)
+pdf("graphics/gewekeplots_stoich.pdf")
+geweke.plot(stoich$Sol)
 dev.off()
 
 ### Risk model
@@ -159,10 +167,18 @@ pred <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s,
                    pr=T, saveX = TRUE,saveZ = TRUE)
 saveRDS(pred, "large/predMCMC.RDS")
 # show diagnostic plots for random variables and fixed effects to check autocorrelation
-pdf("graphics/traceplots_pred.png")
+pdf("graphics/traceplots_pred.pdf")
 plot(pred$VCV)
 plot(pred$Sol)
 dev.off()
+# look at Geweke plots to check convergence 
+# want Z score to be within the confidence intervals (dashed lines on plots)
+# if most points are within dashed lines, no evidence against convergence
+geweke.diag(pred$Sol)
+pdf("graphics/gewekeplots_pred.pdf")
+geweke.plot(pred$Sol)
+dev.off()
+
 
 ### Intercept model
 prior3  <- list(R = list(V = diag(1), nu = 6),
