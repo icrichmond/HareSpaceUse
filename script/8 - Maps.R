@@ -47,16 +47,21 @@ castpolys <- st_cast(st_polygonize(st_union(lns)))
 # Combine geometries and cast as sf
 nl <- st_as_sf(castpolys)
 # reproject
-utm <- st_crs('+init=epsg:32622')
+utm <- st_crs('EPSG:32622')
 utmNL <- st_transform(nl, utm)
+
+nlgpkg <- st_read("input/newfoundland-polygons.gpkg")
+
 # get the min x and y and use them to calc aspect ratio
 xy <- st_bbox(utmNL)
 asp <- (xy$xmax - xy$xmin)/(xy$ymax - xy$ymin)
 
 # plot merged data - individuals 
+p <- get_brewer_pal("Greys", n = 10, contrast = c(0.3, 1))
+
 t <- tm_shape(kernel95normm, bbox=e)+
   tm_raster(title = "kUD", style = "cont", 
-            palette = "-RdYlBu", alpha=0.9)+
+            palette = p, alpha=0.9)+
   tm_scale_bar()+
   tm_grid()+
   tm_xlab("Easting")+
@@ -71,17 +76,17 @@ t
 
 # create map t with inset of Newfoundland 
 # inset map
-inset <- tm_shape(utmNL)+
+inset <- tm_shape(nlgpkg)+
   tm_polygons()+
   tm_layout(outer.margins=c(0,0,0,0))+
   tm_shape(bl_grid_pts)+
-  tm_dots(size=0.3, col="red")
+  tm_dots(size=0.3, col="black")
 w <- 0.3
 h <- asp*w
 
 print(inset, vp=viewport(x=0.8,y=0.84,width=w,height=h))
 # save
-tmap_save(t, insets_tm = inset, insets_vp = viewport(x=0.89,y=0.83,width=w,height=h), filename="graphics/kUD_raster_grids.png")
+tmap_save(t, insets_tm = inset, insets_vp = viewport(x=0.88,y=0.82,width=w,height=h), filename="graphics/kUD_raster_grids.pdf")
 
 
 
