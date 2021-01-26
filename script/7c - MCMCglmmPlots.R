@@ -7,7 +7,7 @@
 
 
 # load required packages
-easypackages::libraries("data.table", "tidyverse", "patchwork", "ggpubr")
+easypackages::libraries("data.table", "tidyverse", "patchwork", "ggpubr", "MCMCglmm")
 
 ##################  DATA PREPARATION ##################
 # dataset
@@ -42,7 +42,7 @@ n <- ggplot(df_fit_cn, aes(x = VAAN_CN_s, y = Value, group = factor(CollarID))) 
     method = lm,
     se = FALSE) +
   labs(x = "Lowbush Blueberry C:N", y = "Kernel Utilization Distribution", color="Individual") +
-  scale_fill_manual(name="CollarID", values=cols)+
+  scale_colour_grey(name="CollarID")+
   ggtitle('A')+
   theme(
     plot.title = element_text(size = 9),
@@ -74,7 +74,7 @@ p <- ggplot(df_fit_cp, aes(x = VAAN_CP_s, y = Value, group = factor(CollarID))) 
     method = lm,
     se = FALSE) +
   labs(x = "Lowbush Blueberry C:P", y = "Kernel Utilization Distribution", color="Individual") +
-  scale_fill_manual(name="CollarID", values=cols)+
+  scale_colour_grey(name="CollarID")+
   ggtitle('B')+
   theme(
     plot.title = element_text(size = 9),
@@ -107,7 +107,7 @@ u <- ggplot(df_fit_under, aes(x = underPCA_s, y = Value, group = factor(CollarID
     method = lm,
     se = FALSE) +
   labs(x = "Understory Complexity", y = "Kernel Utilization Distribution", colour="Individual") +
-  scale_fill_manual(name="CollarID", values=cols)+
+  scale_colour_grey(name="CollarID")+
   ggtitle('C')+
   theme(
     plot.title = element_text(size = 9),
@@ -139,7 +139,7 @@ o <- ggplot(df_fit_over, aes(x = overPCA_s, y = Value, group = factor(CollarID))
     method = lm,
     se = FALSE) +
   labs(x = "Overstory Complexity", y = "Kernel Utilization Distribution", color="Individual") +
-  scale_fill_manual(name="CollarID", values=cols)+
+  scale_colour_grey(name="CollarID")+
   ggtitle('D')+
   theme(
     plot.title = element_text(size = 9),
@@ -154,7 +154,7 @@ o <- ggplot(df_fit_over, aes(x = overPCA_s, y = Value, group = factor(CollarID))
 
 # plot all random slopes together using patchwork 
 (n|p)/(u|o) + plot_layout(guides = 'collect')
-ggsave("graphics/varyingslopesMCMC.png", dpi = 400)
+ggsave("graphics/varyingslopesMCMC_grayscale.pdf", dpi = 400)
 
 ##################  CORRELATIONS ##################
 # extract data from global model
@@ -237,8 +237,8 @@ ac <- merge(aa, ab, by="ID")
 # CN understory correlation 
 cnunder <- ggplot(ac, aes(VAAN_CN_s, underPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
-  geom_smooth(method = "lm", se = F) +
-  stat_cor(aes(VAAN_CN_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.2)+
+  geom_smooth(method = "lm", se = F, color="black") +
+  stat_cor(aes(VAAN_CN_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")),  label.y = 0.2)+
   stat_regline_equation(aes(VAAN_CN_s,underPCA_s), label.y = 0.22)+
   ylab("Understory Complexity") +
   xlab("Lowbush Blueberry C:N") +
@@ -260,7 +260,7 @@ cnunder <- ggplot(ac, aes(VAAN_CN_s, underPCA_s)) +
 
 cpunder <- ggplot(ac, aes(VAAN_CP_s, underPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
-  geom_smooth(method = "lm", se = F) +
+  geom_smooth(method = "lm", se = F, color="black") +
   stat_cor(aes(VAAN_CP_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")),label.x = -0.07, label.y = 0.2)+
   stat_regline_equation(aes(VAAN_CN_s,underPCA_s), label.x = -0.07, label.y = 0.22)+
   ylab("Understory Complexity") +
@@ -282,7 +282,7 @@ cpunder <- ggplot(ac, aes(VAAN_CP_s, underPCA_s)) +
 
 cnover <- ggplot(ac, aes(VAAN_CN_s, overPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
-  geom_smooth(method = "lm", se = F) +
+  geom_smooth(method = "lm", se = F, color="black") +
   stat_cor(aes(VAAN_CN_s,overPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.1)+
   stat_regline_equation(aes(VAAN_CN_s,overPCA_s), label.y = 0.12)+
   ylab("Overstory Complexity") +
@@ -305,7 +305,7 @@ cnover <- ggplot(ac, aes(VAAN_CN_s, overPCA_s)) +
 
 cpover <- ggplot(ac, aes(VAAN_CP_s, overPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
-  geom_smooth(method = "lm", se = F) +
+  geom_smooth(method = "lm", se = F, color="black") +
   stat_cor(aes(VAAN_CP_s,overPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.1)+
   stat_regline_equation(aes(VAAN_CP_s,overPCA_s), label.y = 0.12)+
   ylab("Overstory Complexity") +
@@ -328,7 +328,7 @@ cpover <- ggplot(ac, aes(VAAN_CP_s, overPCA_s)) +
 
 # combine plots 
 (cpover|cnover)/(cpunder|cnunder)
-ggsave("graphics/slopecorrelationsMCMC.png", dpi=400)
+ggsave("graphics/slopecorrelationsMCMC_greyscale.pdf", dpi=400)
 
 ##################  POPULATION RELATIONSHIPS ##################
 # plot the relationship between kUD and explanatory variables with line of best fit 
@@ -374,4 +374,4 @@ under <- ggplot(full_stack_s2)+
   labs(x = "Understory Habitat Complexity", y = " ")
 
 (cn | over)/(cp | under)
-ggsave("graphics/KUD_explanatory_MCMC.png", dpi = 400)
+ggsave("graphics/KUD_explanatory_MCMC.pdf", dpi = 400)
