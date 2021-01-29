@@ -21,7 +21,7 @@ kernel95norms <- raster::stack(kernel95normm)
 over <- raster::overlay(kernel95norms, fun=sum)
 # read in complexity sampling points
 bl_cs_pts <- read_sf("input/Mapping", layer = "cs_points")
-bl_cs_pts <- sf::st_transform(bl_cs_pts, "+init=epsg:32622")
+bl_cs_pts <- sf::st_transform(bl_cs_pts, "EPSG:32622")
 # read in trap sampling points
 bl_grid_pts <- read_sf("input/Mapping", layer = "bl_grid_points")
 bl_grid_pts <- sf::st_transform(bl_grid_pts, "+init=epsg:32622")
@@ -49,8 +49,6 @@ nl <- st_as_sf(castpolys)
 # reproject
 utm <- st_crs('EPSG:32622')
 utmNL <- st_transform(nl, utm)
-
-nlgpkg <- st_read("input/newfoundland-polygons.gpkg")
 
 # get the min x and y and use them to calc aspect ratio
 xy <- st_bbox(utmNL)
