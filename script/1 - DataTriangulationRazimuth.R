@@ -116,7 +116,7 @@ for (i in 1:(nrow(Data19) - 1)) {
 # remove unused columns from the dataframes
 Data17 <- dplyr::select(Data17, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive))
 Data18 <- dplyr::select(Data18, -c(Notes, EarTag, Wind, Rain, SampleTimeCat, SampleTimeGeneral, Clouds, Temp, Line, Alive))
-Data19 <- dplyr::select(Data19, -c(FixLocation,TimeCategory, TempC, Wind, Rain))
+Data19 <- dplyr::select(Data19, -c(FixLocation, Eartag, TimeCategory, TempC, Wind, Rain))
 
 # combine all three years into one dataframe 
 liveData <- rbind(Data17, Data18, Data19)
