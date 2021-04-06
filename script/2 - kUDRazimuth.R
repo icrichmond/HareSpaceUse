@@ -11,11 +11,7 @@
 # over three years (2016-2019) using adehabitatHR. Relocations only taken in summer season.
 
 
-easypackages::packages("chron", "sp", "sf", "maptools", "tmap", "tmaptools", "SDMTools", 
-                       "adehabitatHR", "adehabitatHS", "adehabitatLT", "ellipse", "ggplot2",
-                       "nleqslv", "adehabitatMA", "adehabitatHR","dplyr", "gdtools", "ggmap",  
-                       "ggrepel", "ggsci", "ggthemes", "maps", "raster", "spatial", "XML", 
-                       "tidyr", "readr","rgdal", "rgeos", "reshape2", "dismo", "tibble")
+easypackages::packages("tidyverse", "adehabitatHR", "sp", "sf", "raster")
 
 # --------------------------------------- #
 #           Data Preparation              #
