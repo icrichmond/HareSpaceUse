@@ -11,7 +11,7 @@
 # over three years (2016-2019) using adehabitatHR. Relocations only taken in summer season.
 
 
-easypackages::packages("tidyverse", "adehabitatHR", "sp", "sf", "raster")
+easypackages::packages("tidyverse", "adehabitatHR", "sp", "sf", "raster", "reshape2")
 
 # --------------------------------------- #
 #           Data Preparation              #
@@ -38,9 +38,7 @@ e <- extent(860000, 863000, 5383000, 5386000)
 vaancnclip <- crop(vaancn, e)
 image(vaancnclip)
 # convert clipped raster to SpatialPixelsDataFrame so it can be used in kUD analysis 
-vaancnASC <- asc.from.raster(vaancnclip)
-vaanCN <- asc2spixdf(vaancnASC)
-class(vaanCN)
+vaanCN <- as(vaancnclip, "SpatialPixelsDataFrame")
 
 
 plot(vaancnclip)
