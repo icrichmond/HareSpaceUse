@@ -4,7 +4,7 @@
 # Author: Isabella Richmond (code and data shared between 
 # Matteo Rizzuto: github.com/matteorizzuto and Alec Robitaille: github.com/robitalec)
 
-# Last Edited: October 30, 2020
+# Last Edited: April 6, 2021
 
 devtools::install_github("cppeck/razimuth")
 easypackages::packages("razimuth", "stringr", "data.table", "tidyverse", "chron", "sf", "sp")
