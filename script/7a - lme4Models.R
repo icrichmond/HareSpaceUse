@@ -200,7 +200,7 @@ write.csv(models.aic_slope, "output/lmem_log_aic.csv")
 # save the summary tables of the models 
 summary(stoich_log_slope)
 summary.models_slope <-map_df(models_slope, broom.mixed::tidy, .id="model")
-write_csv(summary.models_slope, path = "output/lmem_log_summary.csv")
+write.csv(summary.models_slope, path = "output/lmem_log_summary.csv")
 # calculate pseudo R^2 of top model- just another check of significance determination
 performance::r2_nakagawa(stoich_log_slope)
 
