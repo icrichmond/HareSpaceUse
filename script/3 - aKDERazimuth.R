@@ -206,7 +206,7 @@ hares.telem.clean <- as.telemetry(haresClean, keep = TRUE, projection="+init=eps
 # load varioPlot function from function-plotVariograms.R 
 # zoom is false because there is only one measurement taken per day (max)
 source("script/function-plotVariograms.R")
-varioPlot(hares.telem.clean,filePath="output/variograms/initial/",zoom = FALSE)
+varioPlot(hares.telem.clean,filePath="output/Variograms/initial/",zoom = FALSE)
 # variograms look ok - could be better
 
 # ----------------------------------- #
@@ -274,7 +274,7 @@ saveRDS(hares.fit.e, "large/haresfit_final.rds")
 #        Reassess Variograms         #
 # ---------------------------------- #
 # plot variograms with model fit 
-filePath <- paste("output/Variograms/models/")
+filePath <- paste("output/Variograms/Models/")
 
 lapply(1:length(hares.telem.clean), 
        function (a) {
@@ -366,11 +366,11 @@ core_df <- plyr::ldply(core_size, data.frame)
 core_df <- dplyr::rename(core_df, c(frequency = .id, core = est))
 core_df
 
-# three collars returned core areas in m^2 instead of hectares 
+# four collars returned core areas in m^2 instead of hectares 
 # divide those rows by 10,000 to convert back to hectare 
 # rows I need to change are 8,9,22
 # don't worry abouts CIs, can deal with those later if I need to 
-r <- c(9L, 22L, 26L)
+r <- c(8L, 9L, 22L, 26L)
 core_df <- core_df %>% mutate(core = ifelse(row_number() %in% r, core/10000, core))
 # join home range and core together 
 kernels <- inner_join(hr_df, core_df, by = "frequency")
