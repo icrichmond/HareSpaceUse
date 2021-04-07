@@ -32,18 +32,63 @@ head(full_stack)
 # set zeroes in the dataset to NA 
 full_stack[full_stack == 0] <- NA
 
+# add sex of each individual to dataset 
+sex <- read.csv("input/Trapping.csv")
+h2017 <- read.csv("input/VHF_CleanData_2017.csv")
+h2018 <- read.csv("input/VHF_CleanData_2018.csv")
+h2019 <- read.csv("input/VHF_CleanData_2019.csv")
+sex <- sex %>% 
+  dplyr::rename(EarTag = Ear_tag) %>%
+  dplyr::group_by(EarTag, Sex) %>%
+  dplyr::summarise() %>%
+  drop_na()
+sex <- sex[-c(1:2,129:131),] # remove rows without identifiers 
+sex1 <- sex[31:126,]
+sex2 <- transform(sex[1:30,], EarTag = sprintf('A%s',EarTag)) # put A in front of EarTag # for rows 1:32
+sex <- rbind(sex1,sex2)
+sex$Sex[sex$Sex == ""] <- NA # set blank values as NA 
+sex$Sex[sex$Sex == "Escaped"] <- NA # set values with escaped designation as NA 
+sex <- drop_na(sex)
+sex <- sex[!duplicated(sex), ] #remove duplicate rows
+h2017 <- h2017 %>% 
+  drop_na() %>%
+  dplyr::select(Frequency, EarTag) %>%
+  dplyr::group_by(Frequency, EarTag) %>%
+  dplyr::summarise()
+h2018 <- h2018 %>% 
+  drop_na() %>%
+  dplyr::select(Frequency, EarTag) %>%
+  dplyr::group_by(Frequency, EarTag) %>%
+  dplyr::summarise()
+h2019 <- h2019 %>% 
+  drop_na() %>%
+  dplyr::select(Frequency, Eartag) %>%
+  dplyr::group_by(Frequency, Eartag) %>%
+  dplyr::summarise() %>%
+  dplyr::rename(EarTag = Eartag)
+h <- rbind(h2017, h2018, h2019)
+hsex <- inner_join(h, sex, by = "EarTag")
+hsex <- hsex %>%
+  dplyr::group_by(EarTag, Frequency, Sex) %>%
+  dplyr::summarise() %>%
+  drop_na() %>%
+  dplyr::rename(CollarID = Frequency)
+hsex$CollarID <- as.factor(hsex$CollarID)
+full_stack_s <- inner_join(full_stack, hsex, by = "CollarID")
+
 # standardize the explanatory variables
-full_stack_s <- full_stack %>%
-  add_column(VAAN_CN_s = scale(full_stack$VAAN_CN, center = TRUE, scale = TRUE)) %>%
-  add_column(VAAN_CP_s = scale(full_stack$VAAN_CP, center = TRUE, scale = TRUE)) %>%
-  add_column(overPCA_s = scale(full_stack$overPCA, center = TRUE, scale = TRUE)) %>%
-  add_column(underPCA_s = scale(full_stack$underPCA, center = TRUE, scale = TRUE))
+full_stack_s <- full_stack_s %>%
+  add_column(VAAN_CN_s = scale(full_stack_s$VAAN_CN, center = TRUE, scale = TRUE)) %>%
+  add_column(VAAN_CP_s = scale(full_stack_s$VAAN_CP, center = TRUE, scale = TRUE)) %>%
+  add_column(overPCA_s = scale(full_stack_s$overPCA, center = TRUE, scale = TRUE)) %>%
+  add_column(underPCA_s = scale(full_stack_s$underPCA, center = TRUE, scale = TRUE))
 
 # omit the NAs so that MCMCglmm will work
 full_stack_s2 <- na.omit(full_stack_s)
 # save final dataframe 
 saveRDS(full_stack_s2, "large/full_stack_s2.rds")
-
+rm(list=ls())
+full_stack_s2 <- readRDS("large/full_stack_s2.rds")
 ##################  MODELS ##################
 # now we have plots with PCA values for complexity, 
 # kernel utilization values for all 30 hares, 
