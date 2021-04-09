@@ -5,7 +5,7 @@
 
 # load required packages 
 easypackages::packages("matrixStats", "tidyverse", "lubridate", "sf", "sp", "raster",
-                       "tmap", "spatialEco", "grid", "osmdata")
+                       "tmap", "spatialEco", "grid", "osmdata", "tmaptools")
 # --------------------------------------- #
 #              Home Ranges                #
 # --------------------------------------- #
@@ -29,8 +29,9 @@ bl_grid_pts <- sf::st_transform(bl_grid_pts, "+init=epsg:32622")
 vaancn <- raster("input/VAAN_CN.tif")
 vaancp <- raster("input/VAAN_CP.tif")
 # reproject rasters 
-vaancn <- projectRaster(vaancn, crs="+init=epsg:32622")
-vaancp <- projectRaster(vaancp, crs="+init=epsg:32622")
+vaanextent <- projectExtent(vaancn, crs="+init=epsg:32622")
+vaancn <- projectRaster(vaancn, vaanextent)
+vaancp <- projectRaster(vaancp, vaanextent)
 # set extent to include all home ranges but not be too large
 e <- raster::extent(278000,280000,5359000,5360500)
 # crop rasters
@@ -46,9 +47,10 @@ lns <- zz$osm_lines
 castpolys <- st_cast(st_polygonize(st_union(lns)))
 # Combine geometries and cast as sf
 nl <- st_as_sf(castpolys)
+# re-set projection (https://github.com/r-spatial/sf/issues/1419)
+st_crs(nl) <- 4326
 # reproject
-utm <- st_crs('EPSG:32622')
-utmNL <- st_transform(nl, utm)
+utmNL <- sf::st_transform(nl, "+init=epsg:32622")
 
 # get the min x and y and use them to calc aspect ratio
 xy <- st_bbox(utmNL)
