@@ -75,6 +75,7 @@ hsex <- hsex %>%
   dplyr::rename(CollarID = Frequency)
 hsex$CollarID <- as.factor(hsex$CollarID)
 full_stack_s <- inner_join(full_stack, hsex, by = "CollarID")
+full_stack_s$Sex <- as.factor(full_stack_s$Sex)
 
 # standardize the explanatory variables
 full_stack_s <- full_stack_s %>%
@@ -89,6 +90,7 @@ full_stack_s2 <- na.omit(full_stack_s)
 saveRDS(full_stack_s2, "large/full_stack_s2.rds")
 rm(list=ls())
 full_stack_s2 <- readRDS("large/full_stack_s2.rds")
+
 ##################  MODELS ##################
 # now we have plots with PCA values for complexity, 
 # kernel utilization values for all 30 hares, 
@@ -109,8 +111,10 @@ prior0 <- list(R = list(V = diag(1), nu = 6),
 # burin = discarded iterations
 # thin = number of iterations to discard in between successive stored samples (reduces autocorrelation)
 global <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
-                     overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s, 
-                   random =~ us(1 + underPCA_s):CollarID + us(1 + VAAN_CN_s):CollarID + us(1 + overPCA_s):CollarID + us(1 + VAAN_CP_s):CollarID, 
+                     overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + underPCA_s*VAAN_CN_s + 
+                     underPCA_s*VAAN_CP_s + Sex, 
+                   random =~ us(1 + underPCA_s):CollarID + us(1 + VAAN_CN_s):CollarID + 
+                     us(1 + overPCA_s):CollarID + us(1 + VAAN_CP_s):CollarID, 
                    #family = "gaussian",
                    prior = prior0,
                    nitt=420000,
@@ -139,7 +143,7 @@ dev.off()
 # create parallel chains 
 globalchains <- mclapply(1:4, function(i){
   MCMCglmm(kUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
-             overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s, 
+             overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + underPCA_s*VAAN_CN_s + underPCA_s*VAAN_CP_s + Sex, 
            random =~ us(1 + underPCA_s):CollarID + us(1 + VAAN_CN_s):CollarID + us(1 + overPCA_s):CollarID + us(1 + VAAN_CP_s):CollarID, 
            family = "gaussian",
            prior = prior0,
@@ -170,7 +174,7 @@ prior1 <- list(R = list(V = diag(1), nu = 6),
                         G2 = list(V = diag(2), nu = 6)
                ))
 
-stoich <- MCMCglmm(kUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s,
+stoich <- MCMCglmm(kUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + Sex,
                    random =~ us(1 + VAAN_CN_s):CollarID + us(1 + VAAN_CP_s):CollarID, 
                    #family = "gaussian",
                    prior = prior1,
@@ -193,6 +197,32 @@ geweke.diag(stoich$Sol)
 pdf("graphics/gewekeplots_stoich.pdf")
 geweke.plot(stoich$Sol)
 dev.off()
+# look at Gelman plots
+# compares two parallel chains to test convergence. If both quantiles are appox 1.0, 
+# effective convergence can be diagnosed
+# create parallel chains 
+stoichchains <- mclapply(1:4, function(i){
+  MCMCglmm(kUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + Sex,
+           random =~ us(1 + VAAN_CN_s):CollarID + us(1 + VAAN_CP_s):CollarID, 
+           family = "gaussian",
+           prior = prior1,
+           nitt=420000,
+           burnin=20000,
+           thin=100,
+           verbose = TRUE,
+           data = full_stack_s2,
+           pr=T, saveX = TRUE,saveZ = TRUE)
+  
+}, mc.cores=1)
+stoichchains <- lapply(stoichchains, function(m) m$Sol)
+stoichchains <- do.call(mcmc.list, stoichchains)
+saveRDS(stoichchains, "large/stoichchainsMCMC.RDS")
+gelman.diag(stoichchains)
+pdf("graphics/gelmanplots_stoich.pdf")
+gelman.plot(stoichchains)
+dev.off()
+# all diagnostics are good
+
 
 ### Risk model
 prior2 <- list(R = list(V = diag(1), nu = 6),
@@ -200,7 +230,7 @@ prior2 <- list(R = list(V = diag(1), nu = 6),
                         G2 = list(V = diag(2), nu = 6)
                ))
 
-pred <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s, 
+pred <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + Sex, 
                  random =~ us(1 + underPCA_s):CollarID + us(1 + overPCA_s):CollarID, 
                    #family = "gaussian",
                    prior = prior2,
@@ -223,13 +253,87 @@ geweke.diag(pred$Sol)
 pdf("graphics/gewekeplots_pred.pdf")
 geweke.plot(pred$Sol)
 dev.off()
+# look at Gelman plots
+# compares two parallel chains to test convergence. If both quantiles are appox 1.0, 
+# effective convergence can be diagnosed
+# create parallel chains 
+predchains <- mclapply(1:4, function(i){
+  MCMCglmm(kUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + Sex, 
+           random =~ us(1 + underPCA_s):CollarID + us(1 + overPCA_s):CollarID, 
+           family = "gaussian",
+           prior = prior2,
+           nitt=420000,
+           burnin=20000,
+           thin=100,
+           verbose = TRUE,
+           data = full_stack_s2,
+           pr=T, saveX = TRUE,saveZ = TRUE)
+  
+}, mc.cores=1)
+predchains <- lapply(predchains, function(m) m$Sol)
+predchains <- do.call(mcmc.list, predchains)
+saveRDS(predchains, "large/predchainsMCMC.RDS")
+gelman.diag(predchains)
+pdf("graphics/gelmanplots_pred.pdf")
+gelman.plot(predchains)
+dev.off()
+# all diagnostics are good
 
+### Sex model
+prior3  <- list(R = list(V = diag(1), nu = 6),
+                G = list(G1 = list(V = diag(1), nu = 6)
+                ))
+
+sex <- MCMCglmm(kUD ~ Sex,
+                 random = ~CollarID,
+                 #family = "gaussian",
+                 prior = prior3,
+                 nitt=420000,
+                 burnin=20000,
+                 thin=100,
+                 verbose = TRUE,
+                 data = full_stack_s2,
+                 pr=T, saveX = TRUE,saveZ = TRUE)
+saveRDS(sex, "large/sexMCMC.rds")
+# show diagnostic plots for random variables and fixed effects to check autocorrelation
+pdf("graphics/traceplots_sex.pdf")
+plot(sex$VCV)
+plot(sex$Sol)
+dev.off()
+# look at Geweke plots to check convergence 
+# want Z score to be within the confidence intervals (dashed lines on plots)
+# if most points are within dashed lines, no evidence against convergence
+geweke.diag(sex$Sol)
+pdf("graphics/gewekeplots_sex.pdf")
+geweke.plot(sex$Sol)
+dev.off()
+# look at Gelman plots
+# compares two parallel chains to test convergence. If both quantiles are appox 1.0, 
+# effective convergence can be diagnosed
+# create parallel chains 
+sexchains <- mclapply(1:4, function(i){
+  MCMCglmm(kUD ~ Sex,
+           random = ~CollarID, 
+           family = "gaussian",
+           prior = prior3,
+           nitt=420000,
+           burnin=20000,
+           thin=100,
+           verbose = TRUE,
+           data = full_stack_s2,
+           pr=T, saveX = TRUE,saveZ = TRUE)
+  
+}, mc.cores=1)
+sexchains <- lapply(sexchains, function(m) m$Sol)
+sexchains <- do.call(mcmc.list, sexchains)
+saveRDS(sexchains, "large/sexchainsMCMC.RDS")
+gelman.diag(sexchains)
+pdf("graphics/gelmanplots_sex.pdf")
+gelman.plot(sexchains)
+dev.off()
+# all diagnostics are good
 
 ### Intercept model
-prior3  <- list(R = list(V = diag(1), nu = 6),
-                         G = list(G1 = list(V = diag(1), nu = 6)
-                         ))
-
 intercept <- MCMCglmm(kUD ~ 1, 
                       random =~ CollarID, 
                       #family = "gaussian",
@@ -242,14 +346,53 @@ intercept <- MCMCglmm(kUD ~ 1,
                       pr=T, saveX = TRUE,saveZ = TRUE)
 saveRDS(intercept, "large/interceptMCMC.RDS")
 
+# show diagnostic plots for random variables and fixed effects to check autocorrelation
+pdf("graphics/traceplots_intercept.pdf")
+plot(intercept$VCV)
+plot(intercept$Sol)
+dev.off()
+# look at Geweke plots to check convergence 
+# want Z score to be within the confidence intervals (dashed lines on plots)
+# if most points are within dashed lines, no evidence against convergence
+geweke.diag(intercept$Sol)
+pdf("graphics/gewekeplots_intercept.pdf")
+geweke.plot(intercept$Sol)
+dev.off()
+# look at Gelman plots
+# compares two parallel chains to test convergence. If both quantiles are appox 1.0, 
+# effective convergence can be diagnosed
+# create parallel chains 
+interceptchains <- mclapply(1:4, function(i){
+  MCMCglmm(kUD ~ 1,
+           random = ~CollarID, 
+           family = "gaussian",
+           prior = prior3,
+           nitt=420000,
+           burnin=20000,
+           thin=100,
+           verbose = TRUE,
+           data = full_stack_s2,
+           pr=T, saveX = TRUE,saveZ = TRUE)
+  
+}, mc.cores=1)
+interceptchains <- lapply(interceptchains, function(m) m$Sol)
+interceptchains <- do.call(mcmc.list, interceptchains)
+saveRDS(interceptchains, "large/interceptchainsMCMC.RDS")
+gelman.diag(interceptchains)
+pdf("graphics/gelmanplots_intercept.pdf")
+gelman.plot(interceptchains)
+dev.off()
+# all diagnostics are good
+
+
 ##################  DEVIANCE INFORMATION CRITERIA (DIC) ##################
 # perform DIC and rank all four models
 # because DIC values are negative, we want to subtract the max value to get 
 # the smaller delta DIC (not the one with the smaller absolute value)
 # smaller DIC is preferred to larger DIC 
-DIC <- data.table(DIC = c(global$DIC, stoich$DIC, pred$DIC, intercept$DIC))
+DIC <- data.table(DIC = c(global$DIC, stoich$DIC, pred$DIC, sex$DIC, intercept$DIC))
 DIC$deltaDIC <- DIC$DIC - min(DIC$DIC)
 DIC
 # get full DIC table from MuMIn 
-DICtable <- model.sel(global,stoich,pred,intercept,rank="DIC")
-# intercept model is top ranked model
+DICtable <- model.sel(global,stoich,pred,sex,intercept,rank="DIC")
+# stoich model is top ranked model
