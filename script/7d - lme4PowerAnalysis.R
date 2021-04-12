@@ -26,3 +26,8 @@ pa_g_over <- EAMM(numsim = 10, mer.model = list(global_pa, env = "overPCA_s", ra
 pa_g_under <- EAMM(numsim = 10, mer.model = list(global_pa, env = "underPCA_s", random = "CollarID"))
 pa_g_cn <- EAMM(numsim = 10, mer.model = list(global_pa, env = "VAAN_CN_s", random = "CollarID"))
 pa_g_cp <- EAMM(numsim = 10, mer.model = list(global_pa, env = "VAAN_CP_s", random = "CollarID"))
+# power is good - we can assess individual level reaction norms 
+saveRDS(pa_g_over, "large/powerOverstory.rds")
+saveRDS(pa_g_under, "large/powerUnderstory.rds")
+saveRDS(pa_g_cn, "large/powerCN.rds")
+saveRDS(pa_g_cp, "large/powerCP.rds")
