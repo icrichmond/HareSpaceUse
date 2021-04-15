@@ -258,7 +258,7 @@ lapply(seq_along(lsatms), function(x) {
 dev.off()
 
 # Model all
-lsfits <- lapply(lsatms, atm_mcmc, n_mcmc = 10000, n_burn = 1000)
+lsfits <- lapply(lsatms, atm_mcmc, n_mcmc = 100000, n_burn = 10000)
 lsfits <- saveRDS(lsfits, "large/lsfits.rds")
 lsfits <- readRDS("large/lsfits.rds")
 
