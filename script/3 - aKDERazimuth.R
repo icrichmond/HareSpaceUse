@@ -11,7 +11,11 @@
 # much of this code was written by Amanda Droghini
 # Droghini, A. 2020. Southwest Alaska moose. Git Repository. Available: https://github.com/accs-uaa/southwest-alaska-moose
 
-devtools::install_github("ctmm-initiative/ctmm")
+# We need the 0.5.10 version of ctmm before they made changes to the error ellipses based on Argos GPS
+# Will update when they integrate VHF telemetry functionality (https://groups.google.com/u/1/g/ctmm-user/c/7ODX5zw4CGk)
+purl <- "https://cran.r-project.org/src/contrib/Archive/ctmm/ctmm_0.5.10.tar.gz"
+install.packages(purl, repos = NULL, type = "source")
+
 easypackages::packages("tidyverse", "adehabitatHR", "ctmm", "tidyverse", "raster")
 
 # -------------------------------------#
@@ -38,7 +42,7 @@ hares <- dplyr::select(hares, -c(id.x, id.y, pid.x, pid.y, obs_id, cpid))
 hares.telem <- as.telemetry(hares, keep = TRUE, projection="+init=epsg:32622")
 # can see in the plotting that the ellipses are present
 par(mfrow=c(1,1))
-plot(hares.telem, error = 1)
+ctmm::plot(hares.telem, error = 1)
 plot(hares.telem, error = 0)
 
 # -------------------------------------#
@@ -52,7 +56,7 @@ ids <- names(hares.telem)
 for (i in 1:length(ids)){
   ctmm::outlie(hares.telem[[i]], plot=TRUE, main=ids[i])
   plotName <- paste("outliers",ids[i],sep="")
-  filePath <- paste("output/outliers/",plotName,sep="")
+  filePath <- paste("output/Outliers/",plotName,sep="")
   finalName <- paste(filePath,"png",sep=".")
   dev.copy(png,finalName)
   dev.off()
