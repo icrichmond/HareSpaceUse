@@ -14,9 +14,9 @@ easypackages::libraries("data.table", "tidyverse", "patchwork", "ggpubr", "MCMCg
 full_stack_s2 <- readRDS("large/full_stack_s2.rds")
 # models 
 global <- readRDS("large/globalMCMC.rds")
-stoich <- readRDS("large/stoichMCMC.rds")
-pred <- readRDS("large/predMCMC.rds")
-intercept <- readRDS("large/interceptMCMC.rds")
+stoich <- readRDS("large/stoichMCMC.RDS")
+pred <- readRDS("large/predMCMC.RDS")
+intercept <- readRDS("large/interceptMCMC.RDS")
 
 ##################  SLOPES ##################
 # want to plot the intercepts and slopes of each random effect 
