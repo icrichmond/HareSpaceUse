@@ -6,7 +6,7 @@
 
 This repository contains code, data, and results for Richmond et al. Individual herbivores take risks based on resource quality: stoichiometric distribution models with snowshoe hares. 
 
-Zenodo Repository:
+Zenodo Repository:[![DOI](https://zenodo.org/badge/308694584.svg)](https://zenodo.org/badge/latestdoi/308694584)
 
 **script**  
 This folder contains all the R scripts necessary to reproduce our analyses.  
