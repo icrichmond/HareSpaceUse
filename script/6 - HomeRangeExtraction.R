@@ -80,12 +80,15 @@ csstoich <- as.data.frame(csstoich)
 # extract the kUD values at each complexity sampling point 
 cskud <- extract(kernel95stack, predriskspatial)
 cskud <- as.data.frame(cskud)
+# assign any values less than 0.01 (1% probability) to zero 
+# because they are not biologically meaningful 
+cskud[cskud < 0.01] <- 0
 # combine CS plot name, stoich values, and kUD values 
 stoichkud <- cbind(cskud, csstoich)
 stoichkud <- add_column(stoichkud, Plot = predrisk$Plot)
 write.csv(stoichkud, "output/cs_stoich_kud.csv")
 
-# use clamp to transform any values under 0.15 to Nas
+# use clamp to transform any values under 0.15 to Nas for plotting
 kernel95normz <- lapply(kernel95norm, function(i) raster::clamp(i, lower=0.15, useValues=FALSE))
 # save clamped raster
 saveRDS(kernel95normz, "large/rasternormclamp.rds")

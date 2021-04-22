@@ -395,4 +395,4 @@ DIC$deltaDIC <- DIC$DIC - min(DIC$DIC)
 DIC
 # get full DIC table from MuMIn 
 DICtable <- model.sel(global,stoich,pred,sex,intercept,rank="DIC")
-# stoich model is top ranked model
+# intercept is top ranked model
