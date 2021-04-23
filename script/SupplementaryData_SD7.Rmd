@@ -1,0 +1,169 @@
+---
+title: "Supplementary Data SD7"
+author: ""
+date: ""
+output: pdf_document
+header-includes: 
+  - \usepackage{pdfpages}
+---
+
+```{r, setup, message = F, echo = F}
+easypackages::packages("tidyverse")
+```
+
+This supplementary data file contains the diagnostic plots for our MCMCglmm mixed effects models. Models diagnostics were assessed using traceplots and Geweke plots to assess autocorrelation and convergence. All models demonstrated adequate convergence and minimal autocorrelation.
+
+\
+\
+
+# Models
+Below are the code chunks for our models. "overPCA" refers to overstory complexity values, "underPCA" refers to understory complexity values, "VAAN_CN_s" refers to lowbush blueberry carbon:nitrogen values, "VAAN_CP_s" refers to lowbush blueberry carbon:phosphorus values, sex refers to the sex of each individual, and CollarID refers to the individual's unique collar frequency. In total, 5 models were evaluated. We evaluated a global model, a stoichiometry model, a predation model, a sex model, and a null/intercept model.  
+\
+```{r, eval = F, echo = T}
+global <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + VAAN_CN_s + VAAN_CP_s + 
+                     overPCA_s*VAAN_CN_s + overPCA_s*VAAN_CP_s + underPCA_s*VAAN_CN_s + 
+                     underPCA_s*VAAN_CP_s + Sex, 
+                   random =~ us(1 + underPCA_s):CollarID + us(1 + VAAN_CN_s):CollarID + 
+                     us(1 + overPCA_s):CollarID + us(1 + VAAN_CP_s):CollarID, 
+                   #family = "gaussian",
+                   prior = prior0,
+                   nitt=420000,
+                   burnin=20000,
+                   thin=100,
+                   verbose = TRUE,
+                   data = full_stack_s2,
+                   pr=T, saveX = TRUE,saveZ = TRUE)
+
+stoich <- MCMCglmm(kUD ~ VAAN_CN_s + VAAN_CP_s + VAAN_CN_s*VAAN_CP_s + Sex,
+                   random =~ us(1 + VAAN_CN_s):CollarID + us(1 + VAAN_CP_s):CollarID, 
+                   #family = "gaussian",
+                   prior = prior1,
+                   nitt=420000,
+                   burnin=20000,
+                   thin=100,
+                   verbose = TRUE,
+                   data = full_stack_s2,
+                   pr=T, saveX = TRUE,saveZ = TRUE)
+
+pred <- MCMCglmm(kUD ~ overPCA_s + underPCA_s + overPCA_s*underPCA_s + Sex, 
+                 random =~ us(1 + underPCA_s):CollarID + us(1 + overPCA_s):CollarID, 
+                   #family = "gaussian",
+                   prior = prior2,
+                   nitt=420000,
+                   burnin=20000,
+                   thin=100,
+                   verbose = TRUE,
+                   data = full_stack_s2,
+                   pr=T, saveX = TRUE,saveZ = TRUE)
+
+sex <- MCMCglmm(kUD ~ Sex,
+                 random = ~CollarID,
+                 #family = "gaussian",
+                 prior = prior3,
+                 nitt=420000,
+                 burnin=20000,
+                 thin=100,
+                 verbose = TRUE,
+                 data = full_stack_s2,
+                 pr=T, saveX = TRUE,saveZ = TRUE)
+
+intercept <- MCMCglmm(kUD ~ 1, 
+                      random =~ CollarID, 
+                      #family = "gaussian",
+                      prior = prior3,
+                      nitt=420000,
+                      burnin=20000,
+                      thin=100,
+                      verbose = TRUE,
+                      data = full_stack_s2,
+                      pr=T, saveX = TRUE,saveZ = TRUE)
+```
+
+\newpage
+# Model Diagnostics  
+Below are the diagnostic plots, including traceplots and Geweke plots, for each of our models.
+
+\
+\
+
+Figure SD7-1a. Traceplots for our global model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_global.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_global.pdf}
+
+\newpage
+Figure SD7-1b. Geweke plots for our global model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_global.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/gewekeplots_global.pdf}
+
+
+
+
+\newpage
+Figure SD7-2a. Traceplots for our stoichiometry model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_stoich.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_stoich.pdf}
+
+\newpage
+Figure SD7-2b. Geweke plots for our stoichiometry model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_stoich.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/gewekeplots_stoich.pdf}
+
+
+
+
+\newpage
+Figure SD7-3a. Traceplots for our perceived predation risk model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_pred.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_pred.pdf}
+
+\newpage
+Figure SD7-3b. Geweke plots for our perceived predation risk model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_pred.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/gewekeplots_pred.pdf}
+
+
+
+
+\newpage
+Figure SD7-4a. Traceplots for our sex model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_sex.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_sex.pdf}
+
+\newpage
+Figure SD7-4b. Geweke plots for our sex model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_sex.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/gewekeplots_sex.pdf}
+
+
+
+
+\newpage
+Figure SD7-5a. Traceplots for our intercept model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_intercept.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_intercept.pdf}
+
+\newpage
+Figure SD7-5b. Geweke plots for our intercept model.
+```{r, echo = F, fig.align="center"}
+knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_intercept.pdf")
+```
+\includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/gewekeplots_intercept.pdf}
+
