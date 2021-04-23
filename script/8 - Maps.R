@@ -28,15 +28,15 @@ bl_grid_pts <- sf::st_transform(bl_grid_pts, "+init=epsg:32622")
 # read in stoich data 
 vaancn <- raster("input/VAAN_CN.tif")
 vaancp <- raster("input/VAAN_CP.tif")
-# reproject rasters 
-vaanextent <- projectExtent(vaancn, crs="+init=epsg:32622")
-vaancn <- projectRaster(vaancn, vaanextent)
-vaancp <- projectRaster(vaancp, vaanextent)
 # set extent to include all home ranges but not be too large
-e <- raster::extent(278000,280000,5359000,5360500)
+e <- raster::extent(860000, 863000, 5383000, 5386000)
 # crop rasters
 vaancnclip <- crop(vaancn, e)
 vaancpclip <- crop(vaancp, e)
+# reproject rasters 
+vaanextent <- projectExtent(vaancn, crs="+init=epsg:32622")
+vaancnclip <- projectRaster(vaancnclip, vaanextent)
+vaancpclip <- projectRaster(vaancpclip, vaanextent)
 
 # NL boundary layer (code from https://github.com/wildlifeevoeco/study-area-figs)
 zz <- opq(getbb('Newfoundland')) %>%
@@ -44,13 +44,12 @@ zz <- opq(getbb('Newfoundland')) %>%
   osmdata_sf()
 lns <- zz$osm_lines
 # union -> polygonize -> cast lines = geometry set
-castpolys <- st_cast(st_polygonize(st_union(lns)))
+castpolys <- st_cast(st_union(lns))
 # Combine geometries and cast as sf
 nl <- st_as_sf(castpolys)
-# re-set projection (https://github.com/r-spatial/sf/issues/1419)
-st_crs(nl) <- 4326
 # reproject
 utmNL <- sf::st_transform(nl, "+init=epsg:32622")
+saveRDS(utmNL, "large/NLboundaryUTM.rds")
 
 # get the min x and y and use them to calc aspect ratio
 xy <- st_bbox(utmNL)
@@ -58,6 +57,7 @@ asp <- (xy$xmax - xy$xmin)/(xy$ymax - xy$ymin)
 
 # plot merged data - individuals 
 p <- get_brewer_pal("Greys", n = 10, contrast = c(0.3, 1))
+e <- raster::extent(278000,280000,5359000,5360500)
 
 t <- tm_shape(kernel95normm, bbox=e)+
   tm_raster(title = "kUD", style = "cont", 
@@ -76,17 +76,17 @@ t
 
 # create map t with inset of Newfoundland 
 # inset map
-inset <- tm_shape(nlgpkg)+
-  tm_polygons()+
+inset <- tm_shape(utmNL)+
+  tm_lines()+
   tm_layout(outer.margins=c(0,0,0,0))+
   tm_shape(bl_grid_pts)+
   tm_dots(size=0.3, col="black")
-w <- 0.3
+w <- 0.29
 h <- asp*w
 
-print(inset, vp=viewport(x=0.8,y=0.84,width=w,height=h))
+print(inset, vp=viewport(x=0.835,y=0.83,width=w,height=h))
 # save
-tmap_save(t, insets_tm = inset, insets_vp = viewport(x=0.88,y=0.82,width=w,height=h), filename="graphics/kUD_raster_grids.pdf")
+tmap_save(t, insets_tm = inset, insets_vp = viewport(x=0.865,y=0.815,width=w,height=h), filename="graphics/kUD_raster_grids.pdf")
 
 
 
