@@ -1,5 +1,5 @@
 ---
-title: "Supplementary Data SD7"
+title: "Supplementary Data SD6"
 author: ""
 date: ""
 output: pdf_document
@@ -86,14 +86,14 @@ Below are the diagnostic plots, including traceplots and Geweke plots, for each 
 \
 \
 
-Figure SD7-1a. Traceplots for our global model.
+Figure SD6-1a. Traceplots for our global model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_global.pdf")
 ```
 \includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_global.pdf}
 
 \newpage
-Figure SD7-1b. Geweke plots for our global model.
+Figure SD6-1b. Geweke plots for our global model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_global.pdf")
 ```
@@ -103,14 +103,14 @@ knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekepl
 
 
 \newpage
-Figure SD7-2a. Traceplots for our stoichiometry model.
+Figure SD6-2a. Traceplots for our stoichiometry model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_stoich.pdf")
 ```
 \includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_stoich.pdf}
 
 \newpage
-Figure SD7-2b. Geweke plots for our stoichiometry model.
+Figure SD6-2b. Geweke plots for our stoichiometry model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_stoich.pdf")
 ```
@@ -120,14 +120,14 @@ knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekepl
 
 
 \newpage
-Figure SD7-3a. Traceplots for our perceived predation risk model.
+Figure SD6-3a. Traceplots for our perceived predation risk model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_pred.pdf")
 ```
 \includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_pred.pdf}
 
 \newpage
-Figure SD7-3b. Geweke plots for our perceived predation risk model.
+Figure SD6-3b. Geweke plots for our perceived predation risk model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_pred.pdf")
 ```
@@ -137,14 +137,14 @@ knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekepl
 
 
 \newpage
-Figure SD7-4a. Traceplots for our sex model.
+Figure SD6-4a. Traceplots for our sex model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_sex.pdf")
 ```
 \includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_sex.pdf}
 
 \newpage
-Figure SD7-4b. Geweke plots for our sex model.
+Figure SD6-4b. Geweke plots for our sex model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_sex.pdf")
 ```
@@ -154,14 +154,14 @@ knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekepl
 
 
 \newpage
-Figure SD7-5a. Traceplots for our intercept model.
+Figure SD6-5a. Traceplots for our intercept model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/traceplots_intercept.pdf")
 ```
 \includepdf[pages={2-},pagecommand={}]{/home/icrichmond/Repositories/kernels/graphics/traceplots_intercept.pdf}
 
 \newpage
-Figure SD7-5b. Geweke plots for our intercept model.
+Figure SD6-5b. Geweke plots for our intercept model.
 ```{r, echo = F, fig.align="center"}
 knitr::include_graphics("/home/icrichmond/Repositories/kernels/graphics/gewekeplots_intercept.pdf")
 ```
