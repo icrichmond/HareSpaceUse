@@ -1,0 +1,128 @@
+---
+title: "Supplementary Data SD7"
+author: ""
+date: ""
+output: pdf_document
+header-includes:
+  - \usepackage{pdfpages}
+  - \usepackage{longtable}
+---
+
+This supplementary file contains the results of a power analysis as outlined in Martin *et al.* (2011, *Methods in Ecology & Evolution*). Please note that the power analysis is based on a frequentist models (see results below), and that the main analysis rather uses Bayesian generalized linear models. The data was found to have sufficient power for all random effects.  
+
+# Model
+Below outlines the code used for representing our global model. As this is the model that requires the most power, this is the one we evaluated using the power analysis. 
+```{r, eval=F, echo=T}
+global <- lmerTest::lmer(kUD ~ Overstory Complexity + Understory Complexity + 
+                           Blueberry C:N + Blueberry C:P + 
+                           Overstory Complexity * Blueberry C:N + 
+                           Overstory Complexity * Blueberry C:P + 
+                           Understory Cmplexity * Blueberry C:N + 
+                           Understory Complexity * Blueberry C:P + 
+                           (1 + Blueberry C:N | CollarID)  + 
+                           (1 + Blueberry C:P | CollarID) + 
+                           (1 + Overstory Complexity | CollarID) + 
+                           (1 + Understory Complexity | CollarID),
+                           data=dataset)
+```
+
+# Power Analysis 
+Below is the code used to perform the power analysis on the various random effects found in our global model. We used the EAMM function from the ```pamm``` package.
+```{r, eval = F, echo = T}
+overstory_power <- EAMM(numsim = 10, mer.model = list(global, 
+                                                      env = "Overstory Complexity",
+                                                      random = "CollarID"))
+understory_power <- EAMM(numsim = 10, mer.model = list(global, 
+                                                       env = "Understory Complexity", 
+                                                       random = "CollarID"))
+CN_power <- EAMM(numsim = 10, mer.model = list(global, 
+                                               env = "Blueberry C:N", 
+                                               random = "CollarID"))
+CP_power <- EAMM(numsim = 10, mer.model = list(global, 
+                                               env = "Blueberry C:P", 
+                                               random = "CollarID"))
+```
+
+\newpage
+# Output
+Below shows the output of the power analyses.   
+
+
+Table 1. Power analysis output for the random slopes of overstory complexity and individual CollarID. CI low and high variance indicate the 95% confidence intervals for the variance in slope. CI low and high power indicate the 95% confidence intervals for the power of slope. Power indicates the estimated power level for each simulation (1 indicates sufficient power).
+```{r, eval = T, echo = F, warning=F}
+library("kableExtra", "dplyr", "tibble")
+pa_g_over <- readRDS("large/powerOverstory.rds")
+
+pa_g_over <- tibble::as_tibble(pa_g_over)
+
+pa_g_over[c("VS", "sl.pval", "CIlow.slpv", "CIup.slpv", 
+            "sl.power", "CIlow.slpo", "CIup.slpo")] %>%
+  dplyr::mutate_if(is.numeric, format, digits=3) %>%
+  kable(longtable = T, 
+        col.names = c("Slope Variance", "p-value", "CI low variance", 
+                      "CI high variance", "Power", "CI low power", 
+                      "CI high power"))%>%
+  row_spec(0,bold=TRUE)  %>%
+  kable_styling(full_width = F, position="left", latex_options = ("repeat_header"))
+
+```
+
+\newpage
+Table 2. Power analysis output for the random slopes of understory complexity and individual CollarID. CI low and high variance indicate the 95% confidence intervals for the variance in slope. CI low and high power indicate the 95% confidence intervals for the power of slope. Power indicates the estimated power level for each simulation (1 indicates sufficient power).
+```{r, eval = T, echo = F}
+library("kableExtra", "dplyr", "tibble")
+pa_g_under <- readRDS("large/powerUnderstory.rds")
+
+pa_g_under <- tibble::as_tibble(pa_g_under)
+
+pa_g_under[c("VS", "sl.pval", "CIlow.slpv", "CIup.slpv", 
+            "sl.power", "CIlow.slpo", "CIup.slpo")] %>%
+  dplyr::mutate_if(is.numeric, format, digits=3) %>%
+  kable(longtable = T, 
+        col.names = c("Slope Variance", "p-value", "CI low variance", 
+                      "CI high variance", "Power", "CI low power", 
+                      "CI high power"))%>%
+  row_spec(0,bold=TRUE)  %>%
+  kable_styling(full_width =F, position="left", latex_options = ("repeat_header"))
+
+```
+
+\newpage
+Table 3. Power analysis output for the random slopes of lowbush blueberry carbon:nitrogen (C:N) and individual CollarID. CI low and high variance indicate the 95% confidence intervals for the variance in slope. CI low and high power indicate the 95% confidence intervals for the power of slope. Power indicates the estimated power level for each simulation (1 indicates sufficient power).
+```{r, eval = T, echo = F}
+library("kableExtra", "dplyr", "tibble")
+pa_g_cn <- readRDS("large/powerCN.rds")
+
+pa_g_cn <- tibble::as_tibble(pa_g_cn)
+
+pa_g_cn[c("VS", "sl.pval", "CIlow.slpv", "CIup.slpv", 
+            "sl.power", "CIlow.slpo", "CIup.slpo")] %>%
+  dplyr::mutate_if(is.numeric, format, digits=3) %>%
+  kable(longtable = T, 
+        col.names = c("Slope Variance", "p-value", "CI low variance", 
+                      "CI high variance", "Power", "CI low power", 
+                      "CI high power"))%>%
+  row_spec(0,bold=TRUE)  %>%
+  kable_styling(full_width=F,position="left", latex_options = ("repeat_header"))
+
+```
+
+\newpage
+Table 4. Power analysis output for the random slopes of lowbush blueberry carbon:phosphorus (C:P) and individual CollarID. CI low and high variance indicate the 95% confidence intervals for the variance in slope. CI low and high power indicate the 95% confidence intervals for the power of slope. Power indicates the estimated power level for each simulation (1 indicates sufficient power).
+```{r, eval = T, echo = F}
+library("kableExtra", "dplyr", "tibble")
+pa_g_cp <- readRDS("large/powerCP.rds")
+
+pa_g_cp <- tibble::as_tibble(pa_g_cp)
+
+pa_g_cp[c("VS", "sl.pval", "CIlow.slpv", "CIup.slpv", 
+            "sl.power", "CIlow.slpo", "CIup.slpo")] %>%
+  dplyr::mutate_if(is.numeric, format, digits=3) %>%
+  kable(longtable = T, 
+        col.names = c("Slope Variance", "p-value", "CI low variance", 
+                      "CI high variance", "Power", "CI low power", 
+                      "CI high power"))%>%
+  row_spec(0,bold=TRUE)  %>%
+  kable_styling(full_width = F, position="left", latex_options = ("repeat_header"))
+
+```
