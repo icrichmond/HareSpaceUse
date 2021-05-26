@@ -20,6 +20,8 @@ This folder contains all the R scripts necessary to reproduce our analyses.
 * 7a - lme4Models.R models our data with intensity of space use (kernel utilization distribution) as a response variable and habitat complexity and food quality as explanatory variables using linear mixed effects models in the ```lme4``` package.
 * 7b - MCMCglmmModels.R models our data using a Bayesian approach with intensity of space use (kernel utilization distribution) as a response variable and habitat complexity and food quality as explanatory variables using a Markov chain Monte Carlo sampler for linear mixed effects models in the ```MCMCglmm``` package. 
 * 7c - MCMCglmmPlots.R plots of random slopes and correlations used in the manuscript from the Bayesian models produced using ```MCMCglmm``` in 7b - MCMCglmmModels.R.
+* 7d - lem4PowerAnalysis.R uses the ```pamm``` and ```lme4``` package to build a Frequentist version of our global model and test if our data has enough power to assess individual-level reaction norms as per Martin et al. 2011 (*Methods in Ecology and Evolution*)
+* 7e - MCMCModelsBGRisk.R models our data using a Bayesian approach with intensity of space use (kernel utilization distribution) as a response variable and habitat complexity and food quality as explanatory variables using a Markov chain Monte Carlo sampler for linear mixed effects models in the ```MCMCglmm``` package. Adds year of capture interacting with risk to test if there is variation in background risk across years. 
 * 8 - Maps.R - plots maps used in the manuscript.
 * function-plotOutliers.R -a function used to plot outliers in 1 - DataTriangulationRazimuth.R 
 * function-plotVariograms.R - a function used to plot variograms in 3 - aKDERazimuth.R.
