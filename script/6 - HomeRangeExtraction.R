@@ -82,7 +82,7 @@ cskud <- extract(kernel95stack, predriskspatial)
 cskud <- as.data.frame(cskud)
 # assign any values less than 0.01 (1% probability) to zero 
 # because they are not biologically meaningful 
-cskud[cskud < 0.01] <- 0
+cskud[cskud < 0.05] <- 0
 # combine CS plot name, stoich values, and kUD values 
 stoichkud <- cbind(cskud, csstoich)
 stoichkud <- add_column(stoichkud, Plot = predrisk$Plot)

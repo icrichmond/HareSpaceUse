@@ -238,7 +238,7 @@ ac <- merge(aa, ab, by="ID")
 cnunder <- ggplot(ac, aes(VAAN_CN_s, underPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
   geom_smooth(method = "lm", se = F, color="black") +
-  stat_cor(aes(VAAN_CN_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")),  label.y = 0.2)+
+  stat_cor(aes(VAAN_CN_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")),  label.y = 0.19)+
   stat_regline_equation(aes(VAAN_CN_s,underPCA_s), label.y = 0.22)+
   ylab("Understory Complexity") +
   xlab("Lowbush Blueberry C:N") +
@@ -261,8 +261,8 @@ cnunder <- ggplot(ac, aes(VAAN_CN_s, underPCA_s)) +
 cpunder <- ggplot(ac, aes(VAAN_CP_s, underPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
   geom_smooth(method = "lm", se = F, color="black") +
-  stat_cor(aes(VAAN_CP_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")),label.x = -0.07, label.y = 0.2)+
-  stat_regline_equation(aes(VAAN_CN_s,underPCA_s), label.x = -0.07, label.y = 0.22)+
+  stat_cor(aes(VAAN_CP_s,underPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.19)+
+  stat_regline_equation(aes(VAAN_CN_s,underPCA_s), label.y = 0.22)+
   ylab("Understory Complexity") +
   xlab("Lowbush Blueberry C:P") +
   ggtitle("C")+
@@ -283,8 +283,8 @@ cpunder <- ggplot(ac, aes(VAAN_CP_s, underPCA_s)) +
 cnover <- ggplot(ac, aes(VAAN_CN_s, overPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
   geom_smooth(method = "lm", se = F, color="black") +
-  stat_cor(aes(VAAN_CN_s,overPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.1)+
-  stat_regline_equation(aes(VAAN_CN_s,overPCA_s), label.y = 0.12)+
+  stat_cor(aes(VAAN_CN_s,overPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.19)+
+  stat_regline_equation(aes(VAAN_CN_s,overPCA_s), label.y = 0.22)+
   ylab("Overstory Complexity") +
   xlab("Lowbush Blueberry C:N") +
   ggtitle("B")+
@@ -306,8 +306,8 @@ cnover <- ggplot(ac, aes(VAAN_CN_s, overPCA_s)) +
 cpover <- ggplot(ac, aes(VAAN_CP_s, overPCA_s)) +
   geom_point(size = 2, alpha = 0.65) +
   geom_smooth(method = "lm", se = F, color="black") +
-  stat_cor(aes(VAAN_CP_s,overPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.1)+
-  stat_regline_equation(aes(VAAN_CP_s,overPCA_s), label.y = 0.12)+
+  stat_cor(aes(VAAN_CP_s,overPCA_s,label = paste(..r.label.., ..p.label.., sep = "~`, `~")), label.y = 0.19)+
+  stat_regline_equation(aes(VAAN_CP_s,overPCA_s), label.y = 0.22)+
   ylab("Overstory Complexity") +
   xlab("Lowbush Blueberry C:P") +
   ggtitle("A")+
