@@ -47,6 +47,7 @@ lns <- zz$osm_lines
 castpolys <- st_cast(st_union(lns))
 # Combine geometries and cast as sf
 nl <- st_as_sf(castpolys)
+nl <- st_set_crs(nl, "+init=epsg:4326")
 # reproject
 utmNL <- sf::st_transform(nl, "+init=epsg:32622")
 saveRDS(utmNL, "large/NLboundaryUTM.rds")
@@ -80,13 +81,13 @@ inset <- tm_shape(utmNL)+
   tm_lines()+
   tm_layout(outer.margins=c(0,0,0,0))+
   tm_shape(bl_grid_pts)+
-  tm_dots(size=0.3, col="black")
+  tm_dots(size=0.3, col="red")
 w <- 0.29
 h <- asp*w
 
-print(inset, vp=viewport(x=0.835,y=0.83,width=w,height=h))
+print(inset, vp=viewport(x=0.89,y=0.82,width=w,height=h))
 # save
-tmap_save(t, insets_tm = inset, insets_vp = viewport(x=0.865,y=0.815,width=w,height=h), filename="graphics/kUD_raster_grids.pdf")
+tmap_save(t, insets_tm = inset, insets_vp = viewport(x=0.89,y=0.83,width=w,height=h), filename="graphics/kUD_raster_grids.pdf")
 
 
 
