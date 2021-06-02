@@ -154,7 +154,7 @@ o <- ggplot(df_fit_over, aes(x = overPCA_s, y = Value, group = factor(CollarID))
 
 # plot all random slopes together using patchwork 
 (n|p)/(u|o) + plot_layout(guides = 'collect')
-ggsave("graphics/varyingslopesMCMC_grayscale.pdf", dpi = 400)
+ggsave("graphics/varyingslopesMCMC_grayscale.tiff", dpi = 600)
 
 ##################  CORRELATIONS ##################
 # extract data from global model
@@ -164,11 +164,11 @@ dfglobal$Trait <- gsub(pattern = "s.",replacement = "s-", as.factor(dfglobal$Tra
 dfglobal$Trait <- gsub(pattern = "D.",replacement = "D-", as.factor(dfglobal$Trait)) 
 dfglobal$Trait <- gsub(pattern = ").",replacement = ")-", as.factor(dfglobal$Trait)) 
 # extract rows of interest
-print(dfglobal, max = 257)
-dfglobalunder <-  dfglobal[41:71,]
-dfglobalcn <- dfglobal[103:133,]
-dfglobalover <- dfglobal[165:195,]
-dfglobalcp <- dfglobal[227:257,]
+print(dfglobal, max = 243)
+dfglobalunder <-  dfglobal[41:69,]
+dfglobalcn <- dfglobal[99:127,]
+dfglobalover <- dfglobal[157:185,]
+dfglobalcp <- dfglobal[215:243,]
 dfglobalunder[, c('Trait', 'collar' ,'ID') := tstrsplit(Trait, '-', fixed = TRUE)][, c("collar") := NULL]
 dfglobalcn[, c('Trait', 'collar' ,'ID') := tstrsplit(Trait, '-', fixed = TRUE)][, c("collar") := NULL]
 dfglobalover[, c('Trait', 'collar' ,'ID') := tstrsplit(Trait, '-', fixed = TRUE)][, c("collar") := NULL]
@@ -195,10 +195,10 @@ dfstoich$Trait <- gsub(pattern = "D.",replacement = "D-", as.factor(dfstoich$Tra
 dfstoich$Trait <- gsub(pattern = ").",replacement = ")-", as.factor(dfstoich$Trait)) 
 # extract rows of interest - C:N slopes
 dfstoich[1:120]
-dfCN <-  dfstoich[36:66,]
+dfCN <-  dfstoich[36:64,]
 dfCN[, c('Trait', 'collar' ,'ID') := tstrsplit(Trait, '-', fixed = TRUE)][, c("collar") := NULL]
 # extract rows of interest - C:P slopes
-dfCP <-  dfstoich[98:128,]
+dfCP <-  dfstoich[94:122,]
 dfCP[, c('Trait', 'collar' ,'ID') := tstrsplit(Trait, '-', fixed = TRUE)][, c("collar") := NULL]
 
 
@@ -210,10 +210,10 @@ dfpred$Trait <- gsub(pattern = "D.",replacement = "D-", as.factor(dfpred$Trait))
 dfpred$Trait <- gsub(pattern = ").",replacement = ")-", as.factor(dfpred$Trait)) 
 # extract rows of interest - understory
 dfpred[1:100]
-dfunder <-  dfpred[36:66,]
+dfunder <-  dfpred[36:64,]
 dfunder[, c('Trait', 'collar' ,'ID') := tstrsplit(Trait, '-', fixed = TRUE)][, c("collar") := NULL]
 # extract rows of interest - overstory
-dfover <-  dfpred[98:128,]
+dfover <-  dfpred[94:122,]
 dfover[, c('Trait', 'collar' ,'ID') := tstrsplit(Trait, '-', fixed = TRUE)][, c("collar") := NULL]
 
 
