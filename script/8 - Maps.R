@@ -87,7 +87,7 @@ h <- asp*w
 
 print(inset, vp=viewport(x=0.89,y=0.82,width=w,height=h))
 # save
-tmap_save(t, insets_tm = inset, insets_vp = viewport(x=0.89,y=0.83,width=w,height=h), filename="graphics/kUD_raster_grids.pdf")
+tmap_save(t, dpi = 600, insets_tm = inset, insets_vp = viewport(x=0.89,y=0.83,width=w,height=h), filename="graphics/kUD_raster_grids.tiff")
 
 
 
