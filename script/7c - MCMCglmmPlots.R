@@ -328,7 +328,7 @@ cpover <- ggplot(ac, aes(VAAN_CP_s, overPCA_s)) +
 
 # combine plots 
 (cpover|cnover)/(cpunder|cnunder)
-ggsave("graphics/slopecorrelationsMCMC_greyscale.pdf", dpi=400)
+ggsave("graphics/slopecorrelationsMCMC_greyscale.tiff", dpi=600)
 
 ##################  POPULATION RELATIONSHIPS ##################
 # plot the relationship between kUD and explanatory variables with line of best fit 
@@ -374,4 +374,4 @@ under <- ggplot(full_stack_s2)+
   labs(x = "Understory Habitat Complexity", y = " ")
 
 (cn | over)/(cp | under)
-ggsave("graphics/KUD_explanatory_MCMC.pdf", dpi = 400)
+ggsave("graphics/KUD_explanatory_MCMC.tiff", dpi = 600)
